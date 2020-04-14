@@ -67,6 +67,7 @@ library(magrittr)
     coronasent <- read_csv("coronasent.csv")
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
   #  afinn <- readRDS("afinn.rds")
+    data(coronavirus)
     
     coronavirus <- coronavirus %>%
       group_by(Country.Region, date, type) %>%
