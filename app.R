@@ -5,7 +5,6 @@ library(tidyverse)
 library(plotly)
 library(lubridate)
 library(shinythemes)
-library(coronavirus)
 library(magrittr)
 
 # COVID-19 Insights 
@@ -67,8 +66,9 @@ library(magrittr)
     coronasent <- read_csv("coronasent.csv")
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
   #  afinn <- readRDS("afinn.rds")
-    data(coronavirus)
-    coronavirus::update_datasets()
+    
+    coronavirus <- readRDS("coronavirus.rds")
+    
     coronavirus <- coronavirus %>%
       group_by(Country.Region, date, type) %>%
       mutate(`Worldwide` = sum(cases)) %>%
