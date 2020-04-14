@@ -113,16 +113,20 @@ pdf(NULL)
     # base64 encoded string of each image
     
     # uris <- purrr::map_chr(
-    #     corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s.jpeg", .x))
+    #      corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s.jpeg", .x))
     # )
+    # 
+    #uri_df <- data.frame(uri = uris)
     
-    # uri_df <- data.frame(uri = uris)
+    #write_rds(uri_df, "~/NetBaseApi/coviddashboard/uri_df.rds")
     
     uris <- read_rds("uri_df.rds")
     
     urisclick <- purrr::map_chr(
       corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("%s-2.jpeg", .x))
     )
+    
+    
     
     total_mentions_colour <- "#FFFFFF"
     twitter_colour <- "#1da1f2"
