@@ -226,7 +226,7 @@ pdf(NULL)
               output$lineplot <- plotly::renderPlotly(
                  plotly::plot_ly(data = corona_weeks,
                                  source = "hoverplotsource",
-                             customdata = ~map2(uri_df$uri, urisclick, ~list(.x, .y))) %>%
+                             customdata = ~map2(uris$uri, urisclick, ~list(.x, .y))) %>%
                    plotly::config(displayModeBar = FALSE) %>%
                  plotly::add_trace(
                      x = ~`Week Beginning`,
