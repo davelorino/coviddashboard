@@ -6,19 +6,20 @@ library(plotly)
 library(lubridate)
 library(shinythemes)
 library(magrittr)
+library(bsplus)
 
 pdf(NULL)
 
 # COVID-19 Insights 
 
-## Key Dates
+#   Key Dates
 
-#The Saatchi & Saatchi COVID-19 dashboard examines the timeline of the COVID-19 outbreak from the first identified case of the virus, to now. 
-#
+#   The Saatchi & Saatchi COVID-19 dashboard examines the timeline of the COVID-19 outbreak from the first identified case of the virus, to now. 
+
 #*	Dec 31: First coronavirus case in Wuhan, China
-#	Jan 13: First case outside of China (Thailand)
+#*	Jan 13: First case outside of China (Thailand)
 #*	Jan 25: First “imported” case reported in Australia 
-#	Mar 1-2: First community cases reported in AU (29 total cases) 
+#*	Mar 1-2: First community cases reported in AU (29 total cases) 
 #*	Mar 21: AU reaches 1,000 cases
 #*	Mar 19-22: AU govt closes borders to non-residents and non-citizens, and announced mandatory closures of non-essential businesses
 
@@ -142,6 +143,8 @@ pdf(NULL)
 
 # UI-------------------------------------------------------------------------------------------------------------
     
+    ?p
+    
     ui = navbarPage(title = "Saatchi COVID-19 Dashboard", theme = shinytheme("darkly"),
                    tabPanel(title =  
                    introBox("Insights", 
@@ -163,22 +166,66 @@ pdf(NULL)
                 
                     "))
                                     )),
-                       mainPanel(
-                         "Volume of Mentions Over Time", br(), br(),
+                       mainPanel(column(width = 12, align = "left",
+                         h4("Volume of Mentions", align = "center"),
                         wellPanel(introBox(plotlyOutput("lineplot"), 
                                  data.step = 2, 
-                                 data.intro = "Here we analyze <b>volume</b> of conversation over time among twitter, blogs and forums.<br/>
+                                 data.intro = "Here we analyze <b>volume</b> of conversation over time among twitter, 
+                                 blogs and forums.<br/>
                                  <b>Hover</b> over points to see what drove conversation.",
-                                 data.position = "bottom-left_aligned"), br(), br(),
-                                 "Mentions only really began to kick off in late Feb when cases in Australia had begun to ramp up. By mid-March mentions had skyrocketed as draconian containment measures were enacted by the Australian government."),
-                        "Proportion of Sentiment Over Time", br(),
+                                 data.position = "bottom-left_aligned"),
+                                 bs_collapse(
+                                   id = "volume_collapse", 
+                                   content = tags$div(class = "well", 
+                                column(width = 12, p("This chart displays the volume of mentions of COVID-19 on a weekly basis from Australians only. 
+                                       Each point represents a 7 day period, beginning at the labelled date.", )),
+                                                      column(width = 6, h5(tags$u("Dec 22 - Jan 26th"), align = "left"),
+                                "Mentions only really began to kick off in late Feb when cases in Australia had begun to ramp up. 
+                                By mid-March mentions had skyrocketed as draconian containment measures were enacted by the Australian 
+                                government.", br(), br(),
+                                h5(tags$u("Jan 26th - Feb 16th")),
+                                "Topics that drove conversation in late Jan to mid Feb were the first 6 cases of the virus detected 
+                                in Australia, the sad passing of the doctor who broke the news of the virus, and the World Health 
+                                Organisation officially named the disease COVID-19.", 
+                                br(), br(),
+                                h5(tags$u("Feb 16th - Mar 1st")),
+                                "In mid February Australians were talking about the harsh containment measures being implemented in China, 
+                                the PM announced that we are facing a global emergency, and the Australian people were talking about the 
+                                capacity for our healthcare systems to cope with the number of expected patients.", br(), br()), 
+                                column(width = 6, h5(tags$u("Dec 22 - Jan 26th"), align = "left"),
+                                       "Mentions only really began to kick off in late Feb when cases in Australia had begun to ramp up. 
+                                By mid-March mentions had skyrocketed as draconian containment measures were enacted by the Australian 
+                                government.", br(), br(),
+                                       h5(tags$u("Jan 26th - Feb 16th")),
+                                       "Topics that drove conversation in late Jan to mid Feb were the first 6 cases of the virus detected 
+                                in Australia, the sad passing of the doctor who broke the news of the virus, and the World Health 
+                                Organisation officially named the disease COVID-19.", 
+                                       br(), br(),
+                                       h5(tags$u("Feb 16th - Mar 1st")),
+                                       "In mid February Australians were talking about the harsh containment measures being implemented in China, 
+                                the PM announced that we are facing a global emergency, and the Australian people were talking about the 
+                                capacity for our healthcare systems to cope with the number of expected patients.", br(), br())))
+                                , 
+                                 bs_button("Volume", button_type = "default") %>%
+                                   bs_attach_collapse("volume_collapse")), br(), br(),
+                        h4("Proportion of Sentiment Over Time", align = "center"),
                         wellPanel(introBox(plotlyOutput("sentiment_plot"),
                                  data.step = 3,
-                                 data.intro = "Here we analyze <b>sentiment</b> of conversation over time among twitter, blogs and forums."), br(), br(),
-                                 "Here are some observations about sentiment. At the start there are so few mentions that the sentiment scorer is thrown by all sorts of outliers. As the data starts to become more abundant, the sentiment of the conversation is a lot better understood.")
+                                 data.intro = "Here we analyze <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
+                                bs_collapse(id = "sentiment_collapse",
+                                            content = tags$div(class = "well",
+                                  "Here are some observations about sentiment. 
+                                  At the start there are so few mentions that the sentiment scorer is thrown by all sorts of outliers. 
+                                  As the data starts to become more abundant, the sentiment of the conversation is a lot better understood.")
+                                ),
+                                bs_button("Sentiment", button_type = "default") %>%
+                                  bs_attach_collapse("sentiment_collapse"))
+                            )
+                          )
                         )
-                      )
-                   )
+                       )
+    
+                  
                    
 # SERVER-----------------------------------------------------------------------------------------------------------      
          server = function(input, output, session){
