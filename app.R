@@ -64,8 +64,8 @@ pdf(NULL)
     
 # DATA---------------------------------------------------------------------------------------------------------------------
 
-    volumeovertime <- read_csv("coronaconvo2.csv")
-    coronasent <- read_csv("coronasent.csv")
+    volumeovertime <- read_csv("~/NetBaseApi/coviddashboard/coronaconvo2.csv")
+    coronasent <- read_csv("~/NetBaseApi/coviddashboard/coronasent.csv")
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
    # afinn <- readRDS("afinn.rds")
     
@@ -99,18 +99,29 @@ pdf(NULL)
       meltwater_week() %>%
       summarise_meltwater_sentiment_by_week()
     
+    
+    # write_rds(corona_sentiment, "~/NetBaseApi/coviddashboard/corona_sentiment.rds")
+    
     corona_weeks <- volumeovertime %>%
         meltwater_week() %>%
         summarise_meltwater_by_week() %>%
         left_join(coronavirus, by = "Week Beginning")
     
+    # write_rds(corona_weeks, "~/NetBaseApi/coviddashboard/corona_sentiment.rds")
+    
+    
     # base64 encoded string of each image
-    uris <- purrr::map_chr(
-        corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("%s.jpeg", .x))
-    )
+    
+    # uris <- purrr::map_chr(
+    #     corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s.jpeg", .x))
+    # )
+    
+    # uri_df <- data.frame(uri = uris)
+    
+    uris <- read_rds("uri_df.rds")
     
     urisclick <- purrr::map_chr(
-      corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("%s-2.jpeg", .x))
+      corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s-2.jpeg", .x))
     )
     
     total_mentions_colour <- "#FFFFFF"
@@ -215,7 +226,7 @@ pdf(NULL)
               output$lineplot <- plotly::renderPlotly(
                  plotly::plot_ly(data = corona_weeks,
                                  source = "hoverplotsource",
-                             customdata = ~map2(uris, urisclick, ~list(.x, .y))) %>%
+                             customdata = ~map2(uri_df$uri, urisclick, ~list(.x, .y))) %>%
                    plotly::config(displayModeBar = FALSE) %>%
                  plotly::add_trace(
                      x = ~`Week Beginning`,
