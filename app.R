@@ -68,7 +68,7 @@ library(magrittr)
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
   #  afinn <- readRDS("afinn.rds")
     data(coronavirus)
-    update_datasets()
+    coronavirus::update_datasets()
     coronavirus <- coronavirus %>%
       group_by(Country.Region, date, type) %>%
       mutate(`Worldwide` = sum(cases)) %>%
