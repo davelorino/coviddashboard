@@ -64,8 +64,8 @@ pdf(NULL)
     
 # DATA---------------------------------------------------------------------------------------------------------------------
 
-    volumeovertime <- read_csv("~/NetBaseApi/coviddashboard/coronaconvo2.csv")
-    coronasent <- read_csv("~/NetBaseApi/coviddashboard/coronasent.csv")
+    volumeovertime <- read_csv("coronaconvo2.csv")
+    coronasent <- read_csv("coronasent.csv")
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
    # afinn <- readRDS("afinn.rds")
     
