@@ -28,7 +28,7 @@ pdf(NULL)
     options(shiny.maxRequestSize=100*1024^2)
 
 
-    
+     
     stripHTML <- function(htmlString) {
       return(gsub("<.*?>", "", htmlString))
     }
@@ -67,30 +67,31 @@ pdf(NULL)
     volumeovertime <- read_csv("coronaconvo2.csv")
     coronasent <- read_csv("coronasent.csv")
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
-  #  afinn <- readRDS("afinn.rds")
+   # afinn <- readRDS("afinn.rds")
     
-    coronavirus <- readRDS("coronavirus.rds")
-    
-    coronavirus <- coronavirus %>%
-      group_by(Country.Region, date, type) %>%
-      mutate(`Worldwide` = sum(cases)) %>%
-      ungroup() %>%
-      filter(`Country.Region` %in% c("Australia", "China")) %>%
-      group_by(Country.Region, date, type) %>%
-      summarise(Total = sum(cases)) %>%
-      pivot_wider(names_from = c(type, Country.Region), values_from = Total) %>%
-      mutate(`Week Beginning` = floor_date(date, unit = "weeks")) %>%
-      group_by(`Week Beginning`) %>%
-      summarise(confirmed_Australia = sum(confirmed_Australia),
-                death_Australia = sum(death_Australia),
-                recovered_Australia = sum(recovered_Australia),
-                confirmed_China = sum(confirmed_China),
-                death_China = sum(death_China),
-                recovered_China = sum(recovered_China)) %>%
-      mutate(cumulative_confirmed_Australia = cumsum(confirmed_Australia)) %>%
-      mutate(cumulative_death_Australia = cumsum(death_Australia)) %>%
-      mutate(cumulative_confirmed_China = cumsum(confirmed_China)) %>%
-      mutate(cumulative_death_China = cumsum(death_China))
+    coronavirus <- readRDS("coronavirus2.rds")
+
+    # coronavirus <- coronavirus %>%
+    #   group_by(Country.Region, date, type) %>%
+    #   mutate(`Worldwide` = sum(cases)) %>%
+    #   ungroup() %>%
+    #   filter(`Country.Region` %in% c("Australia", "China")) %>%
+    #   group_by(Country.Region, date, type) %>%
+    #   summarise(Total = sum(cases)) %>%
+    #   pivot_wider(names_from = c(type, Country.Region), values_from = Total) %>%
+    #   mutate(`Week Beginning` = floor_date(date, unit = "weeks")) %>%
+    #   group_by(`Week Beginning`) %>%
+    #   summarise(confirmed_Australia = sum(confirmed_Australia),
+    #             death_Australia = sum(death_Australia),
+    #             recovered_Australia = sum(recovered_Australia),
+    #             confirmed_China = sum(confirmed_China),
+    #             death_China = sum(death_China),
+    #             recovered_China = sum(recovered_China)) %>%
+    #   mutate(cumulative_confirmed_Australia = cumsum(confirmed_Australia)) %>%
+    #   mutate(cumulative_death_Australia = cumsum(death_Australia)) %>%
+    #   mutate(cumulative_confirmed_China = cumsum(confirmed_China)) %>%
+    #   mutate(cumulative_death_China = cumsum(death_China))
+
     
     #coronavirus::update_datasets()
    
