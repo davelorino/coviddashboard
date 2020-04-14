@@ -7,6 +7,8 @@ library(lubridate)
 library(shinythemes)
 library(magrittr)
 
+pdf(NULL)
+
 # COVID-19 Insights 
 
 ## Key Dates
