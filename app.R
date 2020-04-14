@@ -121,7 +121,7 @@ pdf(NULL)
     uris <- read_rds("uri_df.rds")
     
     urisclick <- purrr::map_chr(
-      corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s-2.jpeg", .x))
+      corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("%s-2.jpeg", .x))
     )
     
     total_mentions_colour <- "#FFFFFF"
