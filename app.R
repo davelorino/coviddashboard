@@ -171,7 +171,7 @@ pdf(NULL)
                                     )),
                        mainPanel(column(width = 12, align = "left",
                          h4("Volume of Mentions", align = "center"),
-                        wellPanel(introBox(plotlyOutput("lineplot"), 
+                      tabsetPanel(tabPanel("Total",  wellPanel(introBox(plotlyOutput("lineplot"), 
                                  data.step = 2, 
                                  data.intro = "Here we analyze <b>volume</b> of conversation over time among twitter, 
                                  blogs and forums.<br/>
@@ -210,7 +210,9 @@ pdf(NULL)
                                 capacity for our healthcare systems to cope with the number of expected patients.", br(), br())))
                                 , 
                                  bs_button("Analysis", button_type = "default") %>%
-                                   bs_attach_collapse("volume_collapse")), br(), br(),
+                                   bs_attach_collapse("volume_collapse"))),
+                                tabPanel("Weekly Snapshot"))
+                                , br(), br(),
                         h4("Proportion of Sentiment Over Time", align = "center"),
                         wellPanel(introBox(plotlyOutput("sentiment_plot"),
                                  data.step = 3,
@@ -226,7 +228,8 @@ pdf(NULL)
                         br(), br(),
                         column(width = 6, wellPanel(introBox(data.step = 4, 
                                                              data.intro = "This chart analyzes the top 25 words contributing to positive 
-                                                             or negative sentiment.", 
+                                                             or negative sentiment.",
+                                                             h5("Top Contributing Words to Positive & Negative Sentiment"),
                                                              plotlyOutput("contribution_plot"),
                                                              bs_collapse(id = "contribution_collapse", content = tags$div(class = "well",
                                                               "Here are the top 25 contributing words to sentiment as determined by the AFINN
@@ -238,7 +241,9 @@ pdf(NULL)
                                                                bs_attach_collapse("contribution_collapse")))),
                         column(width = 6, wellPanel(introBox(data.step = 5, 
                                                              data.intro = "This chart analyzes the top 25 words contributing to both
-                                                             positive and negative sentiment.", plotlyOutput("bing_sentiment_plot"),
+                                                             positive and negative sentiment.", 
+                                                             h5("Most Common Positive & Negative Words"),
+                                                             plotlyOutput("bing_sentiment_plot"),
                                                              bs_collapse(id = "bing_sent", content = tags$div(class = "well", "This chart displays the top 25 most common contributing words 
                                                                          to positive or negative sentiment on the Bing Liu sentiment scale.
                                                                          The Bing Liu sentiment lexicon apportions the label 'positive' or
@@ -294,7 +299,6 @@ pdf(NULL)
                    plotly::layout(
                      title = "",
                      yaxis = list(title = "Sentiment Over Time", color = "#ffffff"),
-                     xaxis = list(title = "Week Beginning", color = "#ffffff"),
                      legend = legend_features,
                      paper_bgcolor='#212121',
                      plot_bgcolor='#212121',
