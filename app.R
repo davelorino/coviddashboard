@@ -71,6 +71,7 @@ pdf(NULL)
    # afinn <- readRDS("afinn.rds")
     
     coronavirus <- readRDS("coronavirus2.rds")
+    corona7daycases <- readRDS("corona7daycases.rds")
 
     # coronavirus <- coronavirus %>%
     #   group_by(Country.Region, date, type) %>%
@@ -108,6 +109,8 @@ pdf(NULL)
         summarise_meltwater_by_week() %>%
         left_join(coronavirus, by = "Week Beginning")
     
+    corona_7day <- read_rds("corona7day.rds")
+    
     # write_rds(corona_weeks, "~/NetBaseApi/coviddashboard/corona_sentiment.rds")
     
     
@@ -127,8 +130,6 @@ pdf(NULL)
       corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("%s-2.jpeg", .x))
     )
     
-    
-    
     total_mentions_colour <- "#FFFFFF"
     twitter_colour <- "#1da1f2"
     legend_features <- list(
@@ -138,15 +139,24 @@ pdf(NULL)
         bgcolor = "#212121",
         bordercolor = "#FFFFFF",
         borderwidth = 1,
-        x = 0.1, 
+        x = 0.4, 
         y = 0.9)
+    
+    legend_features3 <- list(
+      font = list(
+        size = 12,
+        color = "#FFFFFF"),
+      bgcolor = "#212121",
+      bordercolor = "#FFFFFF",
+      borderwidth = 1,
+      x = 0.1, 
+      y = 0.9)
+    
     
     contribution_plot <- read_rds("plotly_object.rds")
     bing_sentiment_plot <- read_rds("covid_bingsent_plot.rds")
 
 # UI-------------------------------------------------------------------------------------------------------------
-    
-    ?p
     
     ui = navbarPage(title = "Saatchi COVID-19 Dashboard", theme = shinytheme("darkly"),
                    tabPanel(title =  
@@ -167,8 +177,8 @@ pdf(NULL)
                         color: #212121;
                       }
                 
-                    "))
-                                    )),
+                    ")))
+                                    ),
                        mainPanel(column(width = 12, align = "left",
                          h4("Volume of Mentions", align = "center"),
                       tabsetPanel(tabPanel("Total",  wellPanel(introBox(plotlyOutput("lineplot"), 
@@ -181,40 +191,45 @@ pdf(NULL)
                                    id = "volume_collapse", 
                                    content = tags$div(class = "well", 
                                 column(width = 12, p("This chart displays the volume of mentions of COVID-19 on a weekly basis from Australians only. 
-                                       Each point represents a 7 day period, beginning at the labelled date.", )),
-                                                      column(width = 6, h5(tags$u("Dec 22 - Jan 26th"), align = "left"),
-                                "Mentions only really began to kick off in late Feb when cases in Australia had begun to ramp up. 
-                                By mid-March mentions had skyrocketed as draconian containment measures were enacted by the Australian 
-                                government.", br(), br(),
-                                h5(tags$u("Jan 26th - Feb 16th")),
-                                "Topics that drove conversation in late Jan to mid Feb were the first 6 cases of the virus detected 
-                                in Australia, the sad passing of the doctor who broke the news of the virus, and the World Health 
-                                Organisation officially named the disease COVID-19.", 
+                                       Each point represents a 7 day period, beginning at the labelled date.", tags$style(type = "text/css", "p { font-size: 12px; }") )),
                                 br(), br(),
-                                h5(tags$u("Feb 16th - Mar 1st")),
-                                "In mid February Australians were talking about the harsh containment measures being implemented in China, 
-                                the PM announced that we are facing a global emergency, and the Australian people were talking about the 
-                                capacity for our healthcare systems to cope with the number of expected patients.", br(), br()), 
-                                column(width = 6, h5(tags$u("Dec 22 - Jan 26th"), align = "left"),
-                                       "Mentions only really began to kick off in late Feb when cases in Australia had begun to ramp up. 
-                                By mid-March mentions had skyrocketed as draconian containment measures were enacted by the Australian 
-                                government.", br(), br(),
-                                       h5(tags$u("Jan 26th - Feb 16th")),
-                                       "Topics that drove conversation in late Jan to mid Feb were the first 6 cases of the virus detected 
-                                in Australia, the sad passing of the doctor who broke the news of the virus, and the World Health 
-                                Organisation officially named the disease COVID-19.", 
-                                       br(), br(),
-                                       h5(tags$u("Feb 16th - Mar 1st")),
-                                       "In mid February Australians were talking about the harsh containment measures being implemented in China, 
-                                the PM announced that we are facing a global emergency, and the Australian people were talking about the 
-                                capacity for our healthcare systems to cope with the number of expected patients.", br(), br())))
+                                column(12, align = "left", h4("Drivers of Conversation")), br(), br(),
+                                                      column(width = 6, h5(tags$u("Dec 22 - Jan 26th"), align = "left"),
+                                tags$li("first Australian case"), tags$li("mentions in Australia at under 100 per week"), tags$li("cases in China quickly on the rise"), br(),
+                                h5(tags$u("Jan 26th - Feb 16th")),
+                                tags$li("first 6 cases of the virus detected 
+                                in Australia"), tags$li("the sad passing of the doctor who broke the news of the virus"), tags$li("the WHO officially names the disease COVID-19"), br(),
+                                h5(tags$u("Feb 16th - Mar 1st")), 
+                                tags$li("harsh containment measures being implemented in China"), 
+                                tags$li("Scott Morrison announced that we are facing a global emergency"), 
+                               tags$li("healthcare systems anticipate they will not meet demand"), br()), 
+                                column(width = 6, h5(tags$u("Mar 1st - Mar 22nd"), align = "left"),
+                                       tags$li("first detected community spread in Australia"),
+                                       tags$li("cases in Australia reach 100"),
+                                       tags$li("Ausralia enters mandatory lockdown for non-essentials"),
+                                        br(),
+                                       h5(tags$u("Mar 22nd - Apr 12th")),
+                                       tags$li("medical experts call for a nationwide lockdown"),
+                                       tags$li("new restrictions and penalties including jail time"),
+                                       tags$li("adjusting to working from home"),
+                                       br(),
+                                       h5(tags$u("Apr 12th - Present")),
+                                       tags$li("criminal investigations into the Ruby Prciness"),
+                                       tags$li("uncertain financial security for many Australians"),
+                                       tags$li("Australia applauded for flattening the curve"), br())))
                                 , 
                                  bs_button("Analysis", button_type = "default") %>%
                                    bs_attach_collapse("volume_collapse"))),
-                                tabPanel("Weekly Snapshot"))
+                                tabPanel("Weekly Snapshot",
+                                         wellPanel(plotlyOutput("lineplot_7days"),
+                                         bs_collapse("weeklytimelinecollapsed", content = tags$div(class = "well", column(width = 12, 
+                                                 p("This chart shows a 7 day window between the 9th - 15th of April (inclusive).")))),
+                                         bs_button("Analysis", button_type = "default") %>%
+                                           bs_attach_collapse("weeklytimelinecollapsed")
+                                           )))
                                 , br(), br(),
                         h4("Proportion of Sentiment Over Time", align = "center"),
-                        wellPanel(introBox(plotlyOutput("sentiment_plot"),
+                        tabsetPanel(tabPanel("Total", wellPanel(introBox(plotlyOutput("sentiment_plot"),
                                  data.step = 3,
                                  data.intro = "Here we analyze <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
                                 bs_collapse(id = "sentiment_collapse",
@@ -224,7 +239,9 @@ pdf(NULL)
                                   As the data starts to become more abundant, the sentiment of the conversation is a lot better understood.")
                                 ),
                                 bs_button("Analysis", button_type = "default") %>%
-                                  bs_attach_collapse("sentiment_collapse")),
+                                  bs_attach_collapse("sentiment_collapse"))),
+                                tabPanel("Weekly Snapshot", column(width = 6, wellPanel()),
+                                                            column(width = 6, wellPanel()))),
                         br(), br(),
                         column(width = 6, wellPanel(introBox(data.step = 4, 
                                                              data.intro = "This chart analyzes the top 25 words contributing to positive 
@@ -298,8 +315,9 @@ pdf(NULL)
                    ) %>%
                    plotly::layout(
                      title = "",
+                     xaxis = list(title = "", color = "#ffffff"),
                      yaxis = list(title = "Sentiment Over Time", color = "#ffffff"),
-                     legend = legend_features,
+                     legend = legend_features3,
                      paper_bgcolor='#212121',
                      plot_bgcolor='#212121',
                      hovermode = "compare"
@@ -309,7 +327,8 @@ pdf(NULL)
               output$lineplot <- plotly::renderPlotly(
                  plotly::plot_ly(data = corona_weeks,
                                  source = "hoverplotsource",
-                             customdata = ~map2(uris$uri, urisclick, ~list(.x, .y))) %>%
+                             customdata = ~map2(uris$uri, urisclick, ~list(.x, .y))
+                             ) %>%
                    plotly::config(displayModeBar = FALSE) %>%
                  plotly::add_trace(
                      x = ~`Week Beginning`,
@@ -349,7 +368,7 @@ pdf(NULL)
                  plotly::add_annotations(
                      x = as.Date("2019-12-29"),
                      y = 1,
-                     text = paste("First case"),
+                     text = paste("First case in Wuhan, China"),
                      xref = "x",
                      yref = "y",
                      arrowhead = 5,
@@ -404,14 +423,175 @@ pdf(NULL)
                      ax = -10,
                      ay = -90
                  ) %>%
+                   plotly::add_annotations(
+                     x = as.Date("2020-03-01"),
+                     y = 3,
+                     text = paste(
+                       "First community spread cases in Australia"
+                     ),
+                     xref = "x",
+                     yref = "y",
+                     arrowhead = 10,
+                     arrowhead = 3,
+                     arrowsize = 1,
+                     showarrow = TRUE,
+                     font = list(color = '#FFFFFF'),
+                     ax = -150,
+                     ay = -180
+                   ) %>% plotly::add_annotations(
+                     x = as.Date("2020-03-22"),
+                     y = 3,
+                     text = paste(
+                       "Australia reaches 1000 cases"
+                     ),
+                     xref = "x",
+                     yref = "y",
+                     arrowhead = 10,
+                     arrowhead = 3,
+                     arrowsize = 1,
+                     showarrow = TRUE,
+                     font = list(color = '#FFFFFF'),
+                     ax = -10,
+                     ay = -150
+                   ) %>%
                  plotly::layout(
                      title = "",
-                     yaxis = list(title = "Conversation Over Time", color = "#ffffff"),
-                     xaxis = list(title = "Week Beginning", color = "#ffffff"),
+                     yaxis = list(title = "Conversation Over Time", color = "#FFFFFF"),
+                     xaxis = list(title = "", color = "#FFFFFF"),
                      legend = legend_features,
                      paper_bgcolor='#212121',
                      plot_bgcolor='#212121'
-                 )) 
+                 ))
+              
+              
+          #    uris_7day$uri 
+              
+           #   urisclick_7day
+              
+           
+                corona7day <- read_rds("~/NetBaseApi/coviddashboard/corona7day.rds")
+                
+                legend_features2 <- list(
+                  font = list(
+                    size = 12,
+                    color = "#FFFFFF"),
+                  bgcolor = "#212121",
+                  bordercolor = "#FFFFFF",
+                  borderwidth = 1,
+                  x = 0.1, 
+                  y = 0.2)
+                
+                corona7day <- corona7day %>%
+                  ungroup()
+                
+              output$lineplot_7days <- plotly::renderPlotly({ 
+                plotly::plot_ly(data = corona7day,
+                                source = "hoverplotsource"
+                             #   ,customdata = ~map2(uris_7day$uri, urisclick_7day, ~list(.x, .y))
+                                ) %>%
+                  plotly::config(displayModeBar = FALSE) %>%
+                  plotly::add_trace(
+                    x = ~`date2`,
+                    # y = ~active_cum,
+                    y = ~`Total`,
+                    type = "scatter",
+                    mode = "lines+markers",
+                    # name = "Active",
+                    name = "Total Mentions",
+                    line = list(color = total_mentions_colour),
+                    marker = list(color = total_mentions_colour)
+                  ) %>%
+                  plotly::add_trace(
+                    x = ~`date2`,
+                    # y = ~active_cum,
+                    y = ~`cumulative_confirmed_Australia`,
+                    type = "scatter",
+                    mode = "lines+markers",
+                    # name = "Active",
+                    name = "Confirmed Cases Australia",
+                    line = list(color = twitter_colour),
+                    marker = list(color = twitter_colour)
+                  ) %>%
+                  plotly::add_trace(
+                    x = ~`date2`,
+                    # y = ~active_cum,
+                    y = ~`cumulative_confirmed_China`,
+                    type = "scatter",
+                    mode = "lines+markers",
+                    # name = "Active",
+                    name = "Confirmed Cases China",
+                    line = list(color = "red"),
+                    marker = list(color = "red")
+                  ) %>%
+              #    htmlwidgets::onRender(readLines("tooltip-image.js")) %>%
+              #    htmlwidgets::onRender(readLines("tooltip-imageclick.js")) %>%
+                  # plotly::add_annotations(
+                  #   x = as.Date("2019-12-29"),
+                  #   y = 1,
+                  #   text = paste("First case"),
+                  #   xref = "x",
+                  #   yref = "y",
+                  #   arrowhead = 5,
+                  #   arrowhead = 3,
+                  #   arrowsize = 1,
+                  #   showarrow = TRUE,
+                  #   font = list(color = '#FFFFFF'),
+                  #   ax = -90,
+                  #   ay = -90
+                  # ) %>%
+                  # plotly::add_annotations(
+                  #   x = as.Date("2020-01-12"),
+                  #   y = 2,
+                  #   text = paste("First Case Outside of China (Thailand)"),
+                  #   xref = "x",
+                  #   yref = "y",
+                  #   arrowhead = 10,
+                  #   arrowhead = 3,
+                  #   arrowsize = 1,
+                  #   showarrow = TRUE,
+                  #   font = list(color = '#FFFFFF'),
+                  #   ax = -120,
+                  #   ay = -120
+                  # ) %>%
+                  # plotly::add_annotations(
+                  #   x = as.Date("2020-01-26"),
+                  #   y = 3,
+                  #   text = paste("First 'Imported' Case in Australia"),
+                  #   xref = "x",
+                  #   yref = "y",
+                  #   arrowhead = 5,
+                  #   arrowhead = 3,
+                  #   arrowsize = 1,
+                  #   showarrow = TRUE,
+                  #   font = list(color = '#FFFFFF'),
+                  #   ax = -150,
+                  #   ay = -180
+                  # ) %>%
+                  # plotly::add_annotations(
+                  #   x = as.Date("2020-03-15"),
+                  #   y = 3,
+                  #   text = paste(
+                  #     "New containment measures"
+                  #   ),
+                  #   xref = "x",
+                  #   yref = "y",
+                  #   arrowhead = 10,
+                  #   arrowhead = 3,
+                  #   arrowsize = 1,
+                  #   showarrow = TRUE,
+                  #   font = list(color = '#FFFFFF'),
+                  #   ax = -10,
+                  #   ay = -90
+                  # ) %>%
+                  plotly::layout(
+                    title = "",
+                    yaxis = list(title = "Conversation Over Time", color = "#FFFFFF"),
+                    xaxis = list(title = "", color = "#FFFFFF"),
+                    legend = legend_features2,
+                    paper_bgcolor='#212121',
+                    plot_bgcolor='#212121'
+                  )
+              })
         
               output$contribution_plot <- renderPlotly({
                 contribution_plot
