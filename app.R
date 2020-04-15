@@ -68,6 +68,7 @@ pdf(NULL)
     sevendaydonut <- read_rds("sevendaydonut.rds")
     volumeovertime <- read_csv("coronaconvo2.csv")
     coronasent <- read_csv("coronasent.csv")
+    hashtags_7days <- read_rds("hashtags_plot7day.rds")
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
    # afinn <- readRDS("afinn.rds")
     
@@ -240,13 +241,26 @@ pdf(NULL)
                                 ),
                                 bs_button("Analysis", button_type = "default") %>%
                                   bs_attach_collapse("sentiment_collapse")),
-                               column(width = 6, h5("Weekly Sentiment"), wellPanel(plotlyOutput("sevendaydonut"))),
-                               column(width = 6, wellPanel()),
+                               column(width = 6, h5("Weekly Sentiment"), wellPanel(introBox(data.step = 4,
+                                                                                            data.intro = "Placeholder", 
+                                                                                            plotlyOutput("sevendaydonut"),
+                                                                                   bs_collapse(id = "weekly_sentiment_collapse",
+                                                                                               content = tags$div(class = "well",
+                                                                                                                  "Placeholder sentence.")),
+                                                                                   bs_button("Analysis", button_type = "default") %>%
+                                                                                     bs_attach_collapse("weekly_sentiment_collapse")))),
+                               column(width = 6, h5("Weekly Trending Hashtags"), wellPanel(introBox(data.step = 5, 
+                                                                                                    data.intro = "Placeholder", 
+                                                                                                    plotlyOutput("hashtags_7days"),
+                                                                                           bs_collapse(id = "weekly_hashtags_collapse",
+                                                                                                       content = tags$div(class = "well",
+                                                                                                                          "Placeholder sentence.")),
+                                                                                           bs_button("Analysis", button_type = "default") %>%
+                                                                                             bs_attach_collapse("weekly_hashtags_collapse")))),
                         br(), br(),
-                        column(width = 6, wellPanel(introBox(data.step = 4, 
+                        column(width = 6,  h5("Top Contributing Words to Positive & Negative Sentiment"), wellPanel(introBox(data.step = 6, 
                                                              data.intro = "This chart analyzes the top 25 words contributing to positive 
                                                              or negative sentiment.",
-                                                             h5("Top Contributing Words to Positive & Negative Sentiment"),
                                                              plotlyOutput("contribution_plot"),
                                                              bs_collapse(id = "contribution_collapse", content = tags$div(class = "well",
                                                               "Here are the top 25 contributing words to sentiment as determined by the AFINN
@@ -256,10 +270,9 @@ pdf(NULL)
                                                               words had the most frequent and significant impact on overall sentiment.")),
                                                              bs_button("Analysis", button_type = "default") %>%
                                                                bs_attach_collapse("contribution_collapse")))),
-                        column(width = 6, wellPanel(introBox(data.step = 5, 
+                        column(width = 6, h5("Most Common Positive & Negative Words"), wellPanel(introBox(data.step = 7, 
                                                              data.intro = "This chart analyzes the top 25 words contributing to both
                                                              positive and negative sentiment.", 
-                                                             h5("Most Common Positive & Negative Words"),
                                                              plotlyOutput("bing_sentiment_plot"),
                                                              bs_collapse(id = "bing_sent", content = tags$div(class = "well", "This chart displays the top 25 most common contributing words 
                                                                          to positive or negative sentiment on the Bing Liu sentiment scale.
@@ -288,6 +301,10 @@ pdf(NULL)
            output$sevendaydonut <- renderPlotly({
              sevendaydonut
            })             
+           
+           output$hashtags_7days <- renderPlotly({
+             hashtags_7days
+           })
            
             output$sentiment_plot <- plotly::renderPlotly(
               plotly::plot_ly(data = corona_sentiment,
@@ -605,6 +622,7 @@ pdf(NULL)
                 bing_sentiment_plot
               })
 
+              
       
             
          }
