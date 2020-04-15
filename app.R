@@ -140,6 +140,9 @@ pdf(NULL)
         borderwidth = 1,
         x = 0.1, 
         y = 0.9)
+    
+    contribution_plot <- read_rds("plotly_object.rds")
+    bing_sentiment_plot <- read_rds("covid_bingsent_plot.rds")
 
 # UI-------------------------------------------------------------------------------------------------------------
     
@@ -206,7 +209,7 @@ pdf(NULL)
                                 the PM announced that we are facing a global emergency, and the Australian people were talking about the 
                                 capacity for our healthcare systems to cope with the number of expected patients.", br(), br())))
                                 , 
-                                 bs_button("Volume", button_type = "default") %>%
+                                 bs_button("Analysis", button_type = "default") %>%
                                    bs_attach_collapse("volume_collapse")), br(), br(),
                         h4("Proportion of Sentiment Over Time", align = "center"),
                         wellPanel(introBox(plotlyOutput("sentiment_plot"),
@@ -218,8 +221,33 @@ pdf(NULL)
                                   At the start there are so few mentions that the sentiment scorer is thrown by all sorts of outliers. 
                                   As the data starts to become more abundant, the sentiment of the conversation is a lot better understood.")
                                 ),
-                                bs_button("Sentiment", button_type = "default") %>%
-                                  bs_attach_collapse("sentiment_collapse"))
+                                bs_button("Analysis", button_type = "default") %>%
+                                  bs_attach_collapse("sentiment_collapse")),
+                        br(), br(),
+                        column(width = 6, wellPanel(introBox(data.step = 4, 
+                                                             data.intro = "This chart analyzes the top 25 words contributing to positive 
+                                                             or negative sentiment.", 
+                                                             plotlyOutput("contribution_plot"),
+                                                             bs_collapse(id = "contribution_collapse", content = tags$div(class = "well",
+                                                              "Here are the top 25 contributing words to sentiment as determined by the AFINN
+                                                              sentiment analysis lexicon. AFINN gives every word in the dictionary a score
+                                                              between -5 and 5 to determine its level of sentiment. The chart above shows the result
+                                                              of summing all of the points earned by each word in the mentions to determine which
+                                                              words had the most frequent and significant impact on overall sentiment.")),
+                                                             bs_button("Analysis", button_type = "default") %>%
+                                                               bs_attach_collapse("contribution_collapse")))),
+                        column(width = 6, wellPanel(introBox(data.step = 5, 
+                                                             data.intro = "This chart analyzes the top 25 words contributing to both
+                                                             positive and negative sentiment.", plotlyOutput("bing_sentiment_plot"),
+                                                             bs_collapse(id = "bing_sent", content = tags$div(class = "well", "This chart displays the top 25 most common contributing words 
+                                                                         to positive or negative sentiment on the Bing Liu sentiment scale.
+                                                                         The Bing Liu sentiment lexicon apportions the label 'positive' or
+                                                                         'negative' to each word in the dictionary. The above chart shows us the frequency/
+                                                                         count of occurences for positive and negative words.")),
+                                                             bs_button("Analysis", button_type = "default") %>%
+                                                               bs_attach_collapse("bing_sent")
+                                                             )))
+                      #  wellPanel(introBox(column(width = 4, plotlyOutput("udpipe_plot")))),
                             )
                           )
                         )
@@ -381,6 +409,13 @@ pdf(NULL)
                      plot_bgcolor='#212121'
                  )) 
         
+              output$contribution_plot <- renderPlotly({
+                contribution_plot
+              })
+              
+              output$bing_sentiment_plot <- renderPlotly({
+                bing_sentiment_plot
+              })
 
       
             
