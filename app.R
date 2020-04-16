@@ -26,10 +26,9 @@ pdf(NULL)
 #### By Saatchi & Saatchi
     
 # GLOBAL OPTS & FUNCTIONS -------------------------------------------------------------------------------------------------    
+    
     options(shiny.maxRequestSize=100*1024^2)
 
-
-     
     stripHTML <- function(htmlString) {
       return(gsub("<.*?>", "", htmlString))
     }
@@ -161,13 +160,7 @@ pdf(NULL)
 # UI-------------------------------------------------------------------------------------------------------------
     
     ui = navbarPage(title = "Saatchi COVID-19 Dashboard", theme = shinytheme("darkly"),
-                   tabPanel(title =  
-                   introBox("Insights", 
-                            data.step = 1,
-                            data.position = "bottom",
-                            data.intro = 
-                              "The Insights tab covers a range of timeseries and sentiment based insights around the 
-                            spread and containment of COVID-19 from late 2019 until the present."),
+                   tabPanel(title = "Social",
                        sidebarPanel(img(src="unnamed.png", width="80%", height="80%"),
                                     br(), br(),
                                     actionButton("helpMe", "Tour"),
@@ -184,7 +177,7 @@ pdf(NULL)
                        mainPanel(column(width = 12, align = "left",
                          h4("Volume of Mentions", align = "center"),
                       wellPanel(introBox(plotlyOutput("lineplot"), 
-                                 data.step = 2, 
+                                 data.step = 1, 
                                  data.intro = "Here we analyze <b>volume</b> of conversation over time among twitter, 
                                  blogs and forums.<br/>
                                  <b>Hover</b> over points to see what drove conversation.",
@@ -193,23 +186,32 @@ pdf(NULL)
                                    id = "volume_collapse", 
                                    content = tags$div(class = "well", 
                                 column(width = 12, p("This chart displays the volume of mentions of COVID-19 on a weekly basis from Australians only. 
-                                       Each point represents a 7 day period, beginning at the labelled date.", tags$style(type = "text/css", "p { font-size: 12px; }") )),
+                                       Each point represents a 7 day period, beginning at the labelled date.", 
+                                                     tags$style(type = "text/css", "p { font-size: 12px; }"))),
                                 br(), br(),
                                 column(12, align = "left", h4("Drivers of Conversation")), br(), br(),
-                                                      column(width = 6, h5(tags$u("Dec 22 - Jan 26th"), align = "left"),
-                                tags$li("first Australian case"), tags$li("mentions in Australia at under 100 per week"), tags$li("cases in China quickly on the rise"), br(),
+                                                      column(width = 6, h5(tags$u("Dec 22 - Jan 26th"), 
+                                                                           align = "left"),
+                                tags$li("first Australian case"), 
+                                tags$li("mentions in Australia at under 100 per week"), 
+                                tags$li("cases in China quickly on the rise"), 
+                                br(),
                                 h5(tags$u("Jan 26th - Feb 16th")),
-                                tags$li("first 6 cases of the virus detected 
-                                in Australia"), tags$li("the sad passing of the doctor who broke the news of the virus"), tags$li("the WHO officially names the disease COVID-19"), br(),
+                                tags$li("first 6 cases of the virus detected in Australia"), 
+                                tags$li("the sad passing of the doctor who broke the news of the virus"), 
+                                tags$li("the WHO officially names the disease COVID-19"), 
+                                br(),
                                 h5(tags$u("Feb 16th - Mar 1st")), 
                                 tags$li("harsh containment measures being implemented in China"), 
                                 tags$li("Scott Morrison announced that we are facing a global emergency"), 
-                               tags$li("healthcare systems anticipate they will not meet demand"), br()), 
-                                column(width = 6, h5(tags$u("Mar 1st - Mar 22nd"), align = "left"),
+                                tags$li("healthcare systems anticipate they will not meet demand"), 
+                                br()), 
+                                column(width = 6, 
+                                       h5(tags$u("Mar 1st - Mar 22nd"), align = "left"),
                                        tags$li("first detected community spread in Australia"),
                                        tags$li("cases in Australia reach 100"),
                                        tags$li("Ausralia enters mandatory lockdown for non-essentials"),
-                                        br(),
+                                       br(),
                                        h5(tags$u("Mar 22nd - Apr 12th")),
                                        tags$li("medical experts call for a nationwide lockdown"),
                                        tags$li("new restrictions and penalties including jail time"),
@@ -218,9 +220,10 @@ pdf(NULL)
                                        h5(tags$u("Apr 12th - Present")),
                                        tags$li("criminal investigations into the Ruby Prciness"),
                                        tags$li("uncertain financial security for many Australians"),
-                                       tags$li("Australia applauded for flattening the curve"), br())))
-                                , 
-                                 bs_button("Analysis", button_type = "default") %>%
+                                       tags$li("Australia applauded for flattening the curve"), 
+                                       br()
+                                       ))), 
+                                 bs_button(button_size = "small", "Analysis", button_type = "default") %>%
                                    bs_attach_collapse("volume_collapse")),
                                          # wellPanel(plotlyOutput("lineplot_7days"),
                                          # bs_collapse("weeklytimelinecollapsed", content = tags$div(class = "well", column(width = 12, 
@@ -229,64 +232,98 @@ pdf(NULL)
                                          #   bs_attach_collapse("weeklytimelinecollapsed")
                                          #   ),
                                  br(), br(),
-                        h4("Proportion of Sentiment Over Time", align = "center"),
-                       wellPanel(introBox(plotlyOutput("sentiment_plot"),
-                                 data.step = 3,
-                                 data.intro = "Here we analyze <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
-                                bs_collapse(id = "sentiment_collapse",
-                                            content = tags$div(class = "well",
-                                  "Here are some observations about sentiment. 
+                        h4("Sentiment Timeline (%)", align = "center"),
+                        wellPanel(introBox(plotlyOutput("sentiment_plot"),
+                                  data.step = 2,
+                                  data.intro = "Here we analyze <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
+                                  bs_collapse(id = "sentiment_collapse",
+                                              content = tags$div(class = "well",
+                                  tags$p("Here are some observations about sentiment. 
                                   At the start there are so few mentions that the sentiment scorer is thrown by all sorts of outliers. 
-                                  As the data starts to become more abundant, the sentiment of the conversation is a lot better understood.")
+                                  As the data starts to become more abundant, the sentiment of the conversation is a lot better understood."), tags$style(type = "text/css", "p { font-size: 12px; }"))
                                 ),
                                 bs_button("Analysis", button_type = "default") %>%
                                   bs_attach_collapse("sentiment_collapse")),
-                               column(width = 6, h5("Weekly Sentiment"), wellPanel(introBox(data.step = 4,
-                                                                                            data.intro = "Placeholder", 
-                                                                                            plotlyOutput("sevendaydonut"),
-                                                                                   bs_collapse(id = "weekly_sentiment_collapse",
-                                                                                               content = tags$div(class = "well",
-                                                                                                                  "Placeholder sentence.")),
-                                                                                   bs_button("Analysis", button_type = "default") %>%
-                                                                                     bs_attach_collapse("weekly_sentiment_collapse")))),
-                               column(width = 6, h5("Weekly Trending Hashtags"), wellPanel(introBox(data.step = 5, 
-                                                                                                    data.intro = "Placeholder", 
-                                                                                                    plotlyOutput("hashtags_7days"),
-                                                                                           bs_collapse(id = "weekly_hashtags_collapse",
-                                                                                                       content = tags$div(class = "well",
-                                                                                                                          "Placeholder sentence.")),
-                                                                                           bs_button("Analysis", button_type = "default") %>%
-                                                                                             bs_attach_collapse("weekly_hashtags_collapse")))),
-                        br(), br(),
-                        column(width = 6,  h5("Top Contributing Words to Positive & Negative Sentiment"), wellPanel(introBox(data.step = 6, 
+                                  column(width = 6, h5("Weekly Sentiment"), 
+                                         wellPanel(introBox(data.step = 3,
+                                                            data.intro = "Placeholder", 
+                                                            plotlyOutput("sevendaydonut"),
+                                                            bs_collapse(id = "weekly_sentiment_collapse",
+                                                            content = tags$div(class = "well",
+                                                                               tags$p("Sentiment in the 7 day period between the 9th and 15th of April (inclusive)"),
+                                                                   
+                                                                               "Sentiment was on par with the monthly average.
+                                                                               Drivers of negative sentiment in the last week have primarily been around:", 
+                                                                               br(), br(),
+                                                                               tags$li("financial implications of the disease"),
+                                                                                tags$li("the Ruby Princess investigation"),
+                                                                                tags$li("Donald Trump accused the WHO of failure of duty"))),
+                                                            bs_button("Analysis", button_type = "default") %>%
+                                                                bs_attach_collapse("weekly_sentiment_collapse")))),
+                                   column(width = 6, h5("Weekly Trending Hashtags"), 
+                                          wellPanel(introBox(data.step = 4, 
+                                                             data.intro = "Placeholder", 
+                                                             plotlyOutput("hashtags_7days"),
+                                                     bs_collapse(id = "weekly_hashtags_collapse",
+                                                                 content = tags$div(class = "well",
+                                                                                    tags$p("Trending hashtags between the 9th and 15h of April (inclusive)."),
+                                                                                    "Trending hashtags were gathered around three main concerns:",
+                                                                                    br(), br(),
+                                                                                    tags$li("the Ruby Princess cruise ship"),
+                                                                                    tags$li("lockdown measures and containment"),
+                                                                                    tags$li("international politics/global response"))),
+                                                     bs_button("Analysis", button_type = "default") %>%
+                                                         bs_attach_collapse("weekly_hashtags_collapse")))),
+                                          br(), br(),
+                                  column(width = 6,  h5("Text Sentiment Score - Weekly Snapshot"), 
+                                         wellPanel(introBox(data.step = 5, 
                                                              data.intro = "This chart analyzes the top 25 words contributing to positive 
                                                              or negative sentiment.",
                                                              plotlyOutput("contribution_plot"),
                                                              bs_collapse(id = "contribution_collapse", content = tags$div(class = "well",
-                                                              "Here are the top 25 contributing words to sentiment as determined by the AFINN
-                                                              sentiment analysis lexicon. AFINN gives every word in the dictionary a score
-                                                              between -5 and 5 to determine its level of sentiment. The chart above shows the result
-                                                              of summing all of the points earned by each word in the mentions to determine which
-                                                              words had the most frequent and significant impact on overall sentiment.")),
-                                                             bs_button("Analysis", button_type = "default") %>%
-                                                               bs_attach_collapse("contribution_collapse")))),
-                        column(width = 6, h5("Most Common Positive & Negative Words"), wellPanel(introBox(data.step = 7, 
+                                                              tags$p("Top 25 contributing words to sentiment as determined by the AFINN
+                                                              sentiment analysis lexicon. 7 day period 9th - 15th Apr inclusive."), 
+                                                              "Not surprisingly sentiment around coronavirus is weighted to the negative end of the spectrum,
+                                                              with the largest contribution to negative sentiment being the notion of
+                                                               a crisis, and the large numbers of death worldwide.")),
+                                                     bs_button("Analysis", button_type = "default") %>%
+                                                        bs_attach_collapse("contribution_collapse")))),
+                                  column(width = 6, h5("Text Sentiment Frequency - Weekly Snapshot"), 
+                                          wellPanel(introBox(data.step = 6, 
                                                              data.intro = "This chart analyzes the top 25 words contributing to both
                                                              positive and negative sentiment.", 
                                                              plotlyOutput("bing_sentiment_plot"),
-                                                             bs_collapse(id = "bing_sent", content = tags$div(class = "well", "This chart displays the top 25 most common contributing words 
-                                                                         to positive or negative sentiment on the Bing Liu sentiment scale.
-                                                                         The Bing Liu sentiment lexicon apportions the label 'positive' or
-                                                                         'negative' to each word in the dictionary. The above chart shows us the frequency/
-                                                                         count of occurences for positive and negative words.")),
-                                                             bs_button("Analysis", button_type = "default") %>%
-                                                               bs_attach_collapse("bing_sent")
+                                                             bs_collapse(id = "bing_sent", content = tags$div(class = "well", 
+                                                             tags$p("Most frequent positive and negative words. Classifications
+                                                                     determined by the Bing Liu sentiment lexicon. 7 day period 9th - 15th Apr inclusive."),
+                                                               
+                                                               "Echoing observations from previous charts we can see that negative sentiment 
+                                                             is primarily about the high rate of death and infection, though positive sentiment
+                                                              is more about support and unity.")),
+                                                      bs_button("Analysis", button_type = "default") %>%
+                                                        bs_attach_collapse("bing_sent")
                                                              )))
                       #  wellPanel(introBox(column(width = 4, plotlyOutput("udpipe_plot")))),
                             )
                           )
-                        )
+                        ),
+                   tabPanel(title = "Search",
+                            sidebarPanel(img(src="unnamed.png", width="80%", height="80%"),
+                                         br(), br(),
+                                         actionButton("helpMe2", "Tour"),
+                                         width = 2,
+                                         tags$head(
+                                           tags$style(HTML("
+                      .introjs-tooltiptext {
+                        color: #212121;
+                      }
+                
+                    ")))
+                            ),
+                            mainPanel(column(width = 12, align = "left")
                        )
+                   )
+    )
     
                   
                    
