@@ -100,7 +100,8 @@ pdf(NULL)
    
     corona_sentiment <- coronasent %>%
       meltwater_week() %>%
-      summarise_meltwater_sentiment_by_week()
+      summarise_meltwater_sentiment_by_week() %>%
+      filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
     
     
     # write_rds(corona_sentiment, "~/NetBaseApi/coviddashboard/corona_sentiment.rds")
@@ -108,7 +109,8 @@ pdf(NULL)
     corona_weeks <- volumeovertime %>%
         meltwater_week() %>%
         summarise_meltwater_by_week() %>%
-        left_join(coronavirus, by = "Week Beginning")
+        left_join(coronavirus, by = "Week Beginning") %>%
+      filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
     
     corona_7day <- read_rds("corona7day.rds")
     
@@ -117,13 +119,13 @@ pdf(NULL)
     
     # base64 encoded string of each image
     
-    # uris <- purrr::map_chr(
-    #      corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s.jpeg", .x))
-    # )
-    # 
-    #uri_df <- data.frame(uri = uris)
+    uris <- purrr::map_chr(
+          corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s.jpeg", .x))
+     )
+     
+    uri_df <- data.frame(uri = uris)
     
-    #write_rds(uri_df, "~/NetBaseApi/coviddashboard/uri_df.rds")
+    write_rds(uri_df, "~/NetBaseApi/coviddashboard/uri_df.rds")
     
     uris <- read_rds("uri_df.rds")
     
@@ -186,11 +188,12 @@ pdf(NULL)
                                    id = "volume_collapse", 
                                    content = tags$div(class = "well", 
                                 column(width = 12, p("This chart displays the volume of mentions of COVID-19 on a weekly basis from Australians only. 
-                                       Each point represents a 7 day period, beginning at the labelled date.", 
+                                       Each point represents a 7 day period, beginning at the labelled date. For example, the point labelled 'Dec 29, 2019' represents
+                                         the ",  tags$b("total weekly mentions "),  "between the 29th of December and the 4th of January inclusive.", 
                                                      tags$style(type = "text/css", "p { font-size: 12px; }"))),
                                 br(), br(),
                                 column(12, align = "left", h4("Drivers of Conversation")), br(), br(),
-                                                      column(width = 6, h5(tags$u("Dec 22 - Jan 26th"), 
+                                                      column(width = 6, h5(tags$u("Dec 29th - Jan 26th"), 
                                                                            align = "left"),
                                 tags$li("first Australian case"), 
                                 tags$li("mentions in Australia at under 100 per week"), 
@@ -238,9 +241,11 @@ pdf(NULL)
                                   data.intro = "Here we analyze <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
                                   bs_collapse(id = "sentiment_collapse",
                                               content = tags$div(class = "well",
-                                  tags$p("Here are some observations about sentiment. 
-                                  At the start there are so few mentions that the sentiment scorer is thrown by all sorts of outliers. 
-                                  As the data starts to become more abundant, the sentiment of the conversation is a lot better understood."), tags$style(type = "text/css", "p { font-size: 12px; }"))
+                                  tags$p("This chart displays the percentage of mentions of COVID-19 from Australians only that are positive, negative and neutral. 
+                                         Each date on the graph represents a 7 day period, beginning at the labelled date. For example, the first point labelled 'Dec 29, 2019' represents
+                                         the average weekly sentiment between the 22nd of December and the 28th of December inclusive."), 
+                                  "Sentiment has not surprisingly been more negative than positive, and this difference is still pronounced when removing the neutrals 
+                                  (click on Neutral in the legend box). Drivers of sentiment are explored further below.", tags$style(type = "text/css", "p { font-size: 12px; }"))
                                 ),
                                 bs_button("Analysis", button_type = "default") %>%
                                   bs_attach_collapse("sentiment_collapse")),
