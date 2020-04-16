@@ -243,7 +243,7 @@ pdf(NULL)
                                               content = tags$div(class = "well",
                                   tags$p("This chart displays the percentage of mentions of COVID-19 from Australians only that are positive, negative and neutral. 
                                          Each date on the graph represents a 7 day period, beginning at the labelled date. For example, the first point labelled 'Dec 29, 2019' represents
-                                         the average weekly sentiment between the 22nd of December and the 28th of December inclusive."), 
+                                         the average weekly sentiment between the 29th of December and the 4th of January inclusive."), 
                                   "Sentiment has not surprisingly been more negative than positive, and this difference is still pronounced when removing the neutrals 
                                   (click on Neutral in the legend box). Drivers of sentiment are explored further below.", tags$style(type = "text/css", "p { font-size: 12px; }"))
                                 ),
