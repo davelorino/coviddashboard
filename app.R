@@ -71,9 +71,13 @@ pdf(NULL)
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
    # afinn <- readRDS("afinn.rds")
     
+    
     coronavirus <- readRDS("coronavirus2.rds")
     corona7daycases <- readRDS("corona7daycases.rds")
-
+    sw_desktop_plot <- readRDS("sw_desktop_plot.rds")
+    sw_mobile_plot <- readRDS("sw_mobile_plot.rds")
+    sw_mobile_phrases_donut <- readRDS("mobile_phrases_donut.rds")
+    sw_desktop_phrases_donut <- readRDS("desktop_phrases_donut.rds")
     # coronavirus <- coronavirus %>%
     #   group_by(Country.Region, date, type) %>%
     #   mutate(`Worldwide` = sum(cases)) %>%
@@ -110,9 +114,10 @@ pdf(NULL)
         meltwater_week() %>%
         summarise_meltwater_by_week() %>%
         left_join(coronavirus, by = "Week Beginning") %>%
-      filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
+        filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
     
     corona_7day <- read_rds("corona7day.rds")
+    
     
     # write_rds(corona_weeks, "~/NetBaseApi/coviddashboard/corona_sentiment.rds")
     
@@ -120,14 +125,31 @@ pdf(NULL)
     # base64 encoded string of each image
     
     # uris <- purrr::map_chr(
-    #       corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s.jpeg", .x))
-    #  )
-    #  
-    #uri_df <- data.frame(uri = uris)
+    #        corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s.jpeg", .x))
+    #   )
+    #   
+     #uri_df <- data.frame(uri = uris)
     
     #write_rds(uri_df, "~/NetBaseApi/coviddashboard/uri_df.rds")
     
     uris <- read_rds("uri_df.rds")
+    
+   uri_links <- c( "https://twitter.com/MackayIM/status/1211957651849920513",
+                   "https://twitter.com/GreenEpidemic/status/1215253360057544704",
+                   "https://twitter.com/GreyHaired07/status/1218742383795302405",
+                   "https://twitter.com/the_LoungeFly/status/1221054861506039813",
+                   "https://twitter.com/message_planet/status/1221416982009876481",
+                   "https://twitter.com/nycjim/status/1225517571589451782?s=20",
+                   "https://twitter.com/WHO/status/1227248333871173632?s=20",
+                   "https://twitter.com/paulmozur/status/1228751784111271936?s=20",
+                   "https://twitter.com/TheNewDailyAu/status/1232899467310821376",
+                   "https://twitter.com/JamesMelville/status/1234409838358224897?s=20",
+                   "https://twitter.com/SBSNews/status/1237296031403892736?s=20",
+                   "https://twitter.com/Darleneillyana/status/1241298043556646912?s=20",
+                   "https://twitter.com/billbowtell/status/1242544469875949569?s=20",
+                   "https://twitter.com/theprojecttv/status/1244900134925860865?s=20",
+                   "https://twitter.com/broomstick33/status/1247767301253783557?s=20"
+   )
     
     urisclick <- purrr::map_chr(
       corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("%s-2.jpeg", .x))
@@ -195,35 +217,36 @@ pdf(NULL)
                                 column(12, align = "left", h4("Drivers of Conversation")), br(), br(),
                                                       column(width = 6, h5(tags$u("Dec 29th - Jan 26th"), 
                                                                            align = "left"),
-                                tags$li("first Australian case confirmed Jan 25th"), 
-                                tags$li("mentions in Australia surge from under 100 to 34,000 per week"), 
-                                tags$li("cases in China still quickly on the rise at 1406 cases"), 
+                                tags$li("First Australian case confirmed Jan 25th."), 
+                                tags$li("Mentions in Australia surge from under 100 to 34,000 per week."), 
+                                tags$li("Cases in China still quickly on the rise at 1406 cases."), 
                                 br(),
                                 h5(tags$u("Jan 26th - Feb 16th")),
-                                tags$li("Australia reaches 6 cases, China at 61,000"), 
-                                tags$li("the sad passing of the doctor who broke the news of the virus"), 
-                                tags$li("the WHO officially names the disease COVID-19"), 
+                                tags$li("Australia reaches 6 cases, China at 61,000."), 
+                                tags$li("The sad passing of the doctor who broke the news of the virus."), 
+                                tags$li("The WHO officially names the disease COVID-19."), 
                                 br(),
                                 h5(tags$u("Feb 16th - Mar 1st")), 
-                                tags$li("harsh containment measures being implemented in China"), 
-                                tags$li("Scott Morrison announced that we are facing a global emergency"), 
-                                tags$li("healthcare systems anticipate they will not meet demand"), 
+                                tags$li("Harsh containment measures being implemented in China."), 
+                                tags$li("Scott Morrison announced that we are facing a global emergency."), 
+                                tags$li("Healthcare systems anticipate they will not meet demand."), 
                                 br()), 
                                 column(width = 6, 
                                        h5(tags$u("Mar 1st - Mar 22nd"), align = "left"),
-                                       tags$li("first detected community spread in Australia"),
-                                       tags$li("cases in Australia reach 100"),
-                                       tags$li("Ausralia enters mandatory lockdown for non-essentials"),
+                                       tags$li("First detected community spread in Australia."),
+                                       tags$li("Cases in Australia reach 100."),
+                                       tags$li("Ausralia enters mandatory lockdown for non-essentials."),
                                        br(),
                                        h5(tags$u("Mar 22nd - Apr 12th")),
-                                       tags$li("medical experts call for a nationwide lockdown"),
-                                       tags$li("new restrictions and penalties including jail time"),
-                                       tags$li("adjusting to working from home"),
+                                       tags$li("Medical experts call for a nationwide lockdown."),
+                                       tags$li("New restrictions and penalties including jail time."),
+                                       tags$li("Large portion of Australian workforce adjusts to working from home."),
                                        br(),
                                        h5(tags$u("Apr 12th - Present")),
-                                       tags$li("criminal investigations into the Ruby Princess"),
-                                       tags$li("uncertain financial security for many Australians"),
-                                       tags$li("Australia applauded for flattening the curve"), 
+                                       tags$li("Criminal investigations into the Ruby Princess."),
+                                       tags$li("Uncertain financial security for many Australians."),
+                                      
+                                       tags$li("Australia receives international applaud for flattening the curve."), 
                                        br()
                                        ))), 
                                  bs_button(button_size = "small", "Analysis", button_type = "default") %>%
@@ -325,9 +348,37 @@ pdf(NULL)
                 
                     ")))
                             ),
-                            mainPanel(column(width = 12, align = "left")
-                       )
+                            mainPanel(tabsetPanel(tabPanel("Desktop", column(width = 12, align = "left",
+                                             h4("Digital Search Phrase Match", align = "center"),
+                                      wellPanel(plotlyOutput("sw_desktop_plot"),
+                                                bs_collapse(id = "sw_desktop_collapse", content = tags$div(class = "well", "Text summary.")),
+                                                bs_button("Analysis", button_type = "default") %>%
+                                                  bs_attach_collapse("sw_desktop_collapse"))
+                                              , column(width = 12, align = "left", 
+                                                       h4("Associated Phrases by Domain", align = "center"),
+                                                       wellPanel(plotlyOutput("sw_desktop_phrases_donut"),
+                                                                 bs_collapse(id = "sw_desktop_donut_collapse", content = tags$div(class = "well", "Text summary.")),
+                                                                 bs_button("Analysis", button_type = "default") %>%
+                                                                   bs_attach_collapse("sw_desktop_donut_collapse")
+                                                                 )))),
+                                      tabPanel("Mobile", column(width = 12, align = "left",
+                                                                h4("Digital Search Phrase Match", align = "center"),
+                                                                wellPanel(
+                                                                  plotlyOutput("sw_mobile_plot"),
+                                                                  bs_collapse(id = "sw_mobile_collapse", content = tags$div(class = "well", "Text summary.")),
+                                                                  bs_button("Analysis", button_type = "default") %>%
+                                                                    bs_attach_collapse("sw_mobile_collapse")
+                                                                  ),
+                                                                column(width = 12, align = "left",
+                                                                       h4("Associated Phrases by Domain", align = "center"),
+                                                                       wellPanel(
+                                                                         plotlyOutput("sw_mobile_phrases_donut"),
+                                                                         bs_collapse(id = "sw_mobile_donut_collapse", content = tags$div(class = "well", "Text summary.")),
+                                                                         bs_button("Analysis", button_type = "default") %>%
+                                                                           bs_attach_collapse("sw_mobile_donut_collapse")
+                                                                         )))))
                    )
+           )
     )
     
                   
@@ -338,7 +389,22 @@ pdf(NULL)
            observeEvent(input$helpMe , {
              introjs(session)  
            })
-    
+           
+           output$sw_mobile_plot <- renderPlotly({
+             sw_mobile_plot
+           })
+
+           output$sw_mobile_phrases_donut <- renderPlotly({
+             sw_mobile_phrases_donut
+           })
+                     
+           output$sw_desktop_plot <- renderPlotly({
+             sw_desktop_plot
+           })
+           
+           output$sw_desktop_phrases_donut <- renderPlotly({
+             sw_desktop_phrases_donut
+           })
            
            output$sevendaydonut <- renderPlotly({
              sevendaydonut
