@@ -369,8 +369,9 @@ pdf(NULL)
                                                   on desktop devices ranked by volume of searches; Period: 
                                                   Jan 1st - Mar 31st 2020; Data: SimilarWeb."), "The number one destination for searches of 'coronavirus' on desktop
                                                 devices is www.health.gov.au. If we double-click on health.gov.au in the legend box to the right of the chart
-                                                 we can see all of the matched phrases that led to this destination. People searching for updates on international 
-                                                news arrive at Al-Jazeera, visitors to the Telegraph.co.uk are asking 'what is coronavirus?' and 
+                                                 we can see all of the matched phrases that led to this destination. When isolating other domains we can see that people 
+                                                 searching for updates on international 
+                                                news arrive at Al-Jazeera, visitors to the Telegraph.co.uk are asking 'how did coronavirus start?' and 
                                                 people asking about a 'vaccine' and a 'cure' arrive at theguardian.com.au.")),
                                                 bs_button("Analysis", button_type = "default") %>%
                                                   bs_attach_collapse("sw_desktop_collapse"))
