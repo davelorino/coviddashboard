@@ -409,7 +409,7 @@ pdf(NULL)
                                                                                                                         p("Associated phrases in searches for 'coronavirus' 
                                                                                                                           on mobile devices ranked by destination; Period: 
                                                                                                                           Jan 1st - Mar 31st 2020; Data: SimilarWeb."), 
-                                                                                                                      "Nnews.com.au, health.gov.au and abc.com.au receive
+                                                                                                                      "News.com.au, health.gov.au and abc.com.au receive
                                                                                                                          the most traffic for searches of 'coronavirus' on mobile devices, though 
                                                                                                                         interestingly there is a significant number of non-Australian destinations, 
                                                                                                                         reflecting the global nature of the disease.")),
