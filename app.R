@@ -183,7 +183,9 @@ pdf(NULL)
 
 # UI-------------------------------------------------------------------------------------------------------------
     
-    ui = navbarPage(title = "Saatchi COVID-19 Dashboard", theme = shinytheme("darkly"),
+    ui = navbarPage(
+                    
+                   title = "Saatchi COVID-19 Dashboard", theme = shinytheme("darkly"),
                    tabPanel(title = "Social",
                        sidebarPanel(img(src="unnamed.png", width="80%", height="80%"),
                                     br(), br(),
@@ -196,9 +198,10 @@ pdf(NULL)
                         color: #212121;
                       }
                 
-                    ")))
+                    "))), 
                                     ),
                        mainPanel(column(width = 12, align = "left",
+                 
                          h4("Volume of Mentions", align = "center"),
                       wellPanel(introBox(plotlyOutput("lineplot"), 
                                  data.step = 1, 
@@ -210,8 +213,12 @@ pdf(NULL)
                                    id = "volume_collapse", 
                                    content = tags$div(class = "well", 
                                 column(width = 12, p("This chart displays the volume of mentions of COVID-19 on a weekly basis from Australians only. 
-                                       Each point represents a 7 day period, beginning at the labelled date. For example, the point labelled 'Dec 29, 2019' represents
-                                         the ",  tags$b("total weekly mentions "),  "between the 29th of December and the 4th of January inclusive.", 
+                                       Each point represents a 7 day period, beginning at the labelled date. For example, 
+                                       the point labelled 'Dec 29, 2019' represents
+                                         the ",  
+                                          tags$b("total weekly mentions "),  
+                                          "between the 29th of December and the 4th of January inclusive. 
+                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - April 12th, 2020.", 
                                                      tags$style(type = "text/css", "p { font-size: 12px; }"))),
                                 br(), br(),
                                 column(12, align = "left", h4("Drivers of Conversation")), br(), br(),
@@ -266,7 +273,7 @@ pdf(NULL)
                                               content = tags$div(class = "well",
                                   tags$p("This chart displays the percentage of mentions of COVID-19 from Australians only that are positive, negative and neutral. 
                                          Each date on the graph represents a 7 day period, beginning at the labelled date. For example, the first point labelled 'Dec 29, 2019' represents
-                                         the average weekly sentiment between the 29th of December and the 4th of January inclusive."), 
+                                         the average weekly sentiment between the 29th of December and the 4th of January inclusive. Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - April 12th, 2020."), 
                                   "Sentiment has not surprisingly been more negative than positive, and this difference is still pronounced when removing the neutrals 
                                   (click on Neutral in the legend box). Drivers of sentiment are explored further below.", tags$style(type = "text/css", "p { font-size: 12px; }"))
                                 ),
@@ -274,11 +281,12 @@ pdf(NULL)
                                   bs_attach_collapse("sentiment_collapse")),
                                   column(width = 6, h5("Weekly Sentiment"), 
                                          wellPanel(introBox(data.step = 3,
-                                                            data.intro = "Placeholder", 
+                                                            data.intro = "Here we see the proportion of positive, negative and neutral sentiment over the last week.", 
                                                             plotlyOutput("sevendaydonut"),
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
-                                                                               tags$p("Sentiment in the 7 day period between the 9th and 15th of April (inclusive)"),
+                                                                               tags$p("Sentiment in the 7 day period between the 9th and 15th of April inclusive. 
+                                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."),
                                                                    
                                                                                "Sentiment was on par with the monthly average.
                                                                                Drivers of negative sentiment in the last week have primarily been around:", 
@@ -290,12 +298,14 @@ pdf(NULL)
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
                                    column(width = 6, h5("Weekly Trending Hashtags"), 
                                           wellPanel(introBox(data.step = 4, 
-                                                             data.intro = "Placeholder", 
+                                                             data.intro = "This chart analyzes the top trending hashtags in the last week.
+                                                             ", 
                                                              plotlyOutput("hashtags_7days"),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
                                                                  content = tags$div(class = "well",
-                                                                                    tags$p("Trending hashtags between the 9th and 15h of April (inclusive)."),
-                                                                                    "Trending hashtags were gathered around three main concerns:",
+                                                                                    tags$p("Trending hashtags between the 9th and 15h of April inclusive.
+                                                                                           Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."),
+                                                                                    "Trending hashtags were grouped around three main concerns:",
                                                                                     br(), br(),
                                                                                     tags$li("the Ruby Princess cruise ship"),
                                                                                     tags$li("lockdown measures and containment"),
@@ -310,10 +320,12 @@ pdf(NULL)
                                                              plotlyOutput("contribution_plot"),
                                                              bs_collapse(id = "contribution_collapse", content = tags$div(class = "well",
                                                               tags$p("Top 25 contributing words to sentiment as determined by the AFINN
-                                                              sentiment analysis lexicon. 7 day period 9th - 15th Apr inclusive."), 
+                                                              sentiment analysis lexicon. 7 day period 9th - 15th Apr inclusive. 
+                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."), 
                                                               "Not surprisingly sentiment around coronavirus is weighted to the negative end of the spectrum,
                                                               with the largest contribution to negative sentiment being the notion of
-                                                               a crisis, and the large numbers of death worldwide.")),
+                                                               a crisis, and the large numbers of death worldwide. Positive sentiment exhibits no clear trend, 
+                                                              not surprising as it accounts for only a small proportion of all mentions (~15%).")),
                                                      bs_button("Analysis", button_type = "default") %>%
                                                         bs_attach_collapse("contribution_collapse")))),
                                   column(width = 6, h5("Text Sentiment Frequency - Weekly Snapshot"), 
@@ -323,7 +335,8 @@ pdf(NULL)
                                                              plotlyOutput("bing_sentiment_plot"),
                                                              bs_collapse(id = "bing_sent", content = tags$div(class = "well", 
                                                              tags$p("Most frequent positive and negative words. Classifications
-                                                                     determined by the Bing Liu sentiment lexicon. 7 day period 9th - 15th Apr inclusive."),
+                                                                     determined by the Bing Liu sentiment lexicon. 7 day period 9th - 15th Apr inclusive. 
+                                                                    Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."),
                                                                
                                                                "Echoing observations from previous charts we can see that negative sentiment 
                                                              is primarily about the high rate of death and infection, though positive sentiment
@@ -338,7 +351,7 @@ pdf(NULL)
                    tabPanel(title = "Search",
                             sidebarPanel(img(src="unnamed.png", width="80%", height="80%"),
                                          br(), br(),
-                                         actionButton("helpMe2", "Tour"),
+                                         br(), br(),
                                          width = 2,
                                          tags$head(
                                            tags$style(HTML("
@@ -351,13 +364,25 @@ pdf(NULL)
                             mainPanel(tabsetPanel(tabPanel("Desktop", column(width = 12, align = "left",
                                              h4("Digital Search Phrase Match", align = "center"),
                                       wellPanel(plotlyOutput("sw_desktop_plot"),
-                                                bs_collapse(id = "sw_desktop_collapse", content = tags$div(class = "well", "Text summary.")),
+                                                bs_collapse(id = "sw_desktop_collapse", content = tags$div(class = "well", 
+                                                p("Associated phrases in searches for 'coronavirus' 
+                                                  on desktop devices ranked by volume of searches; Period: 
+                                                  Jan 1st - Mar 31st 2020; Data: SimilarWeb."), "The number one destination for searches of 'coronavirus' on desktop
+                                                devices is www.health.gov.au. If we double-click on health.gov.au in the legend box to the right of the chart
+                                                 we can see all of the matched phrases that led to this destination. People searching for updates on international 
+                                                news arrive at Al-Jazeera, visitors to the Telegraph.co.uk are asking 'what is coronavirus?' and 
+                                                people asking about a 'vaccine' and a 'cure' arrive at theguardian.com.au.")),
                                                 bs_button("Analysis", button_type = "default") %>%
                                                   bs_attach_collapse("sw_desktop_collapse"))
                                               , column(width = 12, align = "left", 
                                                        h4("Associated Phrases by Domain", align = "center"),
                                                        wellPanel(plotlyOutput("sw_desktop_phrases_donut"),
-                                                                 bs_collapse(id = "sw_desktop_donut_collapse", content = tags$div(class = "well", "Text summary.")),
+                                                                 bs_collapse(id = "sw_desktop_donut_collapse", 
+                                                                 content = tags$div(class = "well", p("Associated phrases in searches for 'coronavirus' 
+                                                                                                    on desktop devices ranked by destination; Period: 
+                                                                                                    Jan 1st - Mar 31st 2020; Data: SimilarWeb."), 
+                                                                                    "Here we can see that helth.gov.au accounts for 56% of searches for 'coronavirus' from Australians, 
+                                                                                    followed by nytimes.com and abc.com.au.")),
                                                                  bs_button("Analysis", button_type = "default") %>%
                                                                    bs_attach_collapse("sw_desktop_donut_collapse")
                                                                  )))),
@@ -365,7 +390,14 @@ pdf(NULL)
                                                                 h4("Digital Search Phrase Match", align = "center"),
                                                                 wellPanel(
                                                                   plotlyOutput("sw_mobile_plot"),
-                                                                  bs_collapse(id = "sw_mobile_collapse", content = tags$div(class = "well", "Text summary.")),
+                                                                  bs_collapse(id = "sw_mobile_collapse", content = tags$div(class = "well", p("Associated phrases in searches for 'coronavirus' 
+                                                                                                                          on mobile devices ranked by volume of searches; Period: 
+                                                                                                                          Jan 1st - Mar 31st 2020; Data: SimilarWeb."), 
+                                                                                                                            "Interestingly on mobile devices news.com.au is the most popular destination 
+                                                                                                                            for Australians searching 'coronavirus' on mobile
+                                                                                                                             devices. Health.gov.au comes in second, 
+                                                                                                                            followed by the world health organisation. Searchers are predominantly 
+                                                                                                                            interested in the symptoms and updates on the spread of the disease.")),
                                                                   bs_button("Analysis", button_type = "default") %>%
                                                                     bs_attach_collapse("sw_mobile_collapse")
                                                                   ),
@@ -373,7 +405,14 @@ pdf(NULL)
                                                                        h4("Associated Phrases by Domain", align = "center"),
                                                                        wellPanel(
                                                                          plotlyOutput("sw_mobile_phrases_donut"),
-                                                                         bs_collapse(id = "sw_mobile_donut_collapse", content = tags$div(class = "well", "Text summary.")),
+                                                                         bs_collapse(id = "sw_mobile_donut_collapse", content = tags$div(class = "well", 
+                                                                                                                        p("Associated phrases in searches for 'coronavirus' 
+                                                                                                                          on mobile devices ranked by destination; Period: 
+                                                                                                                          Jan 1st - Mar 31st 2020; Data: SimilarWeb."), 
+                                                                                                                      "Nnews.com.au, health.gov.au and abc.com.au receive
+                                                                                                                         the most traffic for searches of 'coronavirus' on mobile devices, though 
+                                                                                                                        interestingly there is a significant number of non-Australian destinations, 
+                                                                                                                        reflecting the global nature of the disease.")),
                                                                          bs_button("Analysis", button_type = "default") %>%
                                                                            bs_attach_collapse("sw_mobile_donut_collapse")
                                                                          )))))
@@ -389,6 +428,7 @@ pdf(NULL)
            observeEvent(input$helpMe , {
              introjs(session)  
            })
+           
            
            output$sw_mobile_plot <- renderPlotly({
              sw_mobile_plot
@@ -566,7 +606,7 @@ pdf(NULL)
                      showarrow = TRUE,
                      font = list(color = '#FFFFFF'),
                      ax = -150,
-                     ay = -180
+                     ay = -150
                    ) %>% plotly::add_annotations(
                      x = as.Date("2020-03-22"),
                      y = 3,
