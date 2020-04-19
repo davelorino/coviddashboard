@@ -218,7 +218,8 @@ pdf(NULL)
                                          the ",  
                                           tags$b("total weekly mentions "),  
                                           "between the 29th of December and the 4th of January inclusive. 
-                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - April 12th, 2020.", 
+                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - April 12th, 2020. 
+                                          Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.", 
                                                      tags$style(type = "text/css", "p { font-size: 12px; }"))),
                                 br(), br(),
                                 column(12, align = "left", h4("Drivers of Conversation")), br(), br(),
@@ -252,8 +253,7 @@ pdf(NULL)
                                        h5(tags$u("Apr 12th - Present")),
                                        tags$li("Criminal investigations into the Ruby Princess."),
                                        tags$li("Uncertain financial security for many Australians."),
-                                      
-                                       tags$li("Australia receives international applaud for flattening the curve."), 
+                                       tags$li("Australia begins to flatten the curve."), 
                                        br()
                                        ))), 
                                  bs_button(button_size = "small", "Analysis", button_type = "default") %>%
