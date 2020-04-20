@@ -372,12 +372,12 @@ pdf(NULL)
                                                 bs_collapse(id = "sw_desktop_collapse", content = tags$div(class = "well", 
                                                tags$em(p("Associated phrases in searches for 'coronavirus' 
                                                   on desktop devices ranked by volume of searches; Period: 
-                                                  Jan 1st - Mar 31st 2020; Data: SimilarWeb.") ), "The number one destination for searches of 'coronavirus' on desktop
-                                                devices is www.health.gov.au. If we double-click on health.gov.au in the legend box to the right of the chart
-                                                 we can see all of the matched phrases that led to this destination. When isolating other domains we can see that people 
+                                                  Jan 1st - Mar 31st 2020; Data: SimilarWeb.") ), tags$li("The number one destination for searches of 'coronavirus' on desktop
+                                                devices is www.health.gov.au."), tags$li("If we double-click on health.gov.au in the legend box to the right of the chart
+                                                 we can see all of the matched phrases that led to this destination."), tags$li("When isolating other domains we can see that people 
                                                  searching for updates on international 
-                                                news arrive at Al-Jazeera, visitors to the Telegraph.co.uk are asking 'how did coronavirus start?' and 
-                                                people asking about a 'vaccine' and a 'cure' arrive at theguardian.com.au.")),
+                                                news arrive at Al-Jazeera"), tags$li("visitors to the Telegraph.co.uk are asking 'how did coronavirus start?'."), 
+                                               tags$li("People asking about a 'vaccine' and a 'cure' arrive at theguardian.com.au."))),
                                                 bs_button("Analysis", button_type = "default") %>%
                                                   bs_attach_collapse("sw_desktop_collapse"))
                                               , column(width = 12, align = "left", 
@@ -400,11 +400,12 @@ pdf(NULL)
                                                                   bs_collapse(id = "sw_mobile_collapse", content = tags$div(class = "well", tags$em(p("Associated phrases in searches for 'coronavirus' 
                                                                                                                           on mobile devices ranked by volume of searches; Period: 
                                                                                                                           Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                                                                                                                            "Interestingly on mobile devices news.com.au is the most popular destination 
-                                                                                                                            for Australians searching 'coronavirus' on mobile
-                                                                                                                             devices. Health.gov.au comes in second, 
-                                                                                                                            followed by the world health organisation. Searchers are predominantly 
-                                                                                                                            interested in the symptoms and updates on the spread of the disease.")),
+                                                                                                                            tags$li("On mobile devices news.com.au is the most popular destination 
+                                                                                                                            for Australians searching 'coronavirus'."), 
+                                                                                                                            tags$li("Health.gov.au comes in second, 
+                                                                                                                            followed by the world health organisation."), 
+                                                                                                                            tags$li("Searchers are predominantly 
+                                                                                                                            interested in the symptoms and updates on the spread of the disease."))),
                                                                   bs_button("Analysis", button_type = "default") %>%
                                                                     bs_attach_collapse("sw_mobile_collapse")
                                                                   ),
