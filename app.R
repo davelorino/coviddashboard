@@ -353,7 +353,7 @@ pdf(NULL)
                             )
                           )
                         ),
-                   tabPanel(title = "Search",
+                 tabPanel(title = introBox( data.step = 7, data.intro = "Let's move over to the Search page - click 'Search'. <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
                             sidebarPanel(img(src="unnamed.png", width="80%", height="80%"),
                                          br(), br(),
                                          br(), br(),
@@ -368,7 +368,8 @@ pdf(NULL)
                             ),
                             mainPanel(tabsetPanel(tabPanel("Desktop", column(width = 12, align = "left",
                                              h4("Digital Search Phrase Match", align = "center"),
-                                      wellPanel(plotlyOutput("sw_desktop_plot"),
+                                      wellPanel( introBox(data.step = 8, data.intro = "This plot shows us the phrases most commonly associated with 'coronavirus'
+                                                           from all search engine traffic.", plotlyOutput("sw_desktop_plot")),
                                                 bs_collapse(id = "sw_desktop_collapse", content = tags$div(class = "well", 
                                                tags$em(p("Associated phrases in searches for 'coronavirus' 
                                                   on desktop devices ranked by volume of searches; Period: 
@@ -382,7 +383,10 @@ pdf(NULL)
                                                   bs_attach_collapse("sw_desktop_collapse"))
                                               , column(width = 12, align = "left", 
                                                        h4("Associated Phrases by Domain", align = "center"),
-                                                       wellPanel(plotlyOutput("sw_desktop_phrases_donut"),
+                                                       wellPanel(
+                                                         introBox(data.step = 9, data.intro = "This chart shows the proportion of traffic that went to each domain from 
+                                                                  search engine searches for 'coronavirus' and associated phrases.",
+                                                         plotlyOutput("sw_desktop_phrases_donut")),
                                                                  bs_collapse(id = "sw_desktop_donut_collapse", 
                                                                  content = tags$div(class = "well", tags$em(p("Associated phrases in searches for 'coronavirus' 
                                                                                                     on desktop devices ranked by destination; Period: 
@@ -396,7 +400,7 @@ pdf(NULL)
                                       tabPanel("Mobile", column(width = 12, align = "left",
                                                                 h4("Digital Search Phrase Match", align = "center"),
                                                                 wellPanel(
-                                                                  plotlyOutput("sw_mobile_plot"),
+                                                                   plotlyOutput("sw_mobile_plot"),
                                                                   bs_collapse(id = "sw_mobile_collapse", content = tags$div(class = "well", tags$em(p("Associated phrases in searches for 'coronavirus' 
                                                                                                                           on mobile devices ranked by volume of searches; Period: 
                                                                                                                           Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
