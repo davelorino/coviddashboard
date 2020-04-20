@@ -329,7 +329,7 @@ pdf(NULL)
                                                               "Not surprisingly sentiment around coronavirus is weighted to the negative end of the spectrum,
                                                               with the largest contribution to negative sentiment being the notion of
                                                                a crisis, and the large numbers of death worldwide. Positive sentiment exhibits no clear trend, 
-                                                              not surprising as it accounts for only a small proportion of all mentions (~15%).")),
+                                                              not surprising as it accounts for only a small proportion of all mentions (~10%).")),
                                                      bs_button("Analysis", button_type = "default") %>%
                                                         bs_attach_collapse("contribution_collapse")))),
                                   column(width = 6, h5("Text Sentiment Frequency - Weekly Snapshot"), 
