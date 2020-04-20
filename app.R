@@ -387,7 +387,7 @@ pdf(NULL)
                                                                  content = tags$div(class = "well", tags$em(p("Associated phrases in searches for 'coronavirus' 
                                                                                                     on desktop devices ranked by destination; Period: 
                                                                                                     Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                                                                                    tags$li("helth.gov.au accounts for 56% of searches for 'coronavirus' from Australians"), 
+                                                                                    tags$li("health.gov.au accounts for 56% of searches for 'coronavirus' from Australians"), 
                                                                                     tags$li("Nytimes.com and abc.com.au take the next two spots for most popular web destinations for searches of coronavirus."),
                                                                                     tags$li("Most domains are generating significantly smaller proportions of traffic share (< 5%)."))),
                                                                  bs_button("Analysis", button_type = "default") %>%
