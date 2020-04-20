@@ -387,8 +387,9 @@ pdf(NULL)
                                                                  content = tags$div(class = "well", tags$em(p("Associated phrases in searches for 'coronavirus' 
                                                                                                     on desktop devices ranked by destination; Period: 
                                                                                                     Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                                                                                    "Here we can see that helth.gov.au accounts for 56% of searches for 'coronavirus' from Australians, 
-                                                                                    followed by nytimes.com and abc.com.au.")),
+                                                                                    tags$li("helth.gov.au accounts for 56% of searches for 'coronavirus' from Australians"), 
+                                                                                    tags$li("Nytimes.com and abc.com.au take the next two spots for most popular web destinations for searches of coronavirus."),
+                                                                                    tags$li("Most domains are generating significantly smaller proportions of traffic share (< 5%)."))),
                                                                  bs_button("Analysis", button_type = "default") %>%
                                                                    bs_attach_collapse("sw_desktop_donut_collapse")
                                                                  )))),
@@ -415,10 +416,12 @@ pdf(NULL)
                                                                                                                       tags$em(  p("Associated phrases in searches for 'coronavirus' 
                                                                                                                           on mobile devices ranked by destination; Period: 
                                                                                                                           Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                                                                                                                      "News.com.au, health.gov.au and abc.com.au receive
-                                                                                                                         the most traffic for searches of 'coronavirus' on mobile devices, though 
-                                                                                                                        interestingly there is a significant number of non-Australian destinations, 
-                                                                                                                        reflecting the global nature of the disease.")),
+                                                                                                                      tags$li("News.com.au, health.gov.au and abc.com.au receive
+                                                                                                                         the most traffic for searches of 'coronavirus' on mobile devices"),  
+                                                                                                                        tags$li("Mobile traffic generates a significant number of non-Australian destinations, 
+                                                                                                                        reflecting the global nature of the disease."),
+                                                                                                                        tags$li("Most domains are receiving less than 2% of traffic share, 
+                                                                                                                                indicating that desinations for searches of coronavirus are quite broad."))),
                                                                          bs_button("Analysis", button_type = "default") %>%
                                                                            bs_attach_collapse("sw_mobile_donut_collapse")
                                                                          )))))
