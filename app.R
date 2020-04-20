@@ -376,7 +376,7 @@ pdf(NULL)
                                                 devices is www.health.gov.au."), tags$li("If we double-click on health.gov.au in the legend box to the right of the chart
                                                  we can see all of the matched phrases that led to this destination."), tags$li("When isolating other domains we can see that people 
                                                  searching for updates on international 
-                                                news arrive at Al-Jazeera"), tags$li("visitors to the Telegraph.co.uk are asking 'how did coronavirus start?'."), 
+                                                news arrive at Al-Jazeera."), tags$li("Visitors to the Telegraph.co.uk are asking 'how did coronavirus start?'."), 
                                                tags$li("People asking about a 'vaccine' and a 'cure' arrive at theguardian.com.au."))),
                                                 bs_button("Analysis", button_type = "default") %>%
                                                   bs_attach_collapse("sw_desktop_collapse"))
@@ -387,7 +387,7 @@ pdf(NULL)
                                                                  content = tags$div(class = "well", tags$em(p("Associated phrases in searches for 'coronavirus' 
                                                                                                     on desktop devices ranked by destination; Period: 
                                                                                                     Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                                                                                    tags$li("health.gov.au accounts for 56% of searches for 'coronavirus' from Australians"), 
+                                                                                    tags$li("Health.gov.au accounts for 56% of searches for 'coronavirus' from Australians."), 
                                                                                     tags$li("Nytimes.com and abc.com.au take the next two spots for most popular web destinations for searches of coronavirus."),
                                                                                     tags$li("Most domains are generating significantly smaller proportions of traffic share (< 5%)."))),
                                                                  bs_button("Analysis", button_type = "default") %>%
@@ -418,7 +418,7 @@ pdf(NULL)
                                                                                                                           on mobile devices ranked by destination; Period: 
                                                                                                                           Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
                                                                                                                       tags$li("News.com.au, health.gov.au and abc.com.au receive
-                                                                                                                         the most traffic for searches of 'coronavirus' on mobile devices"),  
+                                                                                                                         the most traffic for searches of 'coronavirus' on mobile devices."),  
                                                                                                                         tags$li("Mobile traffic generates a significant number of non-Australian destinations, 
                                                                                                                         reflecting the global nature of the disease."),
                                                                                                                         tags$li("Most domains are receiving less than 2% of traffic share, 
