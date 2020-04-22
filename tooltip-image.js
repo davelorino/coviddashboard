@@ -16,8 +16,8 @@ function(el) {
     var img = "<img src='" +  pt.customdata[0] + "' width=350>";
     tooltip2.html(img)
       .style("position", "absolute")
-      .style("bottom", xPixel + "px")
-      .style("bottom-right", yPixel + "px");
+      .style("top-left", xPixel + "px")
+      .style("top-left", yPixel + "px");
     // Fade in the image
     tooltip2.transition()
       .duration(0)

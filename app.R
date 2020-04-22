@@ -185,9 +185,9 @@ pdf(NULL)
     
     ui = navbarPage(
                     
-                   title = "Saatchi COVID-19 Dashboard", theme = shinytheme("darkly"),
-                   tabPanel(title = "Social",
-                       sidebarPanel(img(src="unnamed.png", width="80%", height="80%"),
+                   title = "Saatchi & Saatchi COVID-19 Pulse", theme = shinytheme("darkly"),
+                   tabPanel(title = "Social Pulse",
+                       sidebarPanel(img(src="unnamed2.png", width="80%", height="80%"),
                                     br(), br(),
                                     actionButton("helpMe", "Tour"),
                                     introjsUI(),
@@ -202,12 +202,12 @@ pdf(NULL)
                                     ),
                        mainPanel(column(width = 12, align = "left",
                  
-                         h4("Volume of Mentions", align = "center"),
+                         h4("Volume of Covid-19 conversation over time, Australia (VoC only)", align = "center"),
                       wellPanel(introBox(plotlyOutput("lineplot"), 
                                  data.step = 1, 
-                                 data.intro = "Here we analyze <b>volume</b> of conversation over time among twitter, 
+                                 data.intro = "Here we analyze the <b>volume</b> of conversation over time among twitter, 
                                  blogs and forums.<br/>
-                                 <b>Hover</b> over points to see what drove conversation.",
+                                 <b>Hover</b> over the points to see what drove the conversation.",
                                  data.position = "bottom-left_aligned"),
                                  bs_collapse(
                                    id = "volume_collapse", 
@@ -265,10 +265,10 @@ pdf(NULL)
                                          #   bs_attach_collapse("weeklytimelinecollapsed")
                                          #   ),
                                  br(), br(),
-                        h4("Sentiment Timeline (%)", align = "center"),
+                        h4("Sentiment of Covid-19 Conversation Over Time, Australia (Voc only)", align = "center"),
                         wellPanel(introBox(plotlyOutput("sentiment_plot"),
                                   data.step = 2,
-                                  data.intro = "Here we analyze <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
+                                  data.intro = "Here we analyze the <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
                                   bs_collapse(id = "sentiment_collapse",
                                               content = tags$div(class = "well",
                                 tags$em(  tags$p("This chart displays the percentage of mentions of COVID-19 from Australians only that are positive, negative and neutral. 
@@ -281,9 +281,9 @@ pdf(NULL)
                                 ),
                                 bs_button("Analysis", button_type = "default") %>%
                                   bs_attach_collapse("sentiment_collapse")),
-                                  column(width = 6, h5("Weekly Sentiment"), 
+                                  column(width = 6, h5("VoC Sentiment in the last 7 days"), 
                                          wellPanel(introBox(data.step = 3,
-                                                            data.intro = "Here we see the proportion of positive, negative and neutral sentiment over the last week.", 
+                                                            data.intro = "This charts shows a snapshot of the consumer sentiment over the last week.", 
                                                             plotlyOutput("sevendaydonut"),
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
@@ -298,8 +298,9 @@ pdf(NULL)
                                                                                 tags$li("Donald Trump accused the WHO of failure of duty."))),
                                                             bs_button("Analysis", button_type = "default") %>%
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
-                                   column(width = 6, h5("Weekly Trending Hashtags"), 
+                                   column(width = 6, h5("VoC Sentiment in the last 7 days"), 
                                           wellPanel(introBox(data.step = 4, 
+                                                             
                                                              data.intro = "This chart analyzes the top trending hashtags in the last week.
                                                              ", 
                                                              plotlyOutput("hashtags_7days"),
@@ -318,8 +319,9 @@ pdf(NULL)
                                           br(), br(),
                                   column(width = 6,  h5("Text Sentiment Score - Weekly Snapshot"), 
                                          wellPanel(introBox(data.step = 5, 
-                                                             data.intro = "This chart analyzes the top 25 words contributing to positive 
-                                                             or negative sentiment.",
+                                                             data.intro = paste("This chart analyzes the top 25 words contributing to positive 
+                                                             or negative sentiment in the last week using the ", 
+                                                                                tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon"),
                                                              plotlyOutput("contribution_plot"),
                                                              bs_collapse(id = "contribution_collapse", content = tags$div(class = "well",
                                                              tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
@@ -334,8 +336,9 @@ pdf(NULL)
                                                         bs_attach_collapse("contribution_collapse")))),
                                   column(width = 6, h5("Text Sentiment Frequency - Weekly Snapshot"), 
                                           wellPanel(introBox(data.step = 6, 
-                                                             data.intro = "This chart analyzes the top 25 words contributing to both
-                                                             positive and negative sentiment.", 
+                                                             data.intro = paste("This chart analyzes the top 25 words contributing to positive 
+                                                             or negative sentiment in the last week using the ", 
+                                                                                tags$a(href = "https://www.cs.uic.edu/~liub/FBS/opinion-mining-final-WSDM.pdf", "Bing Liu"), " sentiment lexicon"),
                                                              plotlyOutput("bing_sentiment_plot"),
                                                              bs_collapse(id = "bing_sent", content = tags$div(class = "well", 
                                                            tags$em( tags$p("Most frequent positive and negative words. Classifications
@@ -348,13 +351,14 @@ pdf(NULL)
                                                               is more about support and unity.")),
                                                       bs_button("Analysis", button_type = "default") %>%
                                                         bs_attach_collapse("bing_sent")
-                                                             )))
+                                          
+                                                                         )))
                       #  wellPanel(introBox(column(width = 4, plotlyOutput("udpipe_plot")))),
                             )
                           )
                         ),
                  tabPanel(title = introBox( data.step = 7, data.intro = "Let's move over to the Search page - click 'Search'. <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
-                            sidebarPanel(img(src="unnamed.png", width="80%", height="80%"),
+                            sidebarPanel(img(src="unnamed2.png", width="80%", height="80%"),
                                          br(), br(),
                                          br(), br(),
                                          width = 2,
@@ -388,13 +392,14 @@ pdf(NULL)
                                                                   search engine searches for 'coronavirus' and associated phrases.",
                                                          plotlyOutput("sw_desktop_phrases_donut")),
                                                                  bs_collapse(id = "sw_desktop_donut_collapse", 
-                                                                 content = tags$div(class = "well", tags$em(p("Associated phrases in searches for 'coronavirus' 
-                                                                                                    on desktop devices ranked by destination; Period: 
-                                                                                                    Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                                                                                    tags$li("Health.gov.au accounts for 56% of searches for 'coronavirus' from Australians."), 
-                                                                                    tags$li("Nytimes.com and abc.com.au take the next two spots for most popular web destinations for searches of coronavirus."),
-                                                                                    tags$li("Most domains are generating significantly smaller proportions of traffic share (< 5%)."))),
-                                                                 bs_button("Analysis", button_type = "default") %>%
+                                                                 content = tags$div(class = "well", 
+                                                                 tags$em(p("Associated phrases in searches for 'coronavirus' 
+                                                                                on desktop devices ranked by destination; Period: 
+                                                                                Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
+                                                                tags$li("Health.gov.au accounts for 56% of searches for 'coronavirus' from Australians."), 
+                                                                tags$li("Nytimes.com and abc.com.au take the next two spots for most popular web destinations for searches of coronavirus."),
+                                                                tags$li("Most domains are generating significantly smaller proportions of traffic share (< 5%)."))),
+                                                             bs_button("Analysis", button_type = "default") %>%
                                                                    bs_attach_collapse("sw_desktop_donut_collapse")
                                                                  )))),
                                       tabPanel("Mobile", column(width = 12, align = "left",
@@ -559,7 +564,7 @@ pdf(NULL)
                      arrowsize = 1,
                      showarrow = TRUE,
                      font = list(color = '#FFFFFF'),
-                     ax = -90,
+                     ax = 30,
                      ay = -90
                  ) %>%
                  plotly::add_annotations(
@@ -568,12 +573,12 @@ pdf(NULL)
                      text = paste("First Case Outside of China (Thailand)"),
                      xref = "x",
                      yref = "y",
-                     arrowhead = 10,
+                     arrowhead = 5,
                      arrowhead = 3,
                      arrowsize = 1,
                      showarrow = TRUE,
                      font = list(color = '#FFFFFF'),
-                     ax = -120,
+                     ax = 30,
                      ay = -120
                  ) %>%
                  plotly::add_annotations(
@@ -587,7 +592,7 @@ pdf(NULL)
                      arrowsize = 1,
                      showarrow = TRUE,
                      font = list(color = '#FFFFFF'),
-                     ax = -150,
+                     ax =  0,
                      ay = -180
                  ) %>%
                  plotly::add_annotations(
@@ -619,8 +624,8 @@ pdf(NULL)
                      arrowsize = 1,
                      showarrow = TRUE,
                      font = list(color = '#FFFFFF'),
-                     ax = -150,
-                     ay = -150
+                     ax = -0,
+                     ay = -130
                    ) %>% plotly::add_annotations(
                      x = as.Date("2020-03-22"),
                      y = 3,
@@ -640,7 +645,8 @@ pdf(NULL)
                  plotly::layout(
                      title = "",
                      yaxis = list(title = "Conversation Over Time", color = "#FFFFFF"),
-                     xaxis = list(title = "", color = "#FFFFFF"),
+                     xaxis = list(title = "", color = "#FFFFFF", showticklabels = T, type = "category"
+                                  ),
                      legend = legend_features,
                      paper_bgcolor='#212121',
                      plot_bgcolor='#212121'
