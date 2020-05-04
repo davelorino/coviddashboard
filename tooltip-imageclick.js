@@ -16,7 +16,7 @@ function(el) {
     var img = "<img src='" +  pt.customdata[1] + "' width=800>";
     tooltip.html(img)
       .style("position", "absolute")
-      .style("left", xPixel + "px")
+      .style("bottom", xPixel + "px")
       .style("bottom", yPixel + "px");
     // Fade in the image
     tooltip.transition()

@@ -26,9 +26,20 @@ function(el) {
 
   el.on('plotly_unhover', function(d) {
     // Fade out the image
-    
+    img = "<img src='~/NetBaseApi/coviddashboard/block.jpeg' width=10>";
     tooltip2.transition()
-      .duration(300)
+      .duration(0)
+      .style("opacity", 0);
+    tooltip2.html(img)
+      .style("position", "absolute")
+      .style("top-left", xPixel + "px")
+      .style("top-left", yPixel + "px");
+    // Fade in the image
+    tooltip2.transition()
+      .duration(0)
+      .style("opacity", 1);
+      tooltip2.transition()
+      .duration(0)
       .style("opacity", 0);
   });
 }

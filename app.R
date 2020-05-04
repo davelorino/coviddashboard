@@ -44,6 +44,13 @@ pdf(NULL)
         filter(!is.na(`Week Beginning`))
     }
     
+    meltwater_sentiment_week <- function(arg){
+      arg %>%
+        mutate(Date_Fix = as.Date(`Date`, "%d/%m/%y")) %>%
+        mutate(`Week Beginning` = floor_date(Date_Fix, "weeks")) %>%
+        filter(!is.na(`Week Beginning`))
+    }
+    
     summarise_meltwater_by_week <- function(arg){
       arg %>%
         group_by(`Week Beginning`) %>%
@@ -65,14 +72,14 @@ pdf(NULL)
 # DATA---------------------------------------------------------------------------------------------------------------------
 
     sevendaydonut <- read_rds("sevendaydonut.rds")
-    volumeovertime <- read_csv("coronaconvo2.csv")
-    coronasent <- read_csv("coronasent.csv")
+    #volumeovertime <- read_csv("coronaconvo2.csv")
+    #coronasent <- read_csv("coronasent.csv")
     hashtags_7days <- read_rds("hashtags_plot7day.rds")
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
    # afinn <- readRDS("afinn.rds")
     
     
-    coronavirus <- readRDS("coronavirus2.rds")
+    #coronavirus <- readRDS("coronavirus2.rds")
     corona7daycases <- readRDS("corona7daycases.rds")
     sw_desktop_plot <- readRDS("sw_desktop_plot.rds")
     sw_mobile_plot <- readRDS("sw_mobile_plot.rds")
@@ -102,19 +109,19 @@ pdf(NULL)
     
     #coronavirus::update_datasets()
    
-    corona_sentiment <- coronasent %>%
-      meltwater_week() %>%
-      summarise_meltwater_sentiment_by_week() %>%
-      filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
-    
-    
+    # corona_sentiment <- coronasent %>%
+    #   meltwater_sentiment_week() %>%
+    #   summarise_meltwater_sentiment_by_week() %>%
+    #   filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
+    # 
+
     # write_rds(corona_sentiment, "~/NetBaseApi/coviddashboard/corona_sentiment.rds")
     
-    corona_weeks <- volumeovertime %>%
-        meltwater_week() %>%
-        summarise_meltwater_by_week() %>%
-        left_join(coronavirus, by = "Week Beginning") %>%
-        filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
+    # corona_weeks <- volumeovertime %>%
+    #     meltwater_week() %>%
+    #     summarise_meltwater_by_week() %>%
+    #     left_join(coronavirus, by = "Week Beginning") %>%
+    #     filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
     
     corona_7day <- read_rds("corona7day.rds")
     
@@ -132,9 +139,9 @@ pdf(NULL)
     
     #write_rds(uri_df, "~/NetBaseApi/coviddashboard/uri_df.rds")
     
-    uris <- read_rds("uri_df.rds")
+  #  uris <- read_rds("uri_df.rds")
     
-   uri_links <- c( "https://twitter.com/MackayIM/status/1211957651849920513",
+    uri_links <- c( "https://twitter.com/MackayIM/status/1211957651849920513",
                    "https://twitter.com/GreenEpidemic/status/1215253360057544704",
                    "https://twitter.com/GreyHaired07/status/1218742383795302405",
                    "https://twitter.com/the_LoungeFly/status/1221054861506039813",
@@ -151,9 +158,9 @@ pdf(NULL)
                    "https://twitter.com/broomstick33/status/1247767301253783557?s=20"
    )
     
-    urisclick <- purrr::map_chr(
-      corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("%s-2.jpeg", .x))
-    )
+    # urisclick <- purrr::map_chr(
+    #   corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("%s-2.jpeg", .x))
+    # )
     
     total_mentions_colour <- "#FFFFFF"
     twitter_colour <- "#1da1f2"
@@ -472,185 +479,197 @@ pdf(NULL)
            output$hashtags_7days <- renderPlotly({
              hashtags_7days
            })
+
+           sentiment_timeline_plot  <- read_rds("sentiment_timeline_plot.rds")
            
-            output$sentiment_plot <- plotly::renderPlotly(
-              plotly::plot_ly(data = corona_sentiment,
-                              source = "hoverplotsource",
-                              mode = "none",
-                              stackgroup = "one",
-                              hoveron = 'points+fills'
-                                 ) %>%
-                   plotly::config(displayModeBar = FALSE) %>%
-                   plotly::add_trace(
-                     x = ~`Week Beginning`,
-                     y = ~`Percentage_Neutral`,
-                     name = "Neutral",
-                     fillcolor = total_mentions_colour)
-                    %>%
-                   plotly::config(displayModeBar = FALSE) %>%
-                   plotly::add_trace(
-                     x = ~`Week Beginning`,
-                     y = ~`Percentage_Negative`,
-                     name = "Negative",
-                     fillcolor = "red"
-                   ) %>%
-                   plotly::config(displayModeBar = FALSE) %>%
-                   plotly::add_trace(
-                     x = ~`Week Beginning`,
-                     y = ~`Percentage_Positive`,
-                     name = "Positive",
-                     fillcolor = "lightgreen"
-                   ) %>%
-                   plotly::layout(
-                     title = "",
-                     xaxis = list(title = "", color = "#ffffff"),
-                     yaxis = list(title = "Sentiment Over Time", color = "#ffffff"),
-                     legend = legend_features3,
-                     paper_bgcolor='#212121',
-                     plot_bgcolor='#212121',
-                     hovermode = "compare"
-                   )
-              ) 
+           output$sentiment_plot <- plotly::renderPlotly({
+             sentiment_timeline_plot
+           })           
+           
+            # output$sentiment_plot <- plotly::renderPlotly(
+            #   plotly::plot_ly(data = corona_sentiment,
+            #                   source = "hoverplotsource",
+            #                   mode = "none",
+            #                   stackgroup = "one",
+            #                   hoveron = 'points+fills'
+            #                      ) %>%
+            #        plotly::config(displayModeBar = FALSE) %>%
+            #        plotly::add_trace(
+            #          x = ~`Week Beginning`,
+            #          y = ~`Percentage_Neutral`,
+            #          name = "Neutral",
+            #          fillcolor = total_mentions_colour)
+            #         %>%
+            #        plotly::config(displayModeBar = FALSE) %>%
+            #        plotly::add_trace(
+            #          x = ~`Week Beginning`,
+            #          y = ~`Percentage_Negative`,
+            #          name = "Negative",
+            #          fillcolor = "red"
+            #        ) %>%
+            #        plotly::config(displayModeBar = FALSE) %>%
+            #        plotly::add_trace(
+            #          x = ~`Week Beginning`,
+            #          y = ~`Percentage_Positive`,
+            #          name = "Positive",
+            #          fillcolor = "lightgreen"
+            #        ) %>%
+            #        plotly::layout(
+            #          title = "",
+            #          xaxis = list(title = "", color = "#ffffff"),
+            #          yaxis = list(title = "Sentiment Over Time", color = "#ffffff"),
+            #          legend = legend_features3,
+            #          paper_bgcolor='#212121',
+            #          plot_bgcolor='#212121',
+            #          hovermode = "compare"
+            #        )
+            #   ) 
                    
-              output$lineplot <- plotly::renderPlotly(
-                 plotly::plot_ly(data = corona_weeks,
-                                 source = "hoverplotsource",
-                             customdata = ~map2(uris$uri, urisclick, ~list(.x, .y))
-                             ) %>%
-                   plotly::config(displayModeBar = FALSE) %>%
-                 plotly::add_trace(
-                     x = ~`Week Beginning`,
-                     # y = ~active_cum,
-                     y = ~`All`,
-                     type = "scatter",
-                     mode = "lines+markers",
-                     # name = "Active",
-                     name = "Total Mentions",
-                     line = list(color = total_mentions_colour),
-                     marker = list(color = total_mentions_colour)
-                 ) %>%
-                   plotly::add_trace(
-                     x = ~`Week Beginning`,
-                     # y = ~active_cum,
-                     y = ~`cumulative_confirmed_Australia`,
-                     type = "scatter",
-                     mode = "lines+markers",
-                     # name = "Active",
-                     name = "Confirmed Cases Australia",
-                     line = list(color = twitter_colour),
-                     marker = list(color = twitter_colour)
-                   ) %>%
-                   plotly::add_trace(
-                     x = ~`Week Beginning`,
-                     # y = ~active_cum,
-                     y = ~`cumulative_confirmed_China`,
-                     type = "scatter",
-                     mode = "lines+markers",
-                     # name = "Active",
-                     name = "Confirmed Cases China",
-                     line = list(color = "red"),
-                     marker = list(color = "red")
-                   ) %>%
-                 htmlwidgets::onRender(readLines("tooltip-image.js")) %>%
-                   htmlwidgets::onRender(readLines("tooltip-imageclick.js")) %>%
-                 plotly::add_annotations(
-                     x = as.Date("2019-12-29"),
-                     y = 1,
-                     text = paste("First case in Wuhan, China"),
-                     xref = "x",
-                     yref = "y",
-                     arrowhead = 5,
-                     arrowhead = 3,
-                     arrowsize = 1,
-                     showarrow = TRUE,
-                     font = list(color = '#FFFFFF'),
-                     ax = 30,
-                     ay = -90
-                 ) %>%
-                 plotly::add_annotations(
-                     x = as.Date("2020-01-12"),
-                     y = 2,
-                     text = paste("First Case Outside of China (Thailand)"),
-                     xref = "x",
-                     yref = "y",
-                     arrowhead = 5,
-                     arrowhead = 3,
-                     arrowsize = 1,
-                     showarrow = TRUE,
-                     font = list(color = '#FFFFFF'),
-                     ax = 30,
-                     ay = -120
-                 ) %>%
-                 plotly::add_annotations(
-                     x = as.Date("2020-01-26"),
-                     y = 3,
-                     text = paste("First 'Imported' Case in Australia"),
-                     xref = "x",
-                     yref = "y",
-                     arrowhead = 5,
-                     arrowhead = 3,
-                     arrowsize = 1,
-                     showarrow = TRUE,
-                     font = list(color = '#FFFFFF'),
-                     ax =  0,
-                     ay = -180
-                 ) %>%
-                 plotly::add_annotations(
-                     x = as.Date("2020-03-15"),
-                     y = 3,
-                     text = paste(
-                         "New containment measures"
-                     ),
-                     xref = "x",
-                     yref = "y",
-                     arrowhead = 10,
-                     arrowhead = 3,
-                     arrowsize = 1,
-                     showarrow = TRUE,
-                     font = list(color = '#FFFFFF'),
-                     ax = -10,
-                     ay = -90
-                 ) %>%
-                   plotly::add_annotations(
-                     x = as.Date("2020-03-01"),
-                     y = 3,
-                     text = paste(
-                       "First community spread cases in Australia"
-                     ),
-                     xref = "x",
-                     yref = "y",
-                     arrowhead = 10,
-                     arrowhead = 3,
-                     arrowsize = 1,
-                     showarrow = TRUE,
-                     font = list(color = '#FFFFFF'),
-                     ax = -0,
-                     ay = -130
-                   ) %>% plotly::add_annotations(
-                     x = as.Date("2020-03-22"),
-                     y = 3,
-                     text = paste(
-                       "Australia reaches 1000 cases"
-                     ),
-                     xref = "x",
-                     yref = "y",
-                     arrowhead = 10,
-                     arrowhead = 3,
-                     arrowsize = 1,
-                     showarrow = TRUE,
-                     font = list(color = '#FFFFFF'),
-                     ax = -10,
-                     ay = -150
-                   ) %>%
-                 plotly::layout(
-                     title = "",
-                     yaxis = list(title = "Conversation Over Time", color = "#FFFFFF"),
-                     xaxis = list(title = "", color = "#FFFFFF", showticklabels = T, type = "category"
-                                  ),
-                     legend = legend_features,
-                     paper_bgcolor='#212121',
-                     plot_bgcolor='#212121'
-                 ))
+            volume_chart <- readRDS("volumechart.rds")
+            
+            output$lineplot <- plotly::renderPlotly(
+              volume_chart
+            )
+            
+              # output$lineplot <- plotly::renderPlotly(
+              #    plotly::plot_ly(data = corona_weeks,
+              #                    source = "hoverplotsource",
+              #                customdata = ~map2(uris$uri, urisclick, ~list(.x, .y))
+              #                ) %>%
+              #      plotly::config(displayModeBar = FALSE) %>%
+              #    plotly::add_trace(
+              #        x = ~`Week Beginning`,
+              #        # y = ~active_cum,
+              #        y = ~`All`,
+              #        type = "scatter",
+              #        mode = "lines+markers",
+              #        # name = "Active",
+              #        name = "Total Mentions",
+              #        line = list(color = total_mentions_colour),
+              #        marker = list(color = total_mentions_colour)
+              #    ) %>%
+              #      plotly::add_trace(
+              #        x = ~`Week Beginning`,
+              #        # y = ~active_cum,
+              #        y = ~`cumulative_confirmed_Australia`,
+              #        type = "scatter",
+              #        mode = "lines+markers",
+              #        # name = "Active",
+              #        name = "Confirmed Cases Australia",
+              #        line = list(color = twitter_colour),
+              #        marker = list(color = twitter_colour)
+              #      ) %>%
+              #      plotly::add_trace(
+              #        x = ~`Week Beginning`,
+              #        # y = ~active_cum,
+              #        y = ~`cumulative_confirmed_China`,
+              #        type = "scatter",
+              #        mode = "lines+markers",
+              #        # name = "Active",
+              #        name = "Confirmed Cases China",
+              #        line = list(color = "red"),
+              #        marker = list(color = "red")
+              #      ) %>%
+              #    htmlwidgets::onRender(readLines("tooltip-image.js")) %>%
+              #      htmlwidgets::onRender(readLines("tooltip-imageclick.js")) %>%
+              #    plotly::add_annotations(
+              #        x = as.Date("2019-12-29"),
+              #        y = 1,
+              #        text = paste("First case in Wuhan, China"),
+              #        xref = "x",
+              #        yref = "y",
+              #        arrowhead = 5,
+              #        arrowhead = 3,
+              #        arrowsize = 1,
+              #        showarrow = TRUE,
+              #        font = list(color = '#FFFFFF'),
+              #        ax = 30,
+              #        ay = -90
+              #    ) %>%
+              #    plotly::add_annotations(
+              #        x = as.Date("2020-01-12"),
+              #        y = 2,
+              #        text = paste("First Case Outside of China (Thailand)"),
+              #        xref = "x",
+              #        yref = "y",
+              #        arrowhead = 5,
+              #        arrowhead = 3,
+              #        arrowsize = 1,
+              #        showarrow = TRUE,
+              #        font = list(color = '#FFFFFF'),
+              #        ax = 30,
+              #        ay = -120
+              #    ) %>%
+              #    plotly::add_annotations(
+              #        x = as.Date("2020-01-26"),
+              #        y = 3,
+              #        text = paste("First 'Imported' Case in Australia"),
+              #        xref = "x",
+              #        yref = "y",
+              #        arrowhead = 5,
+              #        arrowhead = 3,
+              #        arrowsize = 1,
+              #        showarrow = TRUE,
+              #        font = list(color = '#FFFFFF'),
+              #        ax =  0,
+              #        ay = -180
+              #    ) %>%
+              #    plotly::add_annotations(
+              #        x = as.Date("2020-03-15"),
+              #        y = 3,
+              #        text = paste(
+              #            "New containment measures"
+              #        ),
+              #        xref = "x",
+              #        yref = "y",
+              #        arrowhead = 10,
+              #        arrowhead = 3,
+              #        arrowsize = 1,
+              #        showarrow = TRUE,
+              #        font = list(color = '#FFFFFF'),
+              #        ax = -10,
+              #        ay = -90
+              #    ) %>%
+              #      plotly::add_annotations(
+              #        x = as.Date("2020-03-01"),
+              #        y = 3,
+              #        text = paste(
+              #          "First community spread cases in Australia"
+              #        ),
+              #        xref = "x",
+              #        yref = "y",
+              #        arrowhead = 10,
+              #        arrowhead = 3,
+              #        arrowsize = 1,
+              #        showarrow = TRUE,
+              #        font = list(color = '#FFFFFF'),
+              #        ax = -0,
+              #        ay = -130
+              #      ) %>% plotly::add_annotations(
+              #        x = as.Date("2020-03-22"),
+              #        y = 3,
+              #        text = paste(
+              #          "Australia reaches 1000 cases"
+              #        ),
+              #        xref = "x",
+              #        yref = "y",
+              #        arrowhead = 10,
+              #        arrowhead = 3,
+              #        arrowsize = 1,
+              #        showarrow = TRUE,
+              #        font = list(color = '#FFFFFF'),
+              #        ax = -10,
+              #        ay = -150
+              #      ) %>%
+              #    plotly::layout(
+              #        title = "",
+              #        yaxis = list(title = "Conversation Over Time", color = "#FFFFFF"),
+              #        xaxis = list(title = "", color = "#FFFFFF", showticklabels = T, type = "category"
+              #                     ),
+              #        legend = legend_features,
+              #        paper_bgcolor='#212121',
+              #        plot_bgcolor='#212121'
+              #    ))
               
               
           #    uris_7day$uri 
