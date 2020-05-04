@@ -78,7 +78,8 @@ pdf(NULL)
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
    # afinn <- readRDS("afinn.rds")
     
-    
+    uris <- readRDS("uris.rds")
+    urisclick <- readRDS("urisclick.rds")
     #coronavirus <- readRDS("coronavirus2.rds")
     corona7daycases <- readRDS("corona7daycases.rds")
     sw_desktop_plot <- readRDS("sw_desktop_plot.rds")
@@ -131,10 +132,10 @@ pdf(NULL)
     
     # base64 encoded string of each image
     
-    # uris <- purrr::map_chr(
-    #        corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s.jpeg", .x))
-    #   )
-    #   
+     # uris <- purrr::map_chr(
+     #        corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s.jpeg", .x))
+     #   )
+     #  
      #uri_df <- data.frame(uri = uris)
     
     #write_rds(uri_df, "~/NetBaseApi/coviddashboard/uri_df.rds")
@@ -827,8 +828,6 @@ shinyApp(ui = ui, server = server)
              
              
              ### Sentiment + Drivers	
-             
-             
              
              
             
