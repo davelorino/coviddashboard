@@ -1,5 +1,5 @@
 function(el) {
-  var tooltip = Plotly.d3.select('#' + el.id + ' .svg-container')
+  var tooltip5 = Plotly.d3.select('#' + el.id + ' .svg-container')
     .append("div")
     .attr("class", "my-custom-tooltip-click");
 
@@ -13,21 +13,32 @@ function(el) {
     var xPixel = pt.xaxis.l2p(x) + pt.xaxis._offset;
     var yPixel = pt.yaxis.l2p(y) + pt.yaxis._offset;
     // Insert the base64 encoded image
-    var img = "<img src='" +  pt.customdata[1] + "' width=800>";
-    tooltip.html(img)
+    var img3 = "<img src='" +  pt.customdata[1] + "' width=800>";
+    tooltip5.html(img3)
       .style("position", "absolute")
       .style("bottom", xPixel + "px")
       .style("bottom", yPixel + "px");
     // Fade in the image
-    tooltip.transition()
+    tooltip5.transition()
       .duration(0)
       .style("opacity", 1);
   });
 
   el.on('plotly_unhover', function(d) {
-    // Fade out the image
-    tooltip.transition()
+    
+    tooltip5.transition().duration(300).style("opacity", 0);
+    img3 = "<img src='~/NetBaseApi/coviddashboard/block.jpeg' width=10>";
+    tooltip5.html(img3)
+      .style("position", "absolute")
+      .style("top-left", xPixel + "px")
+      .style("top-left", yPixel + "px");
+    // Fade in the image
+    tooltip5.transition()
       .duration(300)
+      .style("opacity", 1);
+      tooltip5.transition()
+      .duration(500)
       .style("opacity", 0);
   });
 }
+

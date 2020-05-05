@@ -156,7 +156,11 @@ pdf(NULL)
                    "https://twitter.com/Darleneillyana/status/1241298043556646912?s=20",
                    "https://twitter.com/billbowtell/status/1242544469875949569?s=20",
                    "https://twitter.com/theprojecttv/status/1244900134925860865?s=20",
-                   "https://twitter.com/broomstick33/status/1247767301253783557?s=20"
+                   "https://twitter.com/broomstick33/status/1247767301253783557?s=20",
+                   "https://twitter.com/BillGates/status/1250292126643941376",
+                   "https://twitter.com/ScottMorrisonMP/status/1252785723830226944"
+                   
+                   
    )
     
     # urisclick <- purrr::map_chr(
@@ -208,10 +212,11 @@ pdf(NULL)
                 
                     "))), 
                                     ),
-                       mainPanel(column(width = 12, align = "left",
-                 
+                       mainPanel(
+                         fluidRow( height = 12,
+                         column(width = 12, align = "left",
                          h4("Volume of Covid-19 conversation over time, Australia (VoC only)", align = "center"),
-                      wellPanel(introBox(plotlyOutput("lineplot"), 
+                      wellPanel(introBox(plotlyOutput("lineplot", height = "500px"), 
                                  data.step = 1, 
                                  data.intro = "Here we analyze the <b>volume</b> of conversation over time among twitter, 
                                  blogs and forums.<br/>
@@ -265,7 +270,9 @@ pdf(NULL)
                                        br()
                                        ))), 
                                  bs_button(button_size = "small", "Analysis", button_type = "default") %>%
-                                   bs_attach_collapse("volume_collapse")),
+                                   bs_attach_collapse("volume_collapse"))
+                      ,
+                      
                                          # wellPanel(plotlyOutput("lineplot_7days"),
                                          # bs_collapse("weeklytimelinecollapsed", content = tags$div(class = "well", column(width = 12, 
                                          #         p("This chart shows a 7 day window between the 9th - 15th of April (inclusive).")))),
@@ -273,6 +280,7 @@ pdf(NULL)
                                          #   bs_attach_collapse("weeklytimelinecollapsed")
                                          #   ),
                                  br(), br(),
+              
                         h4("Sentiment of Covid-19 Conversation Over Time, Australia (Voc only)", align = "center"),
                         wellPanel(introBox(plotlyOutput("sentiment_plot"),
                                   data.step = 2,
@@ -364,7 +372,8 @@ pdf(NULL)
                       #  wellPanel(introBox(column(width = 4, plotlyOutput("udpipe_plot")))),
                             )
                           )
-                        ),
+                        )
+                      ),
                  tabPanel(title = introBox( data.step = 7, data.intro = "Let's move over to the Search page - click 'Search'. <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
                             sidebarPanel(img(src="unnamed2.png", width="80%", height="80%"),
                                          br(), br(),
