@@ -219,7 +219,7 @@ pdf(NULL)
                          h4("Volume of COVID-19 conversation over time, Australia (VoC only)", align = "center"),
                       wellPanel(introBox(plotlyOutput("lineplot", height = "500px"), 
                                  data.step = 1, 
-                                 data.intro = "Here we analyze the <b>volume</b> of conversation over time among twitter, 
+                                 data.intro = "Here we analyse the <b>volume</b> of conversation over time among twitter, 
                                  blogs and forums.<br/>
                                  <b>Hover</b> over the points to see what drove the conversation.",
                                  data.position = "bottom-left_aligned"),
@@ -318,13 +318,14 @@ pdf(NULL)
                         h4("Sentiment of COVID-19 conversation over time, Australia (VoC only)", align = "center"),
                         wellPanel(introBox(plotlyOutput("sentiment_plot", height = "450px"),
                                   data.step = 3,
-                                  data.intro = "Here we analyze the <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
+                                  data.intro = "Here we analyse the <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
                                   bs_collapse(id = "sentiment_collapse",
                                               content = tags$div(class = "well",
                                 tags$em(  tags$p("This chart displays the percentage of mentions of COVID-19 from Australians only that are positive, negative and neutral. 
                                          Each date on the graph represents a 7 day period, beginning at the labelled date. For example, the first point labelled 'Dec 29, 2019' represents
                                          the average weekly sentiment between the 29th of December and the 4th of January inclusive. Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
-                                                 and Tweets Dec 29, 2019 - May 2nd, 2020.")), 
+                                                 and Tweets Dec 29, 2019 - May 2nd, 2020. Note: Neutral sentiment refers to mentions in which either 
+                                                 negative or positive keywords could not be identified.")), 
                                   
                                column(width=12, 
                                       br(),
@@ -370,8 +371,6 @@ pdf(NULL)
                                                                                Simultaneously, the relaxation of lockdown laws has been met with mixed reactions by the public - with 
                                                                                some questioning whether it will prompt another jump in the infection rate.", tags$b("While the curve has started 
                                                                                to flatten, it appears Australians are proceeding with caution, rather than celebration."), br(), br(),
-
-                                                                              tags$h5("Key Events"), 
                                                                               
                                                                               tags$h5("Apr 12th - May 3rd"),
                                                                               tags$li("Donald Trump halts funding to the World Health Organisation."),
@@ -442,16 +441,16 @@ pdf(NULL)
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
                                                                                         " sentiment analysis lexicon. 4 week period 5th April - 2nd May inclusive. 
-                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(),
+                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), br(), br(),
                                                                     tags$li("The largest contributors to negative sentiment continue to be focused on virus casualties 
                                                                     and spread (e.g. dead, infected, die, death, died). 
                                                                     ", tags$b("Although the curve is flattening, 
                                                                     this demonstrates there is still a high level of fear within the community, and that 
-                                                                    possibly most Australians aren’t ready to return to normal.")),
+                                                                    possibly most Australians aren’t ready to return to normal.")), br(),
                                               tags$li("While only accounting for a small portion of mentions, terms that generated 
                                               positive online sentiment reflect the ‘good news stories’ that are emerging from this 
                                               crisis (e.g. help, care, support, thank) ", tags$b("showing that there is a consumer appetite for 
-                                              uplifting stories in these challenging times.")), 
+                                              uplifting stories in these challenging times.")), br(),
                                               tags$li("In the last 7 days, there has been a higher proportion of negative words 
                                                       driving sentiment. These new emerging terms (shit, worse, important) ", tags$b("continue 
                                                       to reflect a climate of uncertainty despite an improvement in the domestic crisis situation.")))),
