@@ -372,11 +372,6 @@ pdf(NULL)
                                                                                some questioning whether it will prompt another jump in the infection rate.", tags$b("While the curve has started 
                                                                                to flatten, it appears Australians are proceeding with caution, rather than celebration."), br(), br(),
                                                                               
-                                                                              tags$h5("Apr 12th - May 3rd"),
-                                                                              tags$li("Donald Trump halts funding to the World Health Organisation."),
-                                                                              tags$li("Australian government releases COVIDSafe app."), 
-                                                                              tags$li("Some Australian states begin relaxing lockdown laws as curve flattens.")
-                                                                              
                                                                                )),
                                                             bs_button("Analysis", button_type = "default") %>%
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
@@ -441,7 +436,7 @@ pdf(NULL)
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
                                                                                         " sentiment analysis lexicon. 4 week period 5th April - 2nd May inclusive. 
-                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), br(), br(),
+                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), 
                                                                     tags$li("The largest contributors to negative sentiment continue to be focused on virus casualties 
                                                                     and spread (e.g. dead, infected, die, death, died). 
                                                                     ", tags$b("Although the curve is flattening, 
