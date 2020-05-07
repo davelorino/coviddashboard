@@ -367,8 +367,8 @@ pdf(NULL)
                                                                                "In the past week online conversation has largely revolved around Australia’s path back to ‘normal’,
                                                                                with controversy around the launch of the COVIDSafe app driving a large portion of negative sentiment. 
                                                                                Simultaneously, the relaxation of lockdown laws has been met with mixed reactions by the public - with 
-                                                                               some questioning whether it will prompt another jump in the infection rate. While the curve has started 
-                                                                               to flatten, it appears Australians are proceeding with caution, rather than celebration.", br(), br(),
+                                                                               some questioning whether it will prompt another jump in the infection rate.", tags$b("While the curve has started 
+                                                                               to flatten, it appears Australians are proceeding with caution, rather than celebration."), br(), br(),
 
                                                                               tags$h5("Key Events"), 
                                                                               
