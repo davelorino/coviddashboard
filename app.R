@@ -191,6 +191,7 @@ pdf(NULL)
     
     
     contribution_plot <- read_rds("plotly_object.rds")
+    contribution_plot_30days <- read_rds("plotly_object30days.rds")
     bing_sentiment_plot <- read_rds("covid_bingsent_plot.rds")
 
 # UI-------------------------------------------------------------------------------------------------------------
@@ -199,7 +200,7 @@ pdf(NULL)
                     
                    title = "Saatchi & Saatchi COVID-19 Pulse", theme = shinytheme("darkly"),
                    tabPanel(title = "Social Pulse",
-                       sidebarPanel(img(src="unnamed2.png", width="80%", height="80%"),
+                       sidebarPanel(img(src="Artboard 1logo.png", width="80%", height="80%"),
                                     br(), br(),
                                     actionButton("helpMe", "Tour"),
                                     introjsUI(),
@@ -209,7 +210,6 @@ pdf(NULL)
                       .introjs-tooltiptext {
                         color: #212121;
                       }
-                
                     "))), 
                                     ),
                        mainPanel(
@@ -382,21 +382,21 @@ pdf(NULL)
                                                               not surprising as it accounts for only a small proportion of all mentions (~10%).")),
                                                      bs_button("Analysis", button_type = "default") %>%
                                                         bs_attach_collapse("contribution_collapse")))),
-                                  column(width = 6, h5("Text Sentiment Frequency - Weekly Snapshot"), 
+                                  column(width = 6, h5("Text Sentiment Frequency - Monthly Snapshot"), 
                                           wellPanel(introBox(data.step = 6, 
                                                              data.intro = paste("This chart analyzes the top 25 words contributing to positive 
                                                              or negative sentiment in the last week using the ", 
-                                                                                tags$a(href = "https://www.cs.uic.edu/~liub/FBS/opinion-mining-final-WSDM.pdf", "Bing Liu"), " sentiment lexicon"),
-                                                             plotlyOutput("bing_sentiment_plot"),
+                                                                                tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon"),
+                                                             plotlyOutput("contribution_plot_30days"),
                                                              bs_collapse(id = "bing_sent", content = tags$div(class = "well", 
-                                                           tags$em( tags$p("Most frequent positive and negative words. Classifications
-                                                                     determined by the", tags$a(href = "https://www.cs.uic.edu/~liub/FBS/opinion-mining-final-WSDM.pdf", 
-                                                                                                "Bing Liu"), " sentiment lexicon. 7 day period 9th - 15th Apr inclusive. 
-                                                                    Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
-                                                               
-                                                               "Echoing observations from previous charts we can see that negative sentiment 
-                                                             is primarily about the high rate of death and infection, though positive sentiment
-                                                              is more about support and unity.")),
+                                                                                                              tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
+                                                                                                                             tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
+                                                                                                                             " sentiment analysis lexicon. 4 week period 5th April - 2nd May inclusive. 
+                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")), 
+                                                                                                              "Not surprisingly sentiment around coronavirus is weighted to the negative end of the spectrum,
+                                                              with the largest contribution to negative sentiment being the notion of
+                                                               a crisis, and the large numbers of death worldwide. Positive sentiment exhibits no clear trend, 
+                                                              not surprising as it accounts for only a small proportion of all mentions (~10%).")),
                                                       bs_button("Analysis", button_type = "default") %>%
                                                         bs_attach_collapse("bing_sent")
                                           
@@ -847,10 +847,12 @@ pdf(NULL)
                 contribution_plot
               })
               
-              output$bing_sentiment_plot <- renderPlotly({
-                bing_sentiment_plot
+              # output$bing_sentiment_plot <- renderPlotly({
+              #   bing_sentiment_plot
+              # })
+              output$contribution_plot_30days <- renderPlotly({
+                contribution_plot_30days
               })
-
               
       
             
