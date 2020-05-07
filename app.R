@@ -231,7 +231,7 @@ pdf(NULL)
                                          the ",  
                                           tags$b("total weekly mentions "),  
                                           "between the 29th of December and the 4th of January inclusive. 
-                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - April 12th, 2020. 
+                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - May 2nd, 2020. 
                                           Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.", 
                                                      tags$style(type = "text/css", "p { font-size: 12px; }")))),
                                 br(), br(),
@@ -323,7 +323,7 @@ pdf(NULL)
                                 tags$em(  tags$p("This chart displays the percentage of mentions of COVID-19 from Australians only that are positive, negative and neutral. 
                                          Each date on the graph represents a 7 day period, beginning at the labelled date. For example, the first point labelled 'Dec 29, 2019' represents
                                          the average weekly sentiment between the 29th of December and the 4th of January inclusive. Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
-                                                 and Tweets Dec 29, 2019 - April 12th, 2020.")), 
+                                                 and Tweets Dec 29, 2019 - May 2nd, 2020.")), 
                                   "Not surprisingly, sentiment has been largely negative in relation to COVID-19. This difference is even more pronounced when neutral mentions are removed 
                                   (click on ‘neutral’ in the legend box). 
                                   Key drivers are further elaborated on below.", tags$style(type = "text/css", "p { font-size: 12px; }"))
