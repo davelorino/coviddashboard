@@ -71,7 +71,7 @@ pdf(NULL)
     
 # DATA---------------------------------------------------------------------------------------------------------------------
 
-    sevendaydonut <- read_rds("sevendaydonut.rds")
+    sevendaydonut <- read_rds("sevendaydonut2.rds")
     #volumeovertime <- read_csv("coronaconvo2.csv")
     #coronasent <- read_csv("coronasent.csv")
     hashtags_7days <- read_rds("hashtags_plot7day.rds")
