@@ -335,7 +335,7 @@ pdf(NULL)
                                                             plotlyOutput("sevendaydonut"),
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
-                                                                             tags$em( tags$p("Sentiment in the 7 day period between the 9th and 15th of April inclusive. 
+                                                                             tags$em( tags$p("Sentiment in the 7 day period between the 26th of April and the 2nd of May inclusive. 
                                                                                       Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
                                                                    
                                                                                "Sentiment was on par with the monthly average.
@@ -354,7 +354,7 @@ pdf(NULL)
                                                              plotlyOutput("hashtags_7days"),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
                                                                  content = tags$div(class = "well",
-                                                                                  tags$em(  tags$p("Trending hashtags between the 9th and 15h of April inclusive.
+                                                                                  tags$em(  tags$p("Trending hashtags between the 26th of April and the 2nd of May inclusive.
                                                                                            Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
                                                                                     "Trending hashtags were grouped around three main concerns:",
                                                                                     br(), br(),
@@ -374,7 +374,7 @@ pdf(NULL)
                                                              bs_collapse(id = "contribution_collapse", content = tags$div(class = "well",
                                                              tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                      tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                              " sentiment analysis lexicon. 7 day period 9th - 15th Apr inclusive. 
+                                                              " sentiment analysis lexicon. 7 day period 26th April - 2nd May inclusive. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")), 
                                                               "Not surprisingly sentiment around coronavirus is weighted to the negative end of the spectrum,
                                                               with the largest contribution to negative sentiment being the notion of
