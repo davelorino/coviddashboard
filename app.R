@@ -390,12 +390,27 @@ pdf(NULL)
                                                                  content = tags$div(class = "well",
                                                                                   tags$em(  tags$p("Trending hashtags between the 26th of April and the 2nd of May inclusive.
                                                                                            Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
-                                                                                    "Trending hashtags were grouped around three main concerns:",
-                                                                                    br(), br(),
-                                                                                    tags$li("The Ruby Princess cruise ship (this was the #1 hashtag in mentions of coronavirus for the week)."),
-                                                                                    tags$li("Lockdown measures and containment (#stayathome, #stayathomesavelives, #stayhome) collectively 
-                                                                                            had more mentions than the Ruby Princess."),
-                                                                                    tags$li("International politics (#Trump, #Iran) was a matter of particular interest to Australians last week too."))),
+                                                                                    
+                                                                                  
+                                                                                  tags$h5("Trending hashtags were grouped around four main concerns:"), br(),
+                                                                                    column(width = 12,
+                                                                                    tags$li("The Ruby Princess cruise ship (", tags$b("#rubyprincess"), "was the #1 hashtag in mentions 
+                                                                                    of coronavirus for the week). As the source of Australia’s largest outbreak, this 
+                                                                                    remains a hot news topic and key area of public interest."), br(),
+                                                                                    tags$li("The launch of the government’s COVIDSafe App has dominated headlines 
+                                                                                    and consumer conversation, with a mixed response from the public. Privacy concerns, 
+                                                                                    tech issues and regulation have been the key areas of concern related to use of this 
+                                                                                    hashtag (", tags$b("#covidsafe"), ")."), br(),
+                                                                                    tags$li("With a large portion of the workforce now working from home or self-isolating, 
+                                                                                    lockdown measures have fuelled a significant portion of conversation online both positive 
+                                                                                    and negative. While some are critical of the government’s approach, others have rallied 
+                                                                                    behind it – as demonstrated by widespread use of these hashtags (", tags$b("#stayhome, #stayhome, 
+                                                                                    #socialdistancing"), ")."), br(),
+                                                                                    tags$li("Despite a preference for local news stories, international politics was a 
+                                                                                    matter of particular interest to Australians last week with ", tags$b("#Trump "), "and ", 
+                                                                                            tags$b("#China "),   
+                                                                                    "trending in response to breaking news stories."), br(), br()
+                                                                                      ))),
                                                      bs_button("Analysis", button_type = "default") %>%
                                                          bs_attach_collapse("weekly_hashtags_collapse")))),
                                           br(), br(),
