@@ -215,6 +215,7 @@ pdf(NULL)
                        mainPanel(
                          fluidRow( height = 12,
                          column(width = 12, align = "left",
+                              
                          h4("Volume of Covid-19 conversation over time, Australia (VoC only)", align = "center"),
                       wellPanel(introBox(plotlyOutput("lineplot", height = "500px"), 
                                  data.step = 1, 
@@ -313,8 +314,8 @@ pdf(NULL)
                                          #   bs_attach_collapse("weeklytimelinecollapsed")
                                          #   ),
                                  br(), br(),
-              
-                        h4("Sentiment of Covid-19 Conversation Over Time, Australia (Voc only)", align = "center"),
+                     
+                        h4("Sentiment of Covid-19 conversation over time, Australia (Voc only)", align = "center"),
                         wellPanel(introBox(plotlyOutput("sentiment_plot", height = "450px"),
                                   data.step = 3,
                                   data.intro = "Here we analyze the <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
@@ -357,6 +358,7 @@ pdf(NULL)
                                   bs_attach_collapse("sentiment_collapse")),
                                   column(width = 6, h5("VoC Sentiment in the last 7 days"), 
                                          wellPanel(introBox(data.step = 4,
+                                                         
                                                             data.intro = "This chart shows a snapshot of the consumer sentiment over the last week.", 
                                                             plotlyOutput("sevendaydonut"),
                                                             bs_collapse(id = "weekly_sentiment_collapse",
@@ -380,7 +382,7 @@ pdf(NULL)
                                                                                )),
                                                             bs_button("Analysis", button_type = "default") %>%
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
-                                   column(width = 6, h5("VoC Sentiment in the last 7 days"), 
+                                   column(width = 6, h5("Trending hashtags - weekly snapshot"), 
                                           wellPanel(introBox(data.step = 5, 
                                                              
                                                              data.intro = "This chart analyses the top trending hashtags in the last week.
@@ -414,7 +416,7 @@ pdf(NULL)
                                                      bs_button("Analysis", button_type = "default") %>%
                                                          bs_attach_collapse("weekly_hashtags_collapse")))),
                                           br(), br(),
-                                  column(width = 6,  h5("Text Sentiment Score - Weekly Snapshot"), 
+                                  column(width = 6,  h5("Text sentiment score - weekly snapshot"), 
                                          wellPanel(introBox(data.step = 6, 
                                                              data.intro = paste("This chart analyses the top 25 words contributing to positive 
                                                              or negative sentiment in the last week using the ", 
@@ -431,7 +433,7 @@ pdf(NULL)
                                                               not surprising as it accounts for only a small proportion of all mentions (~10%).")),
                                                      bs_button("Analysis", button_type = "default") %>%
                                                         bs_attach_collapse("contribution_collapse")))),
-                                  column(width = 6, h5("Text Sentiment Frequency - Monthly Snapshot"), 
+                                  column(width = 6, h5("Text sentiment score - monthly snapshot"), 
                                           wellPanel(introBox(data.step = 7, 
                                                              data.intro = paste("This chart analyses the top 25 words contributing to positive 
                                                              or negative sentiment in the last week using the ", 
@@ -454,87 +456,88 @@ pdf(NULL)
                             )
                           )
                         )
-                      ),
-                 tabPanel(title = introBox( data.step = 8, data.intro = "Let's move over to the Search page - click 'Search'. <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
-                            sidebarPanel(img(src="unnamed2.png", width="80%", height="80%"),
-                                         br(), br(),
-                                         br(), br(),
-                                         width = 2,
-                                         tags$head(
-                                           tags$style(HTML("
-                      .introjs-tooltiptext {
-                        color: #212121;
-                      }
-                
-                    ")))
-                            ),
-                            mainPanel(tabsetPanel(tabPanel("Desktop", column(width = 12, align = "left",
-                                             h4("Digital Search Phrase Match", align = "center"),
-                                      wellPanel( introBox(data.step = 9, data.intro = "This plot shows us the phrases most commonly associated with 'coronavirus'
-                                                           from all search engine traffic.", plotlyOutput("sw_desktop_plot")),
-                                                bs_collapse(id = "sw_desktop_collapse", content = tags$div(class = "well", 
-                                               tags$em(p("Associated phrases in searches for 'coronavirus' 
-                                                  on desktop devices ranked by volume of searches; Period: 
-                                                  Jan 1st - Mar 31st 2020; Data: SimilarWeb.") ), tags$li("The number one destination for searches of 'coronavirus' on desktop
-                                                devices is www.health.gov.au."), tags$li("If we double-click on health.gov.au in the legend box to the right of the chart
-                                                 we can see all of the matched phrases that led to this destination."), tags$li("When isolating other domains we can see that people 
-                                                 searching for updates on international 
-                                                news arrive at Al-Jazeera."), tags$li("Visitors to the Telegraph.co.uk are asking 'how did coronavirus start?'."), 
-                                               tags$li("People asking about a 'vaccine' and a 'cure' arrive at theguardian.com.au."))),
-                                                bs_button("Analysis", button_type = "default") %>%
-                                                  bs_attach_collapse("sw_desktop_collapse"))
-                                              , column(width = 12, align = "left", 
-                                                       h4("Associated Phrases by Domain", align = "center"),
-                                                       wellPanel(
-                                                         introBox(data.step = 10, data.intro = "This chart shows the proportion of traffic that went to each domain from 
-                                                                  search engine searches for 'coronavirus' and associated phrases.",
-                                                         plotlyOutput("sw_desktop_phrases_donut")),
-                                                                 bs_collapse(id = "sw_desktop_donut_collapse", 
-                                                                 content = tags$div(class = "well", 
-                                                                 tags$em(p("Associated phrases in searches for 'coronavirus' 
-                                                                                on desktop devices ranked by destination; Period: 
-                                                                                Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                                                                tags$li("Health.gov.au accounts for 56% of searches for 'coronavirus' from Australians."), 
-                                                                tags$li("Nytimes.com and abc.com.au take the next two spots for most popular web destinations for searches of coronavirus."),
-                                                                tags$li("Most domains are generating significantly smaller proportions of traffic share (< 5%)."))),
-                                                             bs_button("Analysis", button_type = "default") %>%
-                                                                   bs_attach_collapse("sw_desktop_donut_collapse")
-                                                                 )))),
-                                      tabPanel("Mobile", column(width = 12, align = "left",
-                                                                h4("Digital Search Phrase Match", align = "center"),
-                                                                wellPanel(
-                                                                   plotlyOutput("sw_mobile_plot"),
-                                                                  bs_collapse(id = "sw_mobile_collapse", content = tags$div(class = "well", tags$em(p("Associated phrases in searches for 'coronavirus' 
-                                                                                                                          on mobile devices ranked by volume of searches; Period: 
-                                                                                                                          Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                                                                                                                            tags$li("On mobile devices news.com.au is the most popular destination 
-                                                                                                                            for Australians searching 'coronavirus'."), 
-                                                                                                                            tags$li("Health.gov.au comes in second, 
-                                                                                                                            followed by the world health organisation."), 
-                                                                                                                            tags$li("Searchers are predominantly 
-                                                                                                                            interested in the symptoms and updates on the spread of the disease."))),
-                                                                  bs_button("Analysis", button_type = "default") %>%
-                                                                    bs_attach_collapse("sw_mobile_collapse")
-                                                                  ),
-                                                                column(width = 12, align = "left",
-                                                                       h4("Associated Phrases by Domain", align = "center"),
-                                                                       wellPanel(
-                                                                         plotlyOutput("sw_mobile_phrases_donut"),
-                                                                         bs_collapse(id = "sw_mobile_donut_collapse", content = tags$div(class = "well", 
-                                                                                                                      tags$em(  p("Associated phrases in searches for 'coronavirus' 
-                                                                                                                          on mobile devices ranked by destination; Period: 
-                                                                                                                          Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                                                                                                                      tags$li("News.com.au, health.gov.au and abc.com.au receive
-                                                                                                                         the most traffic for searches of 'coronavirus' on mobile devices."),  
-                                                                                                                        tags$li("Mobile traffic generates a significant number of non-Australian destinations, 
-                                                                                                                        reflecting the global nature of the disease."),
-                                                                                                                        tags$li("Most domains are receiving less than 2% of traffic share, 
-                                                                                                                                indicating that desinations for searches of coronavirus are quite broad."))),
-                                                                         bs_button("Analysis", button_type = "default") %>%
-                                                                           bs_attach_collapse("sw_mobile_donut_collapse")
-                                                                         )))))
-                   )
-           )
+                      )
+                 #   ,
+                 # tabPanel(title = introBox( data.step = 8, data.intro = "Let's move over to the Search page - click 'Search'. <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
+                 #            sidebarPanel(img(src="unnamed2.png", width="80%", height="80%"),
+                 #                         br(), br(),
+                 #                         br(), br(),
+                 #                         width = 2,
+                 #                         tags$head(
+                 #                           tags$style(HTML("
+                 #      .introjs-tooltiptext {
+                 #        color: #212121;
+                 #      }
+                 # 
+                 #    ")))
+                 #            ),
+                 #            mainPanel(tabsetPanel(tabPanel("Desktop", column(width = 12, align = "left",
+                 #                             h4("Digital Search Phrase Match", align = "center"),
+                 #                      wellPanel( introBox(data.step = 9, data.intro = "This plot shows us the phrases most commonly associated with 'coronavirus'
+                 #                                           from all search engine traffic.", plotlyOutput("sw_desktop_plot")),
+                 #                                bs_collapse(id = "sw_desktop_collapse", content = tags$div(class = "well", 
+                 #                               tags$em(p("Associated phrases in searches for 'coronavirus' 
+                 #                                  on desktop devices ranked by volume of searches; Period: 
+                 #                                  Jan 1st - Mar 31st 2020; Data: SimilarWeb.") ), tags$li("The number one destination for searches of 'coronavirus' on desktop
+                 #                                devices is www.health.gov.au."), tags$li("If we double-click on health.gov.au in the legend box to the right of the chart
+                 #                                 we can see all of the matched phrases that led to this destination."), tags$li("When isolating other domains we can see that people 
+                 #                                 searching for updates on international 
+                 #                                news arrive at Al-Jazeera."), tags$li("Visitors to the Telegraph.co.uk are asking 'how did coronavirus start?'."), 
+                 #                               tags$li("People asking about a 'vaccine' and a 'cure' arrive at theguardian.com.au."))),
+                 #                                bs_button("Analysis", button_type = "default") %>%
+                 #                                  bs_attach_collapse("sw_desktop_collapse"))
+                 #                              , column(width = 12, align = "left", 
+                 #                                       h4("Associated Phrases by Domain", align = "center"),
+                 #                                       wellPanel(
+                 #                                         introBox(data.step = 10, data.intro = "This chart shows the proportion of traffic that went to each domain from 
+                 #                                                  search engine searches for 'coronavirus' and associated phrases.",
+                 #                                         plotlyOutput("sw_desktop_phrases_donut")),
+                 #                                                 bs_collapse(id = "sw_desktop_donut_collapse", 
+                 #                                                 content = tags$div(class = "well", 
+                 #                                                 tags$em(p("Associated phrases in searches for 'coronavirus' 
+                 #                                                                on desktop devices ranked by destination; Period: 
+                 #                                                                Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
+                 #                                                tags$li("Health.gov.au accounts for 56% of searches for 'coronavirus' from Australians."), 
+                 #                                                tags$li("Nytimes.com and abc.com.au take the next two spots for most popular web destinations for searches of coronavirus."),
+                 #                                                tags$li("Most domains are generating significantly smaller proportions of traffic share (< 5%)."))),
+                 #                                             bs_button("Analysis", button_type = "default") %>%
+                 #                                                   bs_attach_collapse("sw_desktop_donut_collapse")
+                 #                                                 )))),
+                 #                      tabPanel("Mobile", column(width = 12, align = "left",
+                 #                                                h4("Digital Search Phrase Match", align = "center"),
+                 #                                                wellPanel(
+                 #                                                   plotlyOutput("sw_mobile_plot"),
+                 #                                                  bs_collapse(id = "sw_mobile_collapse", content = tags$div(class = "well", tags$em(p("Associated phrases in searches for 'coronavirus' 
+                 #                                                                                                          on mobile devices ranked by volume of searches; Period: 
+                 #                                                                                                          Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
+                 #                                                                                                            tags$li("On mobile devices news.com.au is the most popular destination 
+                 #                                                                                                            for Australians searching 'coronavirus'."), 
+                 #                                                                                                            tags$li("Health.gov.au comes in second, 
+                 #                                                                                                            followed by the world health organisation."), 
+                 #                                                                                                            tags$li("Searchers are predominantly 
+                 #                                                                                                            interested in the symptoms and updates on the spread of the disease."))),
+                 #                                                  bs_button("Analysis", button_type = "default") %>%
+                 #                                                    bs_attach_collapse("sw_mobile_collapse")
+                 #                                                  ),
+                 #                                                column(width = 12, align = "left",
+                 #                                                       h4("Associated Phrases by Domain", align = "center"),
+                 #                                                       wellPanel(
+                 #                                                         plotlyOutput("sw_mobile_phrases_donut"),
+                 #                                                         bs_collapse(id = "sw_mobile_donut_collapse", content = tags$div(class = "well", 
+                 #                                                                                                      tags$em(  p("Associated phrases in searches for 'coronavirus' 
+                 #                                                                                                          on mobile devices ranked by destination; Period: 
+                 #                                                                                                          Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
+                 #                                                                                                      tags$li("News.com.au, health.gov.au and abc.com.au receive
+                 #                                                                                                         the most traffic for searches of 'coronavirus' on mobile devices."),  
+                 #                                                                                                        tags$li("Mobile traffic generates a significant number of non-Australian destinations, 
+                 #                                                                                                        reflecting the global nature of the disease."),
+                 #                                                                                                        tags$li("Most domains are receiving less than 2% of traffic share, 
+                 #                                                                                                                indicating that desinations for searches of coronavirus are quite broad."))),
+                 #                                                         bs_button("Analysis", button_type = "default") %>%
+                 #                                                           bs_attach_collapse("sw_mobile_donut_collapse")
+                 #                                                         )))))
+                #   )
+          # )
     )
     
                   
