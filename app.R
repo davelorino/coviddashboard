@@ -415,42 +415,48 @@ pdf(NULL)
                                                      bs_button("Analysis", button_type = "default") %>%
                                                          bs_attach_collapse("weekly_hashtags_collapse")))),
                                           br(), br(),
-                                  column(width = 6,  h5("Text sentiment score - weekly snapshot"), 
+                                  
+                           column(width = 6,  h5("Text sentiment score - weekly snapshot"), 
                                          wellPanel(introBox(data.step = 6, 
-                                                             data.intro = paste("This chart analyses the top 25 words contributing to positive 
-                                                             or negative sentiment in the last week using the ", 
+                                                             data.intro = paste("This chart analyses the top 25 words contributing to positive or negative sentiment in the last week using the ", 
                                                                                 tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon."),
-                                                             plotlyOutput("contribution_plot"),
-                                                             bs_collapse(id = "contribution_collapse", content = tags$div(class = "well",
-                                                             tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
-                                                                     tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                              " sentiment analysis lexicon. 7 day period 26th April - 2nd May inclusive. 
-                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")), 
-                                                              "Not surprisingly sentiment around coronavirus is weighted to the negative end of the spectrum,
-                                                              with the largest contribution to negative sentiment being the notion of
-                                                               a crisis, and the large numbers of death worldwide. Positive sentiment exhibits no clear trend, 
-                                                              not surprising as it accounts for only a small proportion of all mentions (~10%).")),
-                                                     bs_button("Analysis", button_type = "default") %>%
-                                                        bs_attach_collapse("contribution_collapse")))),
+                                                             plotlyOutput("contribution_plot")
+                                                             
+                                                     )
+                                                   )),
                                   column(width = 6, h5("Text sentiment score - monthly snapshot"), 
                                           wellPanel(introBox(data.step = 7, 
                                                              data.intro = paste("This chart analyses the top 25 words contributing to positive 
                                                              or negative sentiment in the last month using the ", 
                                                                                 tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon."),
-                                                             plotlyOutput("contribution_plot_30days"),
-                                                             bs_collapse(id = "bing_sent", content = tags$div(class = "well", 
-                                                                                                              tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
-                                                                                                                             tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                                                             " sentiment analysis lexicon. 4 week period 5th April - 2nd May inclusive. 
-                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")), 
-                                                                                                              "Not surprisingly sentiment around coronavirus is weighted to the negative end of the spectrum,
-                                                              with the largest contribution to negative sentiment being the notion of
-                                                               a crisis, and the large numbers of death worldwide. Positive sentiment exhibits no clear trend, 
-                                                              not surprising as it accounts for only a small proportion of all mentions (~10%).")),
-                                                      bs_button("Analysis", button_type = "default") %>%
-                                                        bs_attach_collapse("bing_sent")
-                                          
-                                                                         )))
+                                                             plotlyOutput("contribution_plot_30days")
+                                                                         ))),
+                      column(width = 12, wellPanel(
+                      bs_collapse(id = "contribution_collapse", content = tags$div(class = "well", 
+                                                                                   column(width=6,
+                                                                                   tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
+                                                                                                  tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
+                                                                                                  " sentiment analysis lexicon. 7 day period 26th April - 2nd May inclusive. 
+                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
+                                                                                   column(width = 6,
+                                                                                   tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
+                                                                                                  tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
+                                                                                        " sentiment analysis lexicon. 4 week period 5th April - 2nd May inclusive. 
+                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(),
+                                                                    tags$li("The largest contributors to negative sentiment continue to be focused on virus casualties 
+                                                                    and spread (e.g. dead, infected, die, death, died). 
+                                                                    ", tags$b("Although the curve is flattening, 
+                                                                    this demonstrates there is still a high level of fear within the community, and that 
+                                                                    possibly most Australians aren’t ready to return to normal.")),
+                                              tags$li("While only accounting for a small portion of mentions, terms that generated 
+                                              positive online sentiment reflect the ‘good news stories’ that are emerging from this 
+                                              crisis (e.g. help, care, support, thank) ", tags$b("showing that there is a consumer appetite for 
+                                              uplifting stories in these challenging times.")), 
+                                              tags$li("In the last 7 days, there has been a higher proportion of negative words 
+                                                      driving sentiment. These new emerging terms (shit, worse, important) ", tags$b("continue 
+                                                      to reflect a climate of uncertainty despite an improvement in the domestic crisis situation.")))),
+                      bs_button("Analysis", button_type = "default") %>%
+                        bs_attach_collapse("contribution_collapse")))
                       #  wellPanel(introBox(column(width = 4, plotlyOutput("udpipe_plot")))),
                             )
                           )
