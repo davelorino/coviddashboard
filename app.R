@@ -301,8 +301,8 @@ pdf(NULL)
                                        tags$li("Australia begins to flatten the curve."), 
                                        br()
                                        ))), 
-                                 introBox(data.step = 2, data.intro = "Click the Analysis button on located on the bottom-left of every chart 
-                                          to see deeper insights.", bs_button(button_size = "small", "Analysis", button_type = "default") %>%
+                                 introBox(data.step = 2, data.intro = "Click the Analysis button located on the bottom-left of every chart to see insights.", 
+                                          bs_button(button_size = "small", "Analysis", button_type = "default") %>%
                                    bs_attach_collapse("volume_collapse")))
                       ,
                       
@@ -324,33 +324,66 @@ pdf(NULL)
                                          Each date on the graph represents a 7 day period, beginning at the labelled date. For example, the first point labelled 'Dec 29, 2019' represents
                                          the average weekly sentiment between the 29th of December and the 4th of January inclusive. Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
                                                  and Tweets Dec 29, 2019 - May 2nd, 2020.")), 
-                                  "Not surprisingly, sentiment has been largely negative in relation to COVID-19. This difference is even more pronounced when neutral mentions are removed 
-                                  (click on ‘neutral’ in the legend box). 
-                                  Key drivers are further elaborated on below.", tags$style(type = "text/css", "p { font-size: 12px; }"))
+                                  
+                               column(width=12, 
+                                      br(),
+                               tags$li("On 5th January negative sentiment quickly spiked in correlation 
+                               with the World Health Organisation’s global announcement of a new coronavirus outbreak. At
+                               this early stage however, Australian consumer interest was low and largely driven by international 
+                               news coverage.", tags$b("Australians were then mostly untroubled by the events unfolding overseas as yet 
+                               unaware of the implications the outbreak would soon have on their daily lives.")),
+                               br(),
+                                tags$li("Negative sentiment has since stayed high, averaging 51% and not dropping below 45%. 
+                                Interestingly, while we witnessed a significant spike in mentions mid-March, this was not 
+                                mirrored by a dramatic shift in consumer sentiment.", tags$b("This suggests that despite varying levels of 
+                                interest since the start of the COVID-19 crisis, Australians have been mostly feeling anxious and 
+                                uncertain about the its outcome and the future")), 
+                               br(),
+                                tags$li("From early March, we observed a sustained increase in the proportion of positive COVID-19
+                                conversations online (from <11% to >14%). This correlates with the introduction of mandatory 
+                                government measures to protect essential workers and encourage the public to socially distance. ", 
+                                tags$b("While criticism and uncertainty about the future remain, this slight improvement in consumer 
+                                sentiment reflects widespread support and empathy for the measures in light of a new ‘preventative’ 
+                                national mindset.")),
+                                br(),
+                                tags$li("Yet despite Australia’s recent success in flattening the curve, since mid-April positive 
+                                sentiment has marginally fallen.", tags$b("With a large portion of the nation still in lockdown and media 
+                                fatigue setting in, Australians appear mostly unaffected by the good news around the containment 
+                                of the virus and are otherwise preoccupied with controversy surrounding government policy (in 
+                                particular the launch of the government’s new COVIDSafe app).")), br(), br()
+                                , tags$style(type = "text/css", "p { font-size: 12px; }")))
                                 ),
                                 bs_button("Analysis", button_type = "default") %>%
                                   bs_attach_collapse("sentiment_collapse")),
                                   column(width = 6, h5("VoC Sentiment in the last 7 days"), 
                                          wellPanel(introBox(data.step = 4,
-                                                            data.intro = "This charts shows a snapshot of the consumer sentiment over the last week.", 
+                                                            data.intro = "This chart shows a snapshot of the consumer sentiment over the last week.", 
                                                             plotlyOutput("sevendaydonut"),
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
                                                                              tags$em( tags$p("Sentiment in the 7 day period between the 26th of April and the 2nd of May inclusive. 
-                                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
+                                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")), br(),
                                                                    
-                                                                               "Sentiment was on par with the monthly average.
-                                                                               Drivers of negative sentiment in the last week have primarily been around:", 
-                                                                               br(), br(),
-                                                                               tags$li("Financial implications of the disease."),
-                                                                                tags$li("The Ruby Princess investigation."),
-                                                                                tags$li("Donald Trump accused the WHO of failure of duty."))),
+                                                                               "In the past week online conversation has largely revolved around Australia’s path back to ‘normal’,
+                                                                               with controversy around the launch of the COVIDSafe app driving a large portion of negative sentiment. 
+                                                                               Simultaneously, the relaxation of lockdown laws has been met with mixed reactions by the public - with 
+                                                                               some questioning whether it will prompt another jump in the infection rate. While the curve has started 
+                                                                               to flatten, it appears Australians are proceeding with caution, rather than celebration.", br(), br(),
+
+                                                                              tags$h5("Key Events"), 
+                                                                              
+                                                                              tags$h5("Apr 12th - May 3rd"),
+                                                                              tags$li("Donald Trump halts funding to the World Health Organisation."),
+                                                                              tags$li("Australian government releases COVIDSafe app."), 
+                                                                              tags$li("Some Australian states begin relaxing lockdown laws as curve flattens.")
+                                                                              
+                                                                               )),
                                                             bs_button("Analysis", button_type = "default") %>%
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
                                    column(width = 6, h5("VoC Sentiment in the last 7 days"), 
                                           wellPanel(introBox(data.step = 5, 
                                                              
-                                                             data.intro = "This chart analyzes the top trending hashtags in the last week.
+                                                             data.intro = "This chart analyses the top trending hashtags in the last week.
                                                              ", 
                                                              plotlyOutput("hashtags_7days"),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
@@ -368,9 +401,9 @@ pdf(NULL)
                                           br(), br(),
                                   column(width = 6,  h5("Text Sentiment Score - Weekly Snapshot"), 
                                          wellPanel(introBox(data.step = 6, 
-                                                             data.intro = paste("This chart analyzes the top 25 words contributing to positive 
+                                                             data.intro = paste("This chart analyses the top 25 words contributing to positive 
                                                              or negative sentiment in the last week using the ", 
-                                                                                tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon"),
+                                                                                tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon."),
                                                              plotlyOutput("contribution_plot"),
                                                              bs_collapse(id = "contribution_collapse", content = tags$div(class = "well",
                                                              tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
@@ -385,9 +418,9 @@ pdf(NULL)
                                                         bs_attach_collapse("contribution_collapse")))),
                                   column(width = 6, h5("Text Sentiment Frequency - Monthly Snapshot"), 
                                           wellPanel(introBox(data.step = 7, 
-                                                             data.intro = paste("This chart analyzes the top 25 words contributing to positive 
+                                                             data.intro = paste("This chart analyses the top 25 words contributing to positive 
                                                              or negative sentiment in the last week using the ", 
-                                                                                tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon"),
+                                                                                tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon."),
                                                              plotlyOutput("contribution_plot_30days"),
                                                              bs_collapse(id = "bing_sent", content = tags$div(class = "well", 
                                                                                                               tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
