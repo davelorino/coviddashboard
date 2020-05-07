@@ -301,8 +301,9 @@ pdf(NULL)
                                        tags$li("Australia begins to flatten the curve."), 
                                        br()
                                        ))), 
-                                 bs_button(button_size = "small", "Analysis", button_type = "default") %>%
-                                   bs_attach_collapse("volume_collapse"))
+                                 introBox(data.step = 2, data.intro = "Click the Analysis button on located on the bottom-left of every chart 
+                                          to see deeper insights.", bs_button(button_size = "small", "Analysis", button_type = "default") %>%
+                                   bs_attach_collapse("volume_collapse")))
                       ,
                       
                                          # wellPanel(plotlyOutput("lineplot_7days"),
@@ -315,7 +316,7 @@ pdf(NULL)
               
                         h4("Sentiment of Covid-19 Conversation Over Time, Australia (Voc only)", align = "center"),
                         wellPanel(introBox(plotlyOutput("sentiment_plot", height = "450px"),
-                                  data.step = 2,
+                                  data.step = 3,
                                   data.intro = "Here we analyze the <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
                                   bs_collapse(id = "sentiment_collapse",
                                               content = tags$div(class = "well",
@@ -330,7 +331,7 @@ pdf(NULL)
                                 bs_button("Analysis", button_type = "default") %>%
                                   bs_attach_collapse("sentiment_collapse")),
                                   column(width = 6, h5("VoC Sentiment in the last 7 days"), 
-                                         wellPanel(introBox(data.step = 3,
+                                         wellPanel(introBox(data.step = 4,
                                                             data.intro = "This charts shows a snapshot of the consumer sentiment over the last week.", 
                                                             plotlyOutput("sevendaydonut"),
                                                             bs_collapse(id = "weekly_sentiment_collapse",
@@ -347,7 +348,7 @@ pdf(NULL)
                                                             bs_button("Analysis", button_type = "default") %>%
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
                                    column(width = 6, h5("VoC Sentiment in the last 7 days"), 
-                                          wellPanel(introBox(data.step = 4, 
+                                          wellPanel(introBox(data.step = 5, 
                                                              
                                                              data.intro = "This chart analyzes the top trending hashtags in the last week.
                                                              ", 
@@ -366,7 +367,7 @@ pdf(NULL)
                                                          bs_attach_collapse("weekly_hashtags_collapse")))),
                                           br(), br(),
                                   column(width = 6,  h5("Text Sentiment Score - Weekly Snapshot"), 
-                                         wellPanel(introBox(data.step = 5, 
+                                         wellPanel(introBox(data.step = 6, 
                                                              data.intro = paste("This chart analyzes the top 25 words contributing to positive 
                                                              or negative sentiment in the last week using the ", 
                                                                                 tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon"),
@@ -383,7 +384,7 @@ pdf(NULL)
                                                      bs_button("Analysis", button_type = "default") %>%
                                                         bs_attach_collapse("contribution_collapse")))),
                                   column(width = 6, h5("Text Sentiment Frequency - Monthly Snapshot"), 
-                                          wellPanel(introBox(data.step = 6, 
+                                          wellPanel(introBox(data.step = 7, 
                                                              data.intro = paste("This chart analyzes the top 25 words contributing to positive 
                                                              or negative sentiment in the last week using the ", 
                                                                                 tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon"),
@@ -406,7 +407,7 @@ pdf(NULL)
                           )
                         )
                       ),
-                 tabPanel(title = introBox( data.step = 7, data.intro = "Let's move over to the Search page - click 'Search'. <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
+                 tabPanel(title = introBox( data.step = 8, data.intro = "Let's move over to the Search page - click 'Search'. <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
                             sidebarPanel(img(src="unnamed2.png", width="80%", height="80%"),
                                          br(), br(),
                                          br(), br(),
@@ -421,7 +422,7 @@ pdf(NULL)
                             ),
                             mainPanel(tabsetPanel(tabPanel("Desktop", column(width = 12, align = "left",
                                              h4("Digital Search Phrase Match", align = "center"),
-                                      wellPanel( introBox(data.step = 8, data.intro = "This plot shows us the phrases most commonly associated with 'coronavirus'
+                                      wellPanel( introBox(data.step = 9, data.intro = "This plot shows us the phrases most commonly associated with 'coronavirus'
                                                            from all search engine traffic.", plotlyOutput("sw_desktop_plot")),
                                                 bs_collapse(id = "sw_desktop_collapse", content = tags$div(class = "well", 
                                                tags$em(p("Associated phrases in searches for 'coronavirus' 
@@ -437,7 +438,7 @@ pdf(NULL)
                                               , column(width = 12, align = "left", 
                                                        h4("Associated Phrases by Domain", align = "center"),
                                                        wellPanel(
-                                                         introBox(data.step = 9, data.intro = "This chart shows the proportion of traffic that went to each domain from 
+                                                         introBox(data.step = 10, data.intro = "This chart shows the proportion of traffic that went to each domain from 
                                                                   search engine searches for 'coronavirus' and associated phrases.",
                                                          plotlyOutput("sw_desktop_phrases_donut")),
                                                                  bs_collapse(id = "sw_desktop_donut_collapse", 
