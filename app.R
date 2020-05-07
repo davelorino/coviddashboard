@@ -235,24 +235,56 @@ pdf(NULL)
                                           Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.", 
                                                      tags$style(type = "text/css", "p { font-size: 12px; }")))),
                                 br(), br(),
-                                column(12, align = "left", h4("Drivers of Conversation")), br(), br(),
-                                                      column(width = 6, h5(tags$u("Dec 29th - Jan 26th"), 
-                                                                           align = "left"),
+                                column(12, align = "left", h4("Drivers of Conversation to Date")), br(), br(),
+                               column(width = 12,  h5("Since Australians became aware of COVID-19 in December 2019, 
+                                                       there has been fluctuating consumer interest in the virus as 
+                                                       seen through the volume of online conversations over time.")),
+                                br(), br(),
+                                column(width = 6, align = "left",
+                                tags$li("While the first case was reported in Wuhan on the 29th of December, 
+                                        Australian consumer interest about COVID-19 remained low for a number 
+                                        of weeks.", tags$b("At this early stage, there appeared to be no immediate threat 
+                                        to Australia and with bushfires still raging across the country, 
+                                        COVID-19 was visibly not a cause for concern for the vast majority of 
+                                        Australians. The resolution of the bushfire crisis was then top of mind for many.")),
+                                br(),
+                        
+                                tags$li("This state of play changed in late January with conversations spiking first around the 
+                                        discovery of the the first ‘imported’ case in Australia, and then again with the government 
+                                        enactment of new lockdown measures to control the rapid spread of the virus.",  tags$b("The mood of 
+                                        the nation then changed significantly, with once again Australians primarily concerned 
+                                        with domestic developments impacting not only their personal health and safety but also 
+                                        their day to day life and lifestyle. ")),
+                                
+                                br(),
+                                tags$li("As the virus continued spreading in Australia, the VoC continued rising with its focus shifting 
+                                from international to local news events, such as state government policies and the possibility 
+                                of a stricter lockdown. As the public became more politically engaged online, comparisons 
+                                started emerging between Australia and New Zealand as their government enacted a strict lock-down 
+                                to curb the spread of COVID-19."),
+                                br(),
+                                tags$li("Since the mid-March peak following the introduction of the first containment measures, 
+                                        the VoC conversation around the virus  has been on the decline,", tags$b("suggesting increased 
+                                        media fatigue and disengagement by the Australian public. The worst of the crisis 
+                                        appears to be over as the curve begins to flatten and conversation shifts from outbreak, 
+                                        to the subsequent economic fallout.")),
+                                ),
+                                column(width = 6, h4(tags$b(tags$u("Key Events"))),
+                                                    h5(tags$u("Dec 29th - Jan 26th")),
                                 tags$li("First Australian case confirmed Jan 25th."), 
                                 tags$li("Mentions in Australia surge from under 100 to 34,000 per week."), 
                                 tags$li("Cases in China still quickly on the rise at 1406 cases."), 
                                 br(),
                                 h5(tags$u("Jan 26th - Feb 16th")),
                                 tags$li("Australia reaches 6 cases, China at 61,000."), 
-                                tags$li("The sad passing of the doctor who broke the news of the virus."), 
+                                tags$li("Whistle-blowing doctor who broke news of the virus, dies in China"), 
                                 tags$li("The WHO officially names the disease COVID-19."), 
                                 br(),
                                 h5(tags$u("Feb 16th - Mar 1st")), 
                                 tags$li("Harsh containment measures being implemented in China."), 
                                 tags$li("Scott Morrison announced that we are facing a global emergency."), 
                                 tags$li("Healthcare systems anticipate they will not meet demand."), 
-                                br()), 
-                                column(width = 6, 
+                                br(), 
                                        h5(tags$u("Mar 1st - Mar 22nd"), align = "left"),
                                        tags$li("First detected community spread in Australia."),
                                        tags$li("Cases in Australia reach 100."),
@@ -282,7 +314,7 @@ pdf(NULL)
                                  br(), br(),
               
                         h4("Sentiment of Covid-19 Conversation Over Time, Australia (Voc only)", align = "center"),
-                        wellPanel(introBox(plotlyOutput("sentiment_plot"),
+                        wellPanel(introBox(plotlyOutput("sentiment_plot", height = "450px"),
                                   data.step = 2,
                                   data.intro = "Here we analyze the <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
                                   bs_collapse(id = "sentiment_collapse",
