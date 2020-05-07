@@ -216,7 +216,7 @@ pdf(NULL)
                          fluidRow( height = 12,
                          column(width = 12, align = "left",
                               
-                         h4("Volume of Covid-19 conversation over time, Australia (VoC only)", align = "center"),
+                         h4("Volume of COVID-19 conversation over time, Australia (VoC only)", align = "center"),
                       wellPanel(introBox(plotlyOutput("lineplot", height = "500px"), 
                                  data.step = 1, 
                                  data.intro = "Here we analyze the <b>volume</b> of conversation over time among twitter, 
@@ -315,7 +315,7 @@ pdf(NULL)
                                          #   ),
                                  br(), br(),
                      
-                        h4("Sentiment of Covid-19 conversation over time, Australia (Voc only)", align = "center"),
+                        h4("Sentiment of COVID-19 conversation over time, Australia (VoC only)", align = "center"),
                         wellPanel(introBox(plotlyOutput("sentiment_plot", height = "450px"),
                                   data.step = 3,
                                   data.intro = "Here we analyze the <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
@@ -356,11 +356,10 @@ pdf(NULL)
                                 ),
                                 bs_button("Analysis", button_type = "default") %>%
                                   bs_attach_collapse("sentiment_collapse")),
-                                  column(width = 6, h5("VoC Sentiment in the last 7 days"), 
+                                  column(width = 6, h5("VoC sentiment - weekly snapshot"), 
                                          wellPanel(introBox(data.step = 4,
-                                                         
-                                                            data.intro = "This chart shows a snapshot of the consumer sentiment over the last week.", 
                                                             plotlyOutput("sevendaydonut"),
+                                                            data.intro = "This chart shows a snapshot of the consumer sentiment over the last week.", 
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
                                                                              tags$em( tags$p("Sentiment in the 7 day period between the 26th of April and the 2nd of May inclusive. 
@@ -436,7 +435,7 @@ pdf(NULL)
                                   column(width = 6, h5("Text sentiment score - monthly snapshot"), 
                                           wellPanel(introBox(data.step = 7, 
                                                              data.intro = paste("This chart analyses the top 25 words contributing to positive 
-                                                             or negative sentiment in the last week using the ", 
+                                                             or negative sentiment in the last month using the ", 
                                                                                 tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon."),
                                                              plotlyOutput("contribution_plot_30days"),
                                                              bs_collapse(id = "bing_sent", content = tags$div(class = "well", 
