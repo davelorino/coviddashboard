@@ -219,7 +219,7 @@ pdf(NULL)
                          h4("Volume of COVID-19 conversation over time, Australia (VoC only)", align = "center"),
                       wellPanel(introBox(plotlyOutput("lineplot", height = "500px"), 
                                  data.step = 1, 
-                                 data.intro = "Here we analyse the <b>volume</b> of conversation over time among twitter, 
+                                 data.intro = "Here we analyse the <b>volume</b> of conversation over time among Twitter, comments, 
                                  blogs and forums.<br/>
                                  <b>Hover</b> over the points to see what drove the conversation.",
                                  data.position = "bottom-left_aligned"),
@@ -237,11 +237,12 @@ pdf(NULL)
                                                      tags$style(type = "text/css", "p { font-size: 12px; }")))),
                                 br(), br(),
                                 column(12, align = "left", h4("Drivers of Conversation to Date")), br(), br(),
-                               column(width = 12,  h5("Since Australians became aware of COVID-19 in December 2019, 
-                                                       there has been fluctuating consumer interest in the virus as 
-                                                       seen through the volume of online conversations over time.")),
+                               column(width = 12),
                                 br(), br(),
                                 column(width = 6, align = "left",
+                                       h5("Since Australians became aware of COVID-19 in December 2019, 
+                                                       there has been fluctuating consumer interest in the virus as 
+                                                       seen through the volume of online conversations over time."),
                                 tags$li("While the first case was reported in Wuhan on the 29th of December, 
                                         Australian consumer interest about COVID-19 remained low for a number 
                                         of weeks.", tags$b("At this early stage, there appeared to be no immediate threat 
@@ -318,7 +319,7 @@ pdf(NULL)
                         h4("Sentiment of COVID-19 conversation over time, Australia (VoC only)", align = "center"),
                         wellPanel(introBox(plotlyOutput("sentiment_plot", height = "450px"),
                                   data.step = 3,
-                                  data.intro = "Here we analyse the <b>sentiment</b> of conversation over time among twitter, blogs and forums."),
+                                  data.intro = "Here we analyse the <b>sentiment</b> of conversation over time among Twitter, comments, blogs and forums."),
                                   bs_collapse(id = "sentiment_collapse",
                                               content = tags$div(class = "well",
                                 tags$em(  tags$p("This chart displays the percentage of mentions of COVID-19 from Australians only that are positive, negative and neutral. 
@@ -329,7 +330,7 @@ pdf(NULL)
                                   
                                column(width=12, 
                                       br(),
-                               tags$li("On 5th January negative sentiment quickly spiked in correlation 
+                               tags$li("On the 5th of January, negative sentiment quickly spiked in correlation 
                                with the World Health Organisation’s global announcement of a new coronavirus outbreak. At
                                this early stage however, Australian consumer interest was low and largely driven by international 
                                news coverage.", tags$b("Australians were then mostly untroubled by the events unfolding overseas as yet 
@@ -339,7 +340,7 @@ pdf(NULL)
                                 Interestingly, while we witnessed a significant spike in mentions mid-March, this was not 
                                 mirrored by a dramatic shift in consumer sentiment.", tags$b("This suggests that despite varying levels of 
                                 interest since the start of the COVID-19 crisis, Australians have been mostly feeling anxious and 
-                                uncertain about the its outcome and the future")), 
+                                uncertain about the its outcome and the future.")), 
                                br(),
                                 tags$li("From early March, we observed a sustained increase in the proportion of positive COVID-19
                                 conversations online (from <11% to >14%). This correlates with the introduction of mandatory 
@@ -360,13 +361,14 @@ pdf(NULL)
                                   column(width = 6, h5("VoC sentiment - weekly snapshot"), 
                                          wellPanel(introBox(data.step = 4,
                                                             plotlyOutput("sevendaydonut"),
-                                                            data.intro = "This chart shows a snapshot of the consumer sentiment over the last week.", 
+                                                            data.intro = "This chart shows a snapshot of the consumer sentiment from Twitter, comments, blogs and forums over the last week.", 
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
                                                                              tags$em( tags$p("Sentiment in the 7 day period between the 26th of April and the 2nd of May inclusive. 
-                                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")), br(),
+                                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets. Note: Neutral sentiment refers to mentions in which either 
+                                                 negative or positive keywords could not be identified.")), br(),
                                                                    
-                                                                               "In the past week online conversation has largely revolved around Australia’s path back to ‘normal’,
+                                                                              "In the past week, online conversation has largely revolved around Australia’s path back to ‘normal’,
                                                                                with controversy around the launch of the COVIDSafe app driving a large portion of negative sentiment. 
                                                                                Simultaneously, the relaxation of lockdown laws has been met with mixed reactions by the public - with 
                                                                                some questioning whether it will prompt another jump in the infection rate.", tags$b("While the curve has started 
@@ -378,7 +380,7 @@ pdf(NULL)
                                    column(width = 6, h5("Trending hashtags - weekly snapshot"), 
                                           wellPanel(introBox(data.step = 5, 
                                                              
-                                                             data.intro = "This chart analyses the top trending hashtags in the last week.
+                                                             data.intro = "This chart analyses the top trending hashtags from Twitter in the last week.
                                                              ", 
                                                              plotlyOutput("hashtags_7days"),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
@@ -409,10 +411,13 @@ pdf(NULL)
                                                      bs_button("Analysis", button_type = "default") %>%
                                                          bs_attach_collapse("weekly_hashtags_collapse")))),
                                           br(), br(),
-                                  
+                      
+                         
+                               
                            column(width = 6,  h5("Text sentiment score - weekly snapshot"), 
                                          wellPanel(introBox(data.step = 6, 
-                                                             data.intro = paste("This chart analyses the top 25 words contributing to positive or negative sentiment in the last week using the ", 
+                                                             data.intro = paste("This chart analyses the top 25 words contributing to positive or negative sentiment from Twitter, comments, 
+                                                                                blogs and forums in the last week using the ", 
                                                                                 tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon."),
                                                              plotlyOutput("contribution_plot")
                                                              
@@ -421,7 +426,7 @@ pdf(NULL)
                                   column(width = 6, h5("Text sentiment score - monthly snapshot"), 
                                           wellPanel(introBox(data.step = 7, 
                                                              data.intro = paste("This chart analyses the top 25 words contributing to positive 
-                                                             or negative sentiment in the last month using the ", 
+                                                             or negative sentiment from Twitter, blogs, comments and forums in the last month using the ", 
                                                                                 tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon."),
                                                              plotlyOutput("contribution_plot_30days")
                                                                          ))),
@@ -440,8 +445,9 @@ pdf(NULL)
                                                                     tags$li("The largest contributors to negative sentiment continue to be focused on virus casualties 
                                                                     and spread (e.g. dead, infected, die, death, died). 
                                                                     ", tags$b("Although the curve is flattening, 
-                                                                    this demonstrates there is still a high level of fear within the community, and that 
-                                                                    possibly most Australians aren’t ready to return to normal.")), br(),
+                                                                    this demonstrates there is still a high level of fear within the community, and 
+                                                                              that possibly most Australians aren’t ready to return to normal and let go 
+                                                                              of social distancing just yet.")), br(),
                                               tags$li("While only accounting for a small portion of mentions, terms that generated 
                                               positive online sentiment reflect the ‘good news stories’ that are emerging from this 
                                               crisis (e.g. help, care, support, thank) ", tags$b("showing that there is a consumer appetite for 
