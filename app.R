@@ -70,7 +70,7 @@ pdf(NULL)
 
     
 # DATA---------------------------------------------------------------------------------------------------------------------
-
+    whatisthis <- read_rds("uris.rds")
     sevendaydonut <- read_rds("sevendaydonut2.rds")
     #volumeovertime <- read_csv("coronaconvo2.csv")
     #coronasent <- read_csv("coronasent.csv")
@@ -83,6 +83,8 @@ pdf(NULL)
     #coronavirus <- readRDS("coronavirus2.rds")
     corona7daycases <- readRDS("corona7daycases.rds")
     sw_desktop_plot <- readRDS("sw_desktop_plot.rds")
+    volume_chart <- readRDS("volumechart.rds")
+    sentiment_timeline_plot  <- read_rds("sentiment_timeline_plot.rds")
     sw_mobile_plot <- readRDS("sw_mobile_plot.rds")
     sw_mobile_phrases_donut <- readRDS("mobile_phrases_donut.rds")
     sw_desktop_phrases_donut <- readRDS("desktop_phrases_donut.rds")
@@ -220,8 +222,7 @@ pdf(NULL)
                       wellPanel(introBox(plotlyOutput("lineplot", height = "500px"), 
                                  data.step = 1, 
                                  data.intro = "Here we analyse the <b>volume</b> of conversation over time among Twitter, comments, 
-                                 blogs and forums.<br/>
-                                 <b>Hover</b> over the points to see what drove the conversation.",
+                                 blogs and forums. <b>Hover</b> over the points to see what drove the conversation.",
                                  data.position = "bottom-left_aligned"),
                                  bs_collapse(
                                    id = "volume_collapse", 
@@ -579,7 +580,6 @@ pdf(NULL)
              hashtags_7days
            })
 
-           sentiment_timeline_plot  <- read_rds("sentiment_timeline_plot.rds")
            
            output$sentiment_plot <- plotly::renderPlotly({
              sentiment_timeline_plot
@@ -623,8 +623,6 @@ pdf(NULL)
             #          hovermode = "compare"
             #        )
             #   ) 
-                   
-            volume_chart <- readRDS("volumechart.rds")
             
             output$lineplot <- plotly::renderPlotly(
               volume_chart
