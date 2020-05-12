@@ -7,6 +7,7 @@ library(lubridate)
 library(shinythemes)
 library(magrittr)
 library(bsplus)
+library(wordcloud2)
 
 pdf(NULL)
 
@@ -70,7 +71,7 @@ pdf(NULL)
 
     
 # DATA---------------------------------------------------------------------------------------------------------------------
-    whatisthis <- read_rds("uris.rds")
+    #whatisthis <- read_rds("uris.rds")
     sevendaydonut <- read_rds("sevendaydonut2.rds")
     #volumeovertime <- read_csv("coronaconvo2.csv")
     #coronasent <- read_csv("coronasent.csv")
@@ -88,6 +89,7 @@ pdf(NULL)
     sw_mobile_plot <- readRDS("sw_mobile_plot.rds")
     sw_mobile_phrases_donut <- readRDS("mobile_phrases_donut.rds")
     sw_desktop_phrases_donut <- readRDS("desktop_phrases_donut.rds")
+    rona_cloud <- readRDS("ronacloud.rds")
     # coronavirus <- coronavirus %>%
     #   group_by(Country.Region, date, type) %>%
     #   mutate(`Worldwide` = sum(cases)) %>%
@@ -438,7 +440,7 @@ pdf(NULL)
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
                                                                                                   " sentiment analysis lexicon. 7 day period 26th April - 2nd May inclusive. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
-                                                                                   column(width = 6,
+                                                                column(width = 6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
                                                                                         " sentiment analysis lexicon. 4 week period 5th April - 2nd May inclusive. 
@@ -457,9 +459,19 @@ pdf(NULL)
                                                       driving sentiment. These new emerging terms (shit, worse, important) ", tags$b("continue 
                                                       to reflect a climate of uncertainty despite an improvement in the domestic crisis situation.")))),
                       bs_button("Analysis", button_type = "default") %>%
-                        bs_attach_collapse("contribution_collapse")))
+                        bs_attach_collapse("contribution_collapse"))), br(), br(),
+                      column(width = 12, h4("Sentiment towards Businesses (Australian VoC only)", align = "center"), 
+                             wellPanel(wordcloud2Output("rona_cloud"),
+                        bs_collapse("business_cloud", content = tags$div(class = "well",
+                                                                         column(width = 12,
+                                                                                tags$em(tags$p("Top 7 businesses associated with positive 
+                                                                                               or negative consumer sentiment in the last 7 days."))))),
+                        bs_button("Analysis", button_type = "default") %>%
+                          bs_attach_collapse("rona_cloud"), br(), br()
+                        ))
                       #  wellPanel(introBox(column(width = 4, plotlyOutput("udpipe_plot")))),
                             )
+                    
                           )
                         )
                       )
@@ -560,6 +572,7 @@ pdf(NULL)
              sw_mobile_plot
            })
 
+           
            output$sw_mobile_phrases_donut <- renderPlotly({
              sw_mobile_phrases_donut
            })
@@ -579,7 +592,10 @@ pdf(NULL)
            output$hashtags_7days <- renderPlotly({
              hashtags_7days
            })
-
+          
+          output$rona_cloud <- renderWordcloud2({
+            rona_cloud
+          })
            
            output$sentiment_plot <- plotly::renderPlotly({
              sentiment_timeline_plot
