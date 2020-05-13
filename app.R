@@ -613,7 +613,7 @@ pdf(NULL)
                                                                                   alt= "", 
                                                                                   src = sprintf("images/%s.png", value))
                                                                      tagList(
-                                                                       div(style = list(display = "inline-block", width = "60px"), image),
+                                                                       div(style = list(display = "inline-block", width = "10px"), image),
                                                                        value
                                                                      )
                                                                    } ), 
