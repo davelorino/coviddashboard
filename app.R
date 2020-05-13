@@ -464,12 +464,12 @@ pdf(NULL)
                                                       to reflect a climate of uncertainty despite an improvement in the domestic crisis situation.")))),
                       bs_button("Analysis", button_type = "default") %>%
                         bs_attach_collapse("contribution_collapse"))), br(), br(),
-                      column(width = 12, h4("Sentiment towards Businesses (Australian VoC only)", align = "center"), 
-                             wellPanel(introBox(data.step = 8, data.intro = "This chart shows the businesses and organizations that are being
-                                                 talked about most by cosumers in the last week, and the sentiment towards that business or organization.", wordcloud2Output("rona_cloud")),
+                      column(width = 12, h4("Brand sentiment (Australian VoC only)", align = "center"), 
+                             wellPanel(introBox(data.step = 8, data.intro = "This chart shows the brands and organisations that are being
+                                                 talked about most by cosumers in the last week, and the sentiment towards that brand or organisation.", wordcloud2Output("rona_cloud")),
                         bs_collapse("business_cloud", content = tags$div(class = "well",
                                                                          column(width = 12,
-                                                                                tags$em(tags$p("Top 7 businesses associated with positive 
+                                                                                tags$em(tags$p("Top 7 brands associated with positive 
                                                                                                or negative consumer sentiment in the last 7 days."))))),
                         bs_button("Analysis", button_type = "default") %>%
                           bs_attach_collapse("business_cloud"), br()
@@ -495,8 +495,9 @@ pdf(NULL)
                      ")))
                              ),
                              mainPanel(column(width = 12, align = "left",
-                                              h4("Coronavirus Keywords and Destinations, Mobile and Desktop", align = "center"),
-                                      wellPanel(introBox(data.step = 10, data.intro = "This plot shows us the phrases most commonly associated with 'coronavirus'
+                                              h4("Top COVID-19 keywords and destinations (mobile and desktop)", align = "center"),
+                                      wellPanel(introBox(data.step = 10, 
+                                      data.intro = "This plot shows us the phrases most commonly associated with 'coronavirus'
                                                             from all search engine traffic.", plotlyOutput("sw_keywords_plot")),
                                                  bs_collapse(id = "sw_keywords_collapse", content = tags$div(class = "well", 
                                                 tags$em(p("Associated phrases in searches for 'coronavirus' 
