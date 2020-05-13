@@ -83,7 +83,7 @@ pdf(NULL)
     #urisclick <- readRDS("urisclick.rds")
     #coronavirus <- readRDS("coronavirus2.rds")
     corona7daycases <- readRDS("corona7daycases.rds")
-    sw_desktop_plot <- readRDS("sw_desktop_plot.rds")
+    sw_keywords_plot <- readRDS("sw_keywords_plot.rds")
     volume_chart <- readRDS("volumechart.rds")
     sentiment_timeline_plot  <- read_rds("sentiment_timeline_plot.rds")
     sw_mobile_plot <- readRDS("sw_mobile_plot.rds")
@@ -203,7 +203,7 @@ pdf(NULL)
     ui = navbarPage(
                     
                    title = "Saatchi & Saatchi COVID-19 Pulse", theme = shinytheme("darkly"),
-                   tabPanel(title = "Social Pulse",
+                   tabPanel(title = "Social",
                        sidebarPanel(img(src="Artboard1Logo.png", width="80%", height="80%"),
                                     br(), br(),
                                     actionButton("helpMe", "Tour"),
@@ -325,26 +325,30 @@ pdf(NULL)
                                   data.intro = "Here we analyse the <b>sentiment</b> of conversation over time among Twitter, comments, blogs and forums."),
                                   bs_collapse(id = "sentiment_collapse",
                                               content = tags$div(class = "well",
-                                tags$em(  tags$p("This chart displays the percentage of mentions of COVID-19 from Australians only that are positive, negative and neutral. 
-                                         Each date on the graph represents a 7 day period, beginning at the labelled date. For example, the first point labelled 'Dec 29, 2019' represents
-                                         the average weekly sentiment between the 29th of December and the 4th of January inclusive. Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
-                                                 and Tweets Dec 29, 2019 - May 2nd, 2020. Note: Neutral sentiment refers to mentions in which either 
-                                                 negative or positive keywords could not be identified.")), 
+                                tags$em(  
+                                  tags$p("This chart displays the percentage of mentions of COVID-19 from Australians 
+                                          only that are positive, negative and neutral. 
+                                         Each date on the graph represents a 7 day period, beginning at the 
+                                         labelled date. For example, the first point labelled 'Dec 29, 2019' represents
+                                         the average weekly sentiment between the 29th of December and the 4th of January inclusive. 
+                                         Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
+                                          and Tweets Dec 29, 2019 - May 2nd, 2020. Note: Neutral sentiment refers to 
+                                          mentions in which either negative or positive keywords could not be identified.")), 
                                   
                                column(width=12, 
-                                      br(),
+                               br(),
                                tags$li("On the 5th of January, negative sentiment quickly spiked in correlation 
                                with the World Health Organisation’s global announcement of a new coronavirus outbreak. At
                                this early stage however, Australian consumer interest was low and largely driven by international 
                                news coverage.", tags$b("Australians were then mostly untroubled by the events unfolding overseas as yet 
                                unaware of the implications the outbreak would soon have on their daily lives.")),
-                               br(),
+                                br(),
                                 tags$li("Negative sentiment has since stayed high, averaging 51% and not dropping below 45%. 
                                 Interestingly, while we witnessed a significant spike in mentions mid-March, this was not 
                                 mirrored by a dramatic shift in consumer sentiment.", tags$b("This suggests that despite varying levels of 
                                 interest since the start of the COVID-19 crisis, Australians have been mostly feeling anxious and 
                                 uncertain about the its outcome and the future.")), 
-                               br(),
+                                br(),
                                 tags$li("From early March, we observed a sustained increase in the proportion of positive COVID-19
                                 conversations online (from <11% to >14%). This correlates with the introduction of mandatory 
                                 government measures to protect essential workers and encourage the public to socially distance. ", 
@@ -356,7 +360,8 @@ pdf(NULL)
                                 sentiment has marginally fallen.", tags$b("With a large portion of the nation still in lockdown and media 
                                 fatigue setting in, Australians appear mostly unaffected by the good news around the containment 
                                 of the virus and are otherwise preoccupied with controversy surrounding government policy (in 
-                                particular the launch of the government’s new COVIDSafe app).")), br(), br()
+                                particular the launch of the government’s new COVIDSafe app).")), 
+                                br(), br()
                                 , tags$style(type = "text/css", "p { font-size: 12px; }")))
                                 ),
                                 bs_button("Analysis", button_type = "default") %>%
@@ -364,20 +369,22 @@ pdf(NULL)
                                   column(width = 6, h5("VoC sentiment - weekly snapshot"), 
                                          wellPanel(introBox(data.step = 4,
                                                             plotlyOutput("sevendaydonut"),
-                                                            data.intro = "This chart shows a snapshot of the consumer sentiment from Twitter, comments, blogs and forums over the last week.", 
+                                                            data.intro = "This chart shows a snapshot of the consumer sentiment from Twitter, 
+                                                            comments, blogs and forums over the last week.", 
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
-                                                                             tags$em( tags$p("Sentiment in the 7 day period between the 26th of April and the 2nd of May inclusive. 
-                                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets. Note: Neutral sentiment refers to mentions in which either 
-                                                 negative or positive keywords could not be identified.")), br(),
-                                                                   
-                                                                              "In the past week, online conversation has largely revolved around Australia’s path back to ‘normal’,
-                                                                               with controversy around the launch of the COVIDSafe app driving a large portion of negative sentiment. 
-                                                                               Simultaneously, the relaxation of lockdown laws has been met with mixed reactions by the public - with 
-                                                                               some questioning whether it will prompt another jump in the infection rate.", tags$b("While the curve has started 
-                                                                               to flatten, it appears Australians are proceeding with caution, rather than celebration."), br(), br(),
-                                                                              
-                                                                               )),
+                                                             tags$em( tags$p("Sentiment in the 7 day period between the 26th of April and the 2nd of May inclusive. 
+                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets. 
+                                                                      Note: Neutral sentiment refers to mentions in which either 
+                                                                      negative or positive keywords could not be identified.")), 
+                                                             br(),
+                                     
+                                                "In the past week, online conversation has largely revolved around Australia’s path back to ‘normal’,
+                                                 with controversy around the launch of the COVIDSafe app driving a large portion of negative sentiment. 
+                                                 Simultaneously, the relaxation of lockdown laws has been met with mixed reactions by the public - with 
+                                                 some questioning whether it will prompt another jump in the infection rate.", tags$b("While the curve has started 
+                                                 to flatten, it appears Australians are proceeding with caution, rather than celebration."), 
+                                                 br(), br())),
                                                             bs_button("Analysis", button_type = "default") %>%
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
                                    column(width = 6, h5("Trending hashtags - weekly snapshot"), 
@@ -414,10 +421,7 @@ pdf(NULL)
                                                      bs_button("Analysis", button_type = "default") %>%
                                                          bs_attach_collapse("weekly_hashtags_collapse")))),
                                           br(), br(),
-                      
-                         
-                               
-                           column(width = 6,  h5("Text sentiment score - weekly snapshot"), 
+                                 column(width = 6,  h5("Text sentiment score - weekly snapshot"), 
                                          wellPanel(introBox(data.step = 6, 
                                                              data.intro = paste("This chart analyses the top 25 words contributing to positive or negative sentiment from Twitter, comments, 
                                                                                 blogs and forums in the last week using the ", 
@@ -461,13 +465,14 @@ pdf(NULL)
                       bs_button("Analysis", button_type = "default") %>%
                         bs_attach_collapse("contribution_collapse"))), br(), br(),
                       column(width = 12, h4("Sentiment towards Businesses (Australian VoC only)", align = "center"), 
-                             wellPanel(wordcloud2Output("rona_cloud"),
+                             wellPanel(introBox(data.step = 8, data.intro = "This chart shows the businesses and organizations that are being
+                                                 talked about most by cosumers in the last week, and the sentiment towards that business or organization.", wordcloud2Output("rona_cloud")),
                         bs_collapse("business_cloud", content = tags$div(class = "well",
                                                                          column(width = 12,
                                                                                 tags$em(tags$p("Top 7 businesses associated with positive 
                                                                                                or negative consumer sentiment in the last 7 days."))))),
                         bs_button("Analysis", button_type = "default") %>%
-                          bs_attach_collapse("rona_cloud"), br(), br()
+                          bs_attach_collapse("business_cloud"), br()
                         ))
                       #  wellPanel(introBox(column(width = 4, plotlyOutput("udpipe_plot")))),
                             )
@@ -475,87 +480,32 @@ pdf(NULL)
                           )
                         )
                       )
-                 #   ,
-                 # tabPanel(title = introBox( data.step = 8, data.intro = "Let's move over to the Search page - click 'Search'. <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
-                 #            sidebarPanel(img(src="unnamed2.png", width="80%", height="80%"),
-                 #                         br(), br(),
-                 #                         br(), br(),
-                 #                         width = 2,
-                 #                         tags$head(
-                 #                           tags$style(HTML("
-                 #      .introjs-tooltiptext {
-                 #        color: #212121;
-                 #      }
-                 # 
-                 #    ")))
-                 #            ),
-                 #            mainPanel(tabsetPanel(tabPanel("Desktop", column(width = 12, align = "left",
-                 #                             h4("Digital Search Phrase Match", align = "center"),
-                 #                      wellPanel( introBox(data.step = 9, data.intro = "This plot shows us the phrases most commonly associated with 'coronavirus'
-                 #                                           from all search engine traffic.", plotlyOutput("sw_desktop_plot")),
-                 #                                bs_collapse(id = "sw_desktop_collapse", content = tags$div(class = "well", 
-                 #                               tags$em(p("Associated phrases in searches for 'coronavirus' 
-                 #                                  on desktop devices ranked by volume of searches; Period: 
-                 #                                  Jan 1st - Mar 31st 2020; Data: SimilarWeb.") ), tags$li("The number one destination for searches of 'coronavirus' on desktop
-                 #                                devices is www.health.gov.au."), tags$li("If we double-click on health.gov.au in the legend box to the right of the chart
-                 #                                 we can see all of the matched phrases that led to this destination."), tags$li("When isolating other domains we can see that people 
-                 #                                 searching for updates on international 
-                 #                                news arrive at Al-Jazeera."), tags$li("Visitors to the Telegraph.co.uk are asking 'how did coronavirus start?'."), 
-                 #                               tags$li("People asking about a 'vaccine' and a 'cure' arrive at theguardian.com.au."))),
-                 #                                bs_button("Analysis", button_type = "default") %>%
-                 #                                  bs_attach_collapse("sw_desktop_collapse"))
-                 #                              , column(width = 12, align = "left", 
-                 #                                       h4("Associated Phrases by Domain", align = "center"),
-                 #                                       wellPanel(
-                 #                                         introBox(data.step = 10, data.intro = "This chart shows the proportion of traffic that went to each domain from 
-                 #                                                  search engine searches for 'coronavirus' and associated phrases.",
-                 #                                         plotlyOutput("sw_desktop_phrases_donut")),
-                 #                                                 bs_collapse(id = "sw_desktop_donut_collapse", 
-                 #                                                 content = tags$div(class = "well", 
-                 #                                                 tags$em(p("Associated phrases in searches for 'coronavirus' 
-                 #                                                                on desktop devices ranked by destination; Period: 
-                 #                                                                Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                 #                                                tags$li("Health.gov.au accounts for 56% of searches for 'coronavirus' from Australians."), 
-                 #                                                tags$li("Nytimes.com and abc.com.au take the next two spots for most popular web destinations for searches of coronavirus."),
-                 #                                                tags$li("Most domains are generating significantly smaller proportions of traffic share (< 5%)."))),
-                 #                                             bs_button("Analysis", button_type = "default") %>%
-                 #                                                   bs_attach_collapse("sw_desktop_donut_collapse")
-                 #                                                 )))),
-                 #                      tabPanel("Mobile", column(width = 12, align = "left",
-                 #                                                h4("Digital Search Phrase Match", align = "center"),
-                 #                                                wellPanel(
-                 #                                                   plotlyOutput("sw_mobile_plot"),
-                 #                                                  bs_collapse(id = "sw_mobile_collapse", content = tags$div(class = "well", tags$em(p("Associated phrases in searches for 'coronavirus' 
-                 #                                                                                                          on mobile devices ranked by volume of searches; Period: 
-                 #                                                                                                          Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                 #                                                                                                            tags$li("On mobile devices news.com.au is the most popular destination 
-                 #                                                                                                            for Australians searching 'coronavirus'."), 
-                 #                                                                                                            tags$li("Health.gov.au comes in second, 
-                 #                                                                                                            followed by the world health organisation."), 
-                 #                                                                                                            tags$li("Searchers are predominantly 
-                 #                                                                                                            interested in the symptoms and updates on the spread of the disease."))),
-                 #                                                  bs_button("Analysis", button_type = "default") %>%
-                 #                                                    bs_attach_collapse("sw_mobile_collapse")
-                 #                                                  ),
-                 #                                                column(width = 12, align = "left",
-                 #                                                       h4("Associated Phrases by Domain", align = "center"),
-                 #                                                       wellPanel(
-                 #                                                         plotlyOutput("sw_mobile_phrases_donut"),
-                 #                                                         bs_collapse(id = "sw_mobile_donut_collapse", content = tags$div(class = "well", 
-                 #                                                                                                      tags$em(  p("Associated phrases in searches for 'coronavirus' 
-                 #                                                                                                          on mobile devices ranked by destination; Period: 
-                 #                                                                                                          Jan 1st - Mar 31st 2020; Data: SimilarWeb.")), 
-                 #                                                                                                      tags$li("News.com.au, health.gov.au and abc.com.au receive
-                 #                                                                                                         the most traffic for searches of 'coronavirus' on mobile devices."),  
-                 #                                                                                                        tags$li("Mobile traffic generates a significant number of non-Australian destinations, 
-                 #                                                                                                        reflecting the global nature of the disease."),
-                 #                                                                                                        tags$li("Most domains are receiving less than 2% of traffic share, 
-                 #                                                                                                                indicating that desinations for searches of coronavirus are quite broad."))),
-                 #                                                         bs_button("Analysis", button_type = "default") %>%
-                 #                                                           bs_attach_collapse("sw_mobile_donut_collapse")
-                 #                                                         )))))
-                #   )
-          # )
+                 ,
+                 tabPanel(title = introBox( data.step = 9, data.intro = "Let's move over to the Search page - click 'Search'. <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
+                             sidebarPanel(img(src="Artboard1Logo.png", width="80%", height="80%"),
+                                          br(), br(),
+                                          br(), br(),
+                                          width = 2,
+                                          tags$head(
+                                            tags$style(HTML("
+                       .introjs-tooltiptext {
+                         color: #212121;
+                       }
+                  
+                     ")))
+                             ),
+                             mainPanel(column(width = 12, align = "left",
+                                              h4("Coronavirus Keywords and Destinations, Mobile and Desktop", align = "center"),
+                                      wellPanel(introBox(data.step = 10, data.intro = "This plot shows us the phrases most commonly associated with 'coronavirus'
+                                                            from all search engine traffic.", plotlyOutput("sw_keywords_plot")),
+                                                 bs_collapse(id = "sw_keywords_collapse", content = tags$div(class = "well", 
+                                                tags$em(p("Associated phrases in searches for 'coronavirus' 
+                                                   on ranked by volume of searches; Period: 
+                                                 Jan 1st - Mar 31st 2020; Data: SimilarWeb.") ))),
+                                                 bs_button("Analysis", button_type = "default") %>%
+                                                   bs_attach_collapse("sw_keywords_collapse"))
+                             )))
+         
     )
     
                   
@@ -567,23 +517,14 @@ pdf(NULL)
              introjs(session)  
            })
            
-           
-           output$sw_mobile_plot <- renderPlotly({
-             sw_mobile_plot
-           })
-
-           
            output$sw_mobile_phrases_donut <- renderPlotly({
              sw_mobile_phrases_donut
            })
                      
-           output$sw_desktop_plot <- renderPlotly({
-             sw_desktop_plot
+           output$sw_keywords_plot <- renderPlotly({
+             sw_keywords_plot
            })
-           
-           output$sw_desktop_phrases_donut <- renderPlotly({
-             sw_desktop_phrases_donut
-           })
+          
            
            output$sevendaydonut <- renderPlotly({
              sevendaydonut
@@ -601,326 +542,18 @@ pdf(NULL)
              sentiment_timeline_plot
            })           
            
-            # output$sentiment_plot <- plotly::renderPlotly(
-            #   plotly::plot_ly(data = corona_sentiment,
-            #                   source = "hoverplotsource",
-            #                   mode = "none",
-            #                   stackgroup = "one",
-            #                   hoveron = 'points+fills'
-            #                      ) %>%
-            #        plotly::config(displayModeBar = FALSE) %>%
-            #        plotly::add_trace(
-            #          x = ~`Week Beginning`,
-            #          y = ~`Percentage_Neutral`,
-            #          name = "Neutral",
-            #          fillcolor = total_mentions_colour)
-            #         %>%
-            #        plotly::config(displayModeBar = FALSE) %>%
-            #        plotly::add_trace(
-            #          x = ~`Week Beginning`,
-            #          y = ~`Percentage_Negative`,
-            #          name = "Negative",
-            #          fillcolor = "red"
-            #        ) %>%
-            #        plotly::config(displayModeBar = FALSE) %>%
-            #        plotly::add_trace(
-            #          x = ~`Week Beginning`,
-            #          y = ~`Percentage_Positive`,
-            #          name = "Positive",
-            #          fillcolor = "lightgreen"
-            #        ) %>%
-            #        plotly::layout(
-            #          title = "",
-            #          xaxis = list(title = "", color = "#ffffff"),
-            #          yaxis = list(title = "Sentiment Over Time", color = "#ffffff"),
-            #          legend = legend_features3,
-            #          paper_bgcolor='#212121',
-            #          plot_bgcolor='#212121',
-            #          hovermode = "compare"
-            #        )
-            #   ) 
+           
             
             output$lineplot <- plotly::renderPlotly(
               volume_chart
             )
             
-              # output$lineplot <- plotly::renderPlotly(
-              #    plotly::plot_ly(data = corona_weeks,
-              #                    source = "hoverplotsource",
-              #                customdata = ~map2(uris$uri, urisclick, ~list(.x, .y))
-              #                ) %>%
-              #      plotly::config(displayModeBar = FALSE) %>%
-              #    plotly::add_trace(
-              #        x = ~`Week Beginning`,
-              #        # y = ~active_cum,
-              #        y = ~`All`,
-              #        type = "scatter",
-              #        mode = "lines+markers",
-              #        # name = "Active",
-              #        name = "Total Mentions",
-              #        line = list(color = total_mentions_colour),
-              #        marker = list(color = total_mentions_colour)
-              #    ) %>%
-              #      plotly::add_trace(
-              #        x = ~`Week Beginning`,
-              #        # y = ~active_cum,
-              #        y = ~`cumulative_confirmed_Australia`,
-              #        type = "scatter",
-              #        mode = "lines+markers",
-              #        # name = "Active",
-              #        name = "Confirmed Cases Australia",
-              #        line = list(color = twitter_colour),
-              #        marker = list(color = twitter_colour)
-              #      ) %>%
-              #      plotly::add_trace(
-              #        x = ~`Week Beginning`,
-              #        # y = ~active_cum,
-              #        y = ~`cumulative_confirmed_China`,
-              #        type = "scatter",
-              #        mode = "lines+markers",
-              #        # name = "Active",
-              #        name = "Confirmed Cases China",
-              #        line = list(color = "red"),
-              #        marker = list(color = "red")
-              #      ) %>%
-              #    htmlwidgets::onRender(readLines("tooltip-image.js")) %>%
-              #      htmlwidgets::onRender(readLines("tooltip-imageclick.js")) %>%
-              #    plotly::add_annotations(
-              #        x = as.Date("2019-12-29"),
-              #        y = 1,
-              #        text = paste("First case in Wuhan, China"),
-              #        xref = "x",
-              #        yref = "y",
-              #        arrowhead = 5,
-              #        arrowhead = 3,
-              #        arrowsize = 1,
-              #        showarrow = TRUE,
-              #        font = list(color = '#FFFFFF'),
-              #        ax = 30,
-              #        ay = -90
-              #    ) %>%
-              #    plotly::add_annotations(
-              #        x = as.Date("2020-01-12"),
-              #        y = 2,
-              #        text = paste("First Case Outside of China (Thailand)"),
-              #        xref = "x",
-              #        yref = "y",
-              #        arrowhead = 5,
-              #        arrowhead = 3,
-              #        arrowsize = 1,
-              #        showarrow = TRUE,
-              #        font = list(color = '#FFFFFF'),
-              #        ax = 30,
-              #        ay = -120
-              #    ) %>%
-              #    plotly::add_annotations(
-              #        x = as.Date("2020-01-26"),
-              #        y = 3,
-              #        text = paste("First 'Imported' Case in Australia"),
-              #        xref = "x",
-              #        yref = "y",
-              #        arrowhead = 5,
-              #        arrowhead = 3,
-              #        arrowsize = 1,
-              #        showarrow = TRUE,
-              #        font = list(color = '#FFFFFF'),
-              #        ax =  0,
-              #        ay = -180
-              #    ) %>%
-              #    plotly::add_annotations(
-              #        x = as.Date("2020-03-15"),
-              #        y = 3,
-              #        text = paste(
-              #            "New containment measures"
-              #        ),
-              #        xref = "x",
-              #        yref = "y",
-              #        arrowhead = 10,
-              #        arrowhead = 3,
-              #        arrowsize = 1,
-              #        showarrow = TRUE,
-              #        font = list(color = '#FFFFFF'),
-              #        ax = -10,
-              #        ay = -90
-              #    ) %>%
-              #      plotly::add_annotations(
-              #        x = as.Date("2020-03-01"),
-              #        y = 3,
-              #        text = paste(
-              #          "First community spread cases in Australia"
-              #        ),
-              #        xref = "x",
-              #        yref = "y",
-              #        arrowhead = 10,
-              #        arrowhead = 3,
-              #        arrowsize = 1,
-              #        showarrow = TRUE,
-              #        font = list(color = '#FFFFFF'),
-              #        ax = -0,
-              #        ay = -130
-              #      ) %>% plotly::add_annotations(
-              #        x = as.Date("2020-03-22"),
-              #        y = 3,
-              #        text = paste(
-              #          "Australia reaches 1000 cases"
-              #        ),
-              #        xref = "x",
-              #        yref = "y",
-              #        arrowhead = 10,
-              #        arrowhead = 3,
-              #        arrowsize = 1,
-              #        showarrow = TRUE,
-              #        font = list(color = '#FFFFFF'),
-              #        ax = -10,
-              #        ay = -150
-              #      ) %>%
-              #    plotly::layout(
-              #        title = "",
-              #        yaxis = list(title = "Conversation Over Time", color = "#FFFFFF"),
-              #        xaxis = list(title = "", color = "#FFFFFF", showticklabels = T, type = "category"
-              #                     ),
-              #        legend = legend_features,
-              #        paper_bgcolor='#212121',
-              #        plot_bgcolor='#212121'
-              #    ))
-              
-              
-          #    uris_7day$uri 
-              
-           #   urisclick_7day
-              
-           
-            #    corona7day <- read_rds("~/NetBaseApi/coviddashboard/corona7day.rds")
-              #   
-              #   legend_features2 <- list(
-              #     font = list(
-              #       size = 12,
-              #       color = "#FFFFFF"),
-              #     bgcolor = "#212121",
-              #     bordercolor = "#FFFFFF",
-              #     borderwidth = 1,
-              #     x = 0.1, 
-              #     y = 0.2)
-              #   
-              #   corona7day <- corona7day %>%
-              #     ungroup()
-              #   
-              # output$lineplot_7days <- plotly::renderPlotly({ 
-              #   plotly::plot_ly(data = corona7day,
-              #                   source = "hoverplotsource"
-              #                #   ,customdata = ~map2(uris_7day$uri, urisclick_7day, ~list(.x, .y))
-              #                   ) %>%
-              #     plotly::config(displayModeBar = FALSE) %>%
-              #     plotly::add_trace(
-              #       x = ~`date2`,
-              #       # y = ~active_cum,
-              #       y = ~`Total`,
-              #       type = "scatter",
-              #       mode = "lines+markers",
-              #       # name = "Active",
-              #       name = "Total Mentions",
-              #       line = list(color = total_mentions_colour),
-              #       marker = list(color = total_mentions_colour)
-              #     ) %>%
-              #     plotly::add_trace(
-              #       x = ~`date2`,
-              #       # y = ~active_cum,
-              #       y = ~`cumulative_confirmed_Australia`,
-              #       type = "scatter",
-              #       mode = "lines+markers",
-              #       # name = "Active",
-              #       name = "Confirmed Cases Australia",
-              #       line = list(color = twitter_colour),
-              #       marker = list(color = twitter_colour)
-              #     ) %>%
-              #     plotly::add_trace(
-              #       x = ~`date2`,
-              #       # y = ~active_cum,
-              #       y = ~`cumulative_confirmed_China`,
-              #       type = "scatter",
-              #       mode = "lines+markers",
-              #       # name = "Active",
-              #       name = "Confirmed Cases China",
-              #       line = list(color = "red"),
-              #       marker = list(color = "red")
-              #     ) %>%
-              # #    htmlwidgets::onRender(readLines("tooltip-image.js")) %>%
-              # #    htmlwidgets::onRender(readLines("tooltip-imageclick.js")) %>%
-              #     # plotly::add_annotations(
-              #     #   x = as.Date("2019-12-29"),
-              #     #   y = 1,
-              #     #   text = paste("First case"),
-              #     #   xref = "x",
-              #     #   yref = "y",
-              #     #   arrowhead = 5,
-              #     #   arrowhead = 3,
-              #     #   arrowsize = 1,
-              #     #   showarrow = TRUE,
-              #     #   font = list(color = '#FFFFFF'),
-              #     #   ax = -90,
-              #     #   ay = -90
-              #     # ) %>%
-              #     # plotly::add_annotations(
-              #     #   x = as.Date("2020-01-12"),
-              #     #   y = 2,
-              #     #   text = paste("First Case Outside of China (Thailand)"),
-              #     #   xref = "x",
-              #     #   yref = "y",
-              #     #   arrowhead = 10,
-              #     #   arrowhead = 3,
-              #     #   arrowsize = 1,
-              #     #   showarrow = TRUE,
-              #     #   font = list(color = '#FFFFFF'),
-              #     #   ax = -120,
-              #     #   ay = -120
-              #     # ) %>%
-              #     # plotly::add_annotations(
-              #     #   x = as.Date("2020-01-26"),
-              #     #   y = 3,
-              #     #   text = paste("First 'Imported' Case in Australia"),
-              #     #   xref = "x",
-              #     #   yref = "y",
-              #     #   arrowhead = 5,
-              #     #   arrowhead = 3,
-              #     #   arrowsize = 1,
-              #     #   showarrow = TRUE,
-              #     #   font = list(color = '#FFFFFF'),
-              #     #   ax = -150,
-              #     #   ay = -180
-              #     # ) %>%
-              #     # plotly::add_annotations(
-              #     #   x = as.Date("2020-03-15"),
-              #     #   y = 3,
-              #     #   text = paste(
-              #     #     "New containment measures"
-              #     #   ),
-              #     #   xref = "x",
-              #     #   yref = "y",
-              #     #   arrowhead = 10,
-              #     #   arrowhead = 3,
-              #     #   arrowsize = 1,
-              #     #   showarrow = TRUE,
-              #     #   font = list(color = '#FFFFFF'),
-              #     #   ax = -10,
-              #     #   ay = -90
-              #     # ) %>%
-              #     plotly::layout(
-              #       title = "",
-              #       yaxis = list(title = "Conversation Over Time", color = "#FFFFFF"),
-              #       xaxis = list(title = "", color = "#FFFFFF"),
-              #       legend = legend_features2,
-              #       paper_bgcolor='#212121',
-              #       plot_bgcolor='#212121'
-              #     )
-              # })
-        
+          
               output$contribution_plot <- renderPlotly({
                 contribution_plot
               })
               
-              # output$bing_sentiment_plot <- renderPlotly({
-              #   bing_sentiment_plot
-              # })
+              
               output$contribution_plot_30days <- renderPlotly({
                 contribution_plot_30days
               })
@@ -934,43 +567,4 @@ shinyApp(ui = ui, server = server)
             
 
          
-             
-             #Mar 1-2: First community cases reported in AU (29 total cases) 
-             #Mar 21: AU reaches 1,000 cases
-             #Mar 19-22: AU govt closes borders to non-residents and non-citizens, and announced mandatory closures of non-essential businesses
-             
-             
-             
-             ### Sentiment + Drivers	
-             
-             
-            
-             ###	Sentiment Weekly Snapshot
-             
-             
-             ### Trending Topics + Hashtags
-             
-             
-             ### Desktop Search Phrases
-             
-             
-             
-             
-             #-	Top 25 (or 50) trending Desktop coronavirus-related key phrases based on volume/yearly trend/leader (site receiving most traffic from keyword) >> identify trending related concerns/topics
-             
-             ### Mobile Search Phrases
-             
-             #-	Top 25 (or 50) trending Mobile Web coronavirus-related key phrases based on volume/yearly trend/leader (site receiving most traffic from keyword) >> identify trending related concerns/topics/ key differences with Desktop search behaviours
-             
-             ### Search Volume, Visits + Phrases
-             #
-             #-	Identify/analyse search volume, search visits
-             
-             ### Traffic Distribution
-             
-             #- Traffic distribution and organic traffic breakdown (by domains and keywords) incl. new/fast emerging domains and keywords
-             
-      
-
-
-
+ 
