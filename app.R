@@ -9,6 +9,9 @@ library(magrittr)
 library(bsplus)
 library(wordcloud2)
 library(reactable)
+library(htmltools)
+library(stringr)
+library(twitterwidget)
 
 pdf(NULL)
 
@@ -79,7 +82,7 @@ pdf(NULL)
     hashtags_7days <- read_rds("hashtags_plot7day.rds")
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
    # afinn <- readRDS("afinn.rds")
-    apple_trending_apps1 <- readRDS("apple_trending_table.rds")
+    apple_trending_apps1 <- read_csv("~/Downloads/apple_store_apps.csv")
     google_trending_apps1 <- readRDS("google_trending_table.rds")
     #uris <- readRDS("uris.rds")
     #urisclick <- readRDS("urisclick.rds")
@@ -466,15 +469,30 @@ pdf(NULL)
                                                       to reflect a climate of uncertainty despite an improvement in the domestic crisis situation.")))),
                       bs_button("Analysis", button_type = "default") %>%
                         bs_attach_collapse("contribution_collapse"))), br(), br(),
-                      column(width = 12, h4("Brand sentiment (Australian VoC only)", align = "center"), 
-                             wellPanel(introBox(data.step = 8, data.intro = "This chart shows the brands and organisations that are being
-                                                 talked about most by cosumers in the last week, and the sentiment towards that brand or organisation.", wordcloud2Output("rona_cloud")),
-                        bs_collapse("business_cloud", content = tags$div(class = "well",
-                                                                         column(width = 12,
-                                                                                tags$em(tags$p("Top 7 brands associated with positive 
-                                                                                               or negative consumer sentiment in the last 7 days."))))),
+                      column(width = 6, h4("Brand sentiment (Australian VoC only)", align = "center"), 
+                             wellPanel(introBox(data.step = 8, 
+                                                data.hint = "Click on a word to see a snippet of the conversation.", 
+                             data.intro = "This chart shows the brands and organisations that are being
+                                                 talked about most by cosumers in the last week, and the sentiment towards that brand or organisation.", 
+                                                wordcloud2Output("rona_cloud")
+                             ,                  tags$script(HTML(
+                                                  "$(document).on('click', '#canvas', function() {",
+                                                  'word = document.getElementById("wcSpan").innerHTML;',
+                                                  "Shiny.onInputChange('selected_word', word);",
+                                                  "});"
+                                                ))
+                             ),
+                        bs_collapse("business_cloud", 
+                                    content = tags$div(class = "well",
+                                        column(width = 12,
+                                            tags$em(tags$p("Top 7 brands associated with positive 
+                                                           or negative consumer sentiment in the last 7 days."))))),
                         bs_button("Analysis", button_type = "default") %>%
                           bs_attach_collapse("business_cloud"), br()
+                        )), br(), br(), 
+                      column(width = 6, h4("Test"), 
+                             wellPanel(twitterwidgetOutput("tweet_output")
+                        #verbatimTextOutput("print")
                         ))
                       #  wellPanel(introBox(column(width = 4, plotlyOutput("udpipe_plot")))),
                             )
@@ -483,7 +501,8 @@ pdf(NULL)
                         )
                       )
                  ,
-                 tabPanel(title = introBox( data.step = 9, data.intro = "Let's move over to the Search page - click 'Search'. <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
+                 tabPanel(title = introBox( data.step = 9, data.intro = "Let's move over to the Search page - click 'Search'. 
+                                            <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
                              sidebarPanel(img(src="Artboard1Logo.png", width="80%", height="80%"),
                                           br(), br(),
                                           br(), br(),
@@ -507,7 +526,7 @@ pdf(NULL)
                                                  Jan 1st - Mar 31st 2020; Data: SimilarWeb.") ))),
                                                  bs_button("Analysis", button_type = "default") %>%
                                                    bs_attach_collapse("sw_keywords_collapse")), br(), br(),
-                                      column(width = 6, align = "left", h4("Trending up apps - Apple app store"), wellPanel(reactableOutput("apple_trending_apps"))),
+                                      column(width = 6, align = "left", h4("Trending up apps - Apple app store"), wellPanel(reactableOutput("apple_table"))),
                                       column(width = 6, align = "left", h4("Trending up apps - Google Play store") ,wellPanel(reactableOutput("google_trending_apps")))
                              )))
          
@@ -553,6 +572,15 @@ pdf(NULL)
               volume_chart
             )
             
+            theme1<- reactableTheme(color = "hsl(0, 0%, 90%)", backgroundColor = "hsl(0, 0%, 10%)", 
+                                    borderColor = "hsl(0, 0%, 18%)", stripedColor = "hsl(0, 0%, 13%)", 
+                                    headerStyle = list(`&:hover[aria-sort]` = list(backgroundColor = "hsl(0, 0%, 14%)")), 
+                                    tableBodyStyle = list(color = "hsl(0, 0%, 75%)"), rowHighlightStyle = list(color = "hsl(0, 0%, 90%)", 
+                                                                                                               backgroundColor = "hsl(0, 0%, 14%)"), selectStyle = list(backgroundColor = "hsl(0, 0%, 20%)"), 
+                                    inputStyle = list(backgroundColor = "hsl(0, 0%, 10%)", borderColor = "hsl(0, 0%, 21%)", 
+                                                      `&:hover, &:focus` = list(borderColor = "hsl(0, 0%, 30%)")), 
+                                    pageButtonHoverStyle = list(backgroundColor = "hsl(0, 0%, 20%)"), 
+                                    pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)"))
           
               output$contribution_plot <- renderPlotly({
                 contribution_plot
@@ -570,10 +598,77 @@ pdf(NULL)
               output$google_trending_apps <- renderReactable({
                 google_trending_apps1
               })
-            
+              
+              output$apple_table <- renderReactable({
+                                              reactable(apple_trending_apps1, 
+                                                  style = list(fontFamily = "Arial, sans-serif", fontSize = "14px"),
+                                                  resizable = TRUE, showPageSizeOptions = TRUE, 
+                                                  onClick = "expand", highlight = TRUE, 
+                                                  columns = 
+                                                    list(
+                                                      App = colDef(
+                                                        minWidth = 200,
+                                                        cell = function(value){
+                                                                     image <- img(class = "appletrendingapplogo", 
+                                                                                  alt= "", 
+                                                                                  src = sprintf("images/%s.png", value))
+                                                                     tagList(
+                                                                       div(style = list(display = "inline-block", width = "60px"), image),
+                                                                       value
+                                                                     )
+                                                                   } ), 
+                                                      "Store Rank" = colDef(name = "Store Rank", 
+                                                                            headerStyle = list(fontWeight = 700),
+                                                                            defaultSortOrder = "asc")), 
+                                                  # details = function(index) {
+                                                  #       if (index == 3) {
+                                                  #         tabsetPanel(
+                                                  #         )
+                                                  #       } else if (index == 5) {
+                                                  #         paste("Details for row:", index)
+                                                  #       }
+                                                  #     }, 
+                                                  theme = theme1)
+              })
+          
+              reactive_brand_selection <- reactive({
+                #cleaned_brand <- str_remove(input$selected_word, ":.*")
+                cleaned_brand <- input$selected_word
+                cleaned_brand
+                              })
+              
+         #      reactive_tweet <- reactive({
+         # #       output$tweet_output <- FALSE
+         #        if(reactive_brand_selection() == "NRL:437"){
+         #          twitterwidget("1252785723830226944")
+         #        }
+         #        else if(reactive_brand_selection() == "NRL:285"){
+         #          twitterwidget("1252785725549842432")
+         #        }
+         #    
+         #      })
+              
+              
+              observeEvent(input$selected_word, {
+                
+                if(reactive_brand_selection() == "NRL:437"){
+                  reactive_tweet <- twitterwidget("1252785723830226944")
+                }
+                else if(reactive_brand_selection() == "NRL:285"){
+                  reactive_tweet <- twitterwidget("1252785725549842432")
+                }
+                
+              output$tweet_output = renderTwitterwidget({
+                reactive_tweet
+                })
+              })
+              
+              output$print  = renderPrint(
+                reactive_brand_selection()
+              )
          }
     
-
+?str_remove
 shinyApp(ui = ui, server = server)
             
 
