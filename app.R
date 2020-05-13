@@ -8,6 +8,7 @@ library(shinythemes)
 library(magrittr)
 library(bsplus)
 library(wordcloud2)
+library(reactable)
 
 pdf(NULL)
 
@@ -78,7 +79,8 @@ pdf(NULL)
     hashtags_7days <- read_rds("hashtags_plot7day.rds")
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
    # afinn <- readRDS("afinn.rds")
-    
+    apple_trending_apps1 <- readRDS("apple_trending_table.rds")
+    google_trending_apps1 <- readRDS("google_trending_table.rds")
     #uris <- readRDS("uris.rds")
     #urisclick <- readRDS("urisclick.rds")
     #coronavirus <- readRDS("coronavirus2.rds")
@@ -504,7 +506,9 @@ pdf(NULL)
                                                    on ranked by volume of searches; Period: 
                                                  Jan 1st - Mar 31st 2020; Data: SimilarWeb.") ))),
                                                  bs_button("Analysis", button_type = "default") %>%
-                                                   bs_attach_collapse("sw_keywords_collapse"))
+                                                   bs_attach_collapse("sw_keywords_collapse")), br(), br(),
+                                      column(width = 6, align = "left", h4("Trending up apps - Apple app store"), wellPanel(reactableOutput("apple_trending_apps"))),
+                                      column(width = 6, align = "left", h4("Trending up apps - Google Play store") ,wellPanel(reactableOutput("google_trending_apps")))
                              )))
          
     )
@@ -559,7 +563,13 @@ pdf(NULL)
                 contribution_plot_30days
               })
               
-      
+              output$apple_trending_apps <- renderReactable({
+                apple_trending_apps1
+              })
+              
+              output$google_trending_apps <- renderReactable({
+                google_trending_apps1
+              })
             
          }
     
