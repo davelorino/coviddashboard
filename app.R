@@ -261,7 +261,8 @@ pdf(NULL)
                         
                                 tags$li("This state of play changed in late January with conversations spiking first around the 
                                         discovery of the the first ‘imported’ case in Australia, and then again with the government 
-                                        enactment of new lockdown measures to control the rapid spread of the virus.",  tags$b("The mood of 
+                                        enactment of new lockdown measures to control the rapid spread of the virus.",  
+                                        tags$b("The mood of 
                                         the nation then changed significantly, with once again Australians primarily concerned 
                                         with domestic developments impacting not only their personal health and safety but also 
                                         their day to day life and lifestyle. ")),
@@ -278,6 +279,9 @@ pdf(NULL)
                                         media fatigue and disengagement by the Australian public. The worst of the crisis 
                                         appears to be over as the curve begins to flatten and conversation shifts from outbreak, 
                                         to the subsequent economic fallout.")),
+                                tags$li("Last weekend’s announcement of the easing of the restrictions for the first time since 
+                                        lockdown failed to spark any significant interest with conversations continuing to decline,", 
+                                        tags$b("indicative of a cautious behaviour and an overall fatigue with the ongoing COVID crisis."))
                                 ),
                                 column(width = 6, h4(tags$b(tags$u("Key Events"))),
                                                     h5(tags$u("Dec 29th - Jan 26th")),
@@ -305,12 +309,15 @@ pdf(NULL)
                                        tags$li("New restrictions and penalties including jail time."),
                                        tags$li("Large portion of Australian workforce adjusts to working from home."),
                                        br(),
-                                       h5(tags$u("Apr 12th - Present")),
-                                       tags$li("Criminal investigations into the Ruby Princess."),
-                                       tags$li("Uncertain financial security for many Australians."),
-                                       tags$li("Australia begins to flatten the curve."), 
-                                       br()
+                                       h5(tags$u("Apr 12th - May 3rd")),
+                                       tags$li("Donald Trump halts funding to the World Health Organisation."),
+                                       tags$li("Australian government releases COVIDSafe app."),
+                                       tags$li("Some Australian states begin relaxing lockdown laws as curve flattens."), 
+                                       br(),
+                                h5(tags$u("May 3rd - May 10th")),
+                                      tags$li("With restrictions easing, parents debate whether schools should re-open.")
                                        ))), 
+                               
                                  introBox(data.step = 2, data.intro = "Click the Analysis button located on the bottom-left of every chart to see insights.", 
                                           bs_button(button_size = "small", "Analysis", button_type = "default") %>%
                                    bs_attach_collapse("volume_collapse")))
@@ -362,10 +369,11 @@ pdf(NULL)
                                 national mindset.")),
                                 br(),
                                 tags$li("Yet despite Australia’s recent success in flattening the curve, since mid-April positive 
-                                sentiment has marginally fallen.", tags$b("With a large portion of the nation still in lockdown and media 
-                                fatigue setting in, Australians appear mostly unaffected by the good news around the containment 
-                                of the virus and are otherwise preoccupied with controversy surrounding government policy (in 
-                                particular the launch of the government’s new COVIDSafe app).")), 
+                                        sentiment has marginally fallen.", tags$b("With a large portion of the nation still in lockdown and 
+                                        media fatigue setting in, Australians appear mostly unaffected by the good news around the 
+                                        containment of the virus or easing of the restrictions. Instead they seem more 
+                                        preoccupied with controversy surrounding government policy (in particular the launch of 
+                                        the government’s new COVIDSafe app and potential re-opening of schools).")), 
                                 br(), br()
                                 , tags$style(type = "text/css", "p { font-size: 12px; }")))
                                 ),
@@ -384,11 +392,15 @@ pdf(NULL)
                                                                       negative or positive keywords could not be identified.")), 
                                                              br(),
                                      
-                                                "In the past week, online conversation has largely revolved around Australia’s path back to ‘normal’,
-                                                 with controversy around the launch of the COVIDSafe app driving a large portion of negative sentiment. 
-                                                 Simultaneously, the relaxation of lockdown laws has been met with mixed reactions by the public - with 
-                                                 some questioning whether it will prompt another jump in the infection rate.", tags$b("While the curve has started 
-                                                 to flatten, it appears Australians are proceeding with caution, rather than celebration."), 
+                                                "At the end of last week, lockdown restrictions began to ease in many states for the first time since mid-March. 
+                                                Despite this there has been absolutely no shift in sentiment, showing that the ", 
+                                                tags$b("development has done little 
+                                                to bolster the mood of a media-fatigued and disheartened public."), 
+                                                br(), br(),
+                                                "As the curve continues to flatten and the health crisis begins to stabilize, conversation this week has shifted to
+                                                whether children should return to school. While the government believes it’s necessary to allow parents to return to 
+                                                work, some are questioning whether kids are truly resistant to the virus. ",  tags$b("With financial hardship a key area of concern 
+                                                for most Australians, they still appear to be apprehensive of easing restrictions at the risk of another surge in infections."),
                                                  br(), br())),
                                                             bs_button("Analysis", button_type = "default") %>%
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
@@ -402,26 +414,19 @@ pdf(NULL)
                                                                  content = tags$div(class = "well",
                                                                                   tags$em(  tags$p("Trending hashtags between the 26th of April and the 2nd of May inclusive.
                                                                                            Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
-                                                                                    
                                                                                   
                                                                                   tags$h5("Trending hashtags were grouped around four main concerns:"), br(),
                                                                                     column(width = 12,
-                                                                                    tags$li("The Ruby Princess cruise ship (", tags$b("#rubyprincess"), "was the #1 hashtag in mentions 
-                                                                                    of coronavirus for the week). As the source of Australia’s largest outbreak, this 
-                                                                                    remains a hot news topic and key area of public interest."), br(),
-                                                                                    tags$li("The launch of the government’s COVIDSafe App has dominated headlines 
-                                                                                    and consumer conversation, with a mixed response from the public. Privacy concerns, 
-                                                                                    tech issues and regulation have been the key areas of concern related to use of this 
-                                                                                    hashtag (", tags$b("#covidsafe"), ")."), br(),
-                                                                                    tags$li("With a large portion of the workforce now working from home or self-isolating, 
-                                                                                    lockdown measures have fuelled a significant portion of conversation online both positive 
-                                                                                    and negative. While some are critical of the government’s approach, others have rallied 
-                                                                                    behind it – as demonstrated by widespread use of these hashtags (", tags$b("#stayhome, #stayhome, 
-                                                                                    #socialdistancing"), ")."), br(),
-                                                                                    tags$li("Despite a preference for local news stories, international politics was a 
-                                                                                    matter of particular interest to Australians last week with ", tags$b("#Trump "), "and ", 
-                                                                                            tags$b("#China "),   
-                                                                                    "trending in response to breaking news stories."), br(), br()
+                                                                                    tags$li("Politics was at the forefront of online conversation with ", tags$b("#scottyfrommarketing "), 
+                                                                                            "emerging as the top hashtag this week, as controversy around the new ", tags$b("#COVIDSafe "), 
+                                                                                            "app continues - with the PM requesting the ABC stops reporting negatively on the app."), br(),
+                                                                                    
+                                                                                    tags$li(tags$b("#RubyPrincess "), "fell from #1 to #6 this week, however as investigations continue it remains 
+                                                                                            a key topic of conversation as the source of Australia’s largest outbreak."), br(),
+                                                                                    tags$li("Despite a preference for local news stories, international politics remained of 
+                                                                                    interest to Australians last week with ", tags$b("#Trump "), "trending in response to breaking news stories."),
+                                                                                     
+                                                                                            br(), br()
                                                                                       ))),
                                                      bs_button("Analysis", button_type = "default") %>%
                                                          bs_attach_collapse("weekly_hashtags_collapse")))),
@@ -516,18 +521,29 @@ pdf(NULL)
                      ")))
                              ),
                              mainPanel(column(width = 12, align = "left",
-                                              h4("Top COVID-19 keywords and destinations (mobile and desktop)", align = "center"),
+                                              h4("Top organic search keywords inc. ‘coronavirus’ (desktop and mobile web, Australia only)", align = "center"),
                                       wellPanel(introBox(data.step = 10, 
                                       data.intro = "This plot shows us the phrases most commonly associated with 'coronavirus'
                                                             from all search engine traffic.", plotlyOutput("sw_keywords_plot")),
                                                  bs_collapse(id = "sw_keywords_collapse", content = tags$div(class = "well", 
-                                                tags$em(p("Associated phrases in searches for 'coronavirus' 
-                                                   on ranked by volume of searches; Period: 
-                                                 Jan 1st - Mar 31st 2020; Data: SimilarWeb.") ))),
+                                                tags$em(p("Top organic search keywords including ‘coronavirus’ ranked by volume 
+                                                of searches and destination (mobile and desktop traffic combined) for the period Feb 1st to Apr 30th; Data: SimilarWeb.")))),
                                                  bs_button("Analysis", button_type = "default") %>%
                                                    bs_attach_collapse("sw_keywords_collapse")), br(), br(),
-                                      column(width = 6, align = "left", h4("Trending up apps - Apple app store"), wellPanel(reactableOutput("apple_table"))),
-                                      column(width = 6, align = "left", h4("Trending up apps - Google Play store") ,wellPanel(reactableOutput("google_trending_apps")))
+                                     
+                                      column(width = 6, align = "left", h5("Trending Up Apps, Last 28 Days - Apple App store"), wellPanel(reactableOutput("apple_table"))),
+                                      column(width = 6, align = "left", h5("Trending Up Apps, Last 28 Days - Google Play store"), wellPanel(reactableOutput("google_trending_apps"))),
+                                      br(),
+                                     column(width = 12, wellPanel(
+                                       bs_collapse(id = "apps_collapse", content = tags$div(class = "well", 
+                                                                                                   column(width=6,
+                                                                                                          tags$em(tags$p("Top 10 upward trending apps on the Apple app store in the last 28 days. Data: SimilarWeb." 
+                                                                                                                         ))),                                                        
+                                                                                                   column(width = 6,
+                                                                                                          tags$em(tags$p("Top 10 upward trending apps on the Google Play store in the last 28 days. Data: SimilarWeb. ")), br(), 
+                                                                                                   ))),
+                                      bs_button("Analysis", button_type = "default") %>%
+                                        bs_attach_collapse("apps_collapse"))), br(), br(),
                              )))
          
     )
