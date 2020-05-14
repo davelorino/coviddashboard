@@ -553,24 +553,24 @@ pdf(NULL)
                                                 "From Feb-April Australians have been mostly concerned with understanding the virus 
                                                 and its symptoms, assessing how it was spread (both locally and abroad) and the 
                                                 possibility of a vaccine. ", tags$b("They are visibly as anxious about personal safety with 
-                                                detection of the disease front of mind as they are about its eradication."), br(),
+                                                detection of the disease front of mind as they are about its eradication."), br(), br(),
                                                 
                                                 tags$li("Australians have been turning to government websites (health.gov.au, cdc.gov, 
                                                 who.int) as their primary source of truth on COVID-19, particularly when it came to 
-                                                researching symptoms and policy updates."),
+                                                researching symptoms and policy updates."), br(),
                                                 tags$li("Local news outlets (news.com.au, couriermail.com, abc.net.au, theguardian.com, 
                                                 watoday.com) have been the preferred go-to destinations for the latest developments on 
                                                 the spread of the disease at home and the development of a vaccine, with a particular 
-                                                interest in news with a geographic lens (i.e. NSW, QLD, Sydney, Perth and Melbourne)."),
+                                                interest in news with a geographic lens (i.e. NSW, QLD, Sydney, Perth and Melbourne)."), br(),
                                                 tags$li("Well-established reputable international news outlets  (straitstimes.com, 
                                                 aljazeera.com, telegraph.co.uk) while less popular, were the top destinations 
                                                 for those searching ‘how did coronavirus start’ and other key overseas 
                                                 developments (i.e. total cases and the outbreak in Italy and Singapore)."))
                                                 
                                                 
-                                                )),
+                                                ),
                                                  bs_button("Analysis", button_type = "default") %>%
-                                                   bs_attach_collapse("sw_keywords_collapse")), br(), br(),
+                                                   bs_attach_collapse("sw_keywords_collapse"))), br(), br(),
                                      
                                       column(width = 6, align = "left", h5("Trending up apps, App Store/iPhone (Australia - last 28 days)"), introBox(data.step = 11, data.intro = "This chart shows the top 10 free trending apps across all categories in Australia over the last 28 days in the App store (iPhone only).", 
                                                                                                                                          wellPanel(reactableOutput("apple_table")))),
