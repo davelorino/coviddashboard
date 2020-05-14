@@ -473,7 +473,7 @@ pdf(NULL)
                                                       questioning whether “COVID-19 is a pandemic or a plandemic?”."))),
                       bs_button("Analysis", button_type = "default") %>%
                         bs_attach_collapse("contribution_collapse"))), br(), br(),
-                      column(width = 12, h5("Brand sentiment (Australian VoC only) - weekly snapshot", align = "center"), 
+                      column(width = 12, h5("Most talked about brands in connection with Coronavirus (Australia VoC only) - weekly snapshot", align = "center"), 
                              wellPanel(introBox(data.step = 8, 
                                                 data.hint = "Click on a word to see a snippet of the conversation.", 
                              data.intro = "This chart shows the brands and organisations that are being
@@ -489,10 +489,31 @@ pdf(NULL)
                         bs_collapse("business_cloud", 
                                     content = tags$div(class = "well",
                                         column(width = 12,
-                                            tags$em(tags$p("Top 7 brands by VoC in the last 7 days (Australia only). 
-                                                           Brands are split out by both negative and positive sentiment 
-                                                           in order to demonstrate what is driving this conversation online. 
-                                                           Brands may appear twice as a result. Period May 2nd to May 8th. Data: Meltwater. Brand Detection: OpenNLP."))))),
+                                            tags$em(tags$p("Top 7 most talked about brands in connection with Coronavirus 
+                                            in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
+                                            Brand mentions may be split out by both negative and positive sentiments where applicable. 
+                                            Period May 2nd to May 8th. Data: Meltwater. Brand Detection: OpenNLP.")), br(),
+                                            h5("Not surprisingly, some of the most impacted industries by the virus outbreak 
+                                               (retail, air travel, sporting codes and pharmaceuticals) have been at the centre of many debates in the last week:"),
+                                            tags$li("In the past week, the ", tags$b("NRL "), "has generated the largest volume of brand conversations in Australia. A majority 
+                                                    of this was negative, largely in relation to reports that a number of players are opposed to mandatory flu 
+                                                    vaccinations for all teams (including in the ", tags$b("AFL "), "). Despite this, a number of players have come out supporting 
+                                                    the measures, as well as advocating for the government’s new COVIDSafe app - which has generated positive 
+                                                    conversation online for the brand."), br(),
+                                            tags$li("Australian supermarkets ", tags$b("Coles ", "and ", tags$b("Woolworths "), "continue to dominate the COVID conversation, as controversial 
+                                                    measures to protect customers and staff are introduced such as their new checkout policies. From a business 
+                                                    perspective, both brands have released figures each citing a multi-billion dollar COVID-19 boom which has 
+                                                    garnered negative speculation."), br(),
+                                            tags$li("Home-grown airline ", tags$b("Virgin "), "Australia has also been the centre of conversation online after they entered voluntary 
+                                                    administration off the back of travel bans and declining sales. There has however been a number of positive 
+                                                    conversations online around the possibility of the airline becoming a public asset owned by the QLD government."), br(),
+                                            tags$li("Pharmaceutical company ", tags$b("Pfizer "), "was the only brand to generate a largely positive conversation in the past week, 
+                                            with the announcement that they may begin testing a coronavirus vaccine by September. With a public desperate for a 
+                                            solution to the current health crisis, this is welcoming news for fearful Australians."), br(),
+                                            tags$li("The Wuhan Institute of Virology (", tags$b("WIOV"), ") generated the third highest level of negative sentiment in the last week, 
+                                                    recently blacklisted by the NIH over suspicions that they falsified scientific records."), br()
+                                            
+                                            )))),
                         bs_button("Analysis", button_type = "default") %>%
                           bs_attach_collapse("business_cloud"), br()
                         )), br(), br() 
@@ -524,32 +545,61 @@ pdf(NULL)
                              mainPanel(column(width = 12, align = "left",
                                               h4("Top organic search keywords inc. ‘coronavirus’ (desktop and mobile web, Australia only)", align = "center"),
                                       wellPanel(introBox(data.step = 10, 
-                                      data.intro = "This plot shows us the phrases most commonly associated with 'coronavirus'
-                                                            from all search engine traffic.", plotlyOutput("sw_keywords_plot")),
-                                                 bs_collapse(id = "sw_keywords_collapse", content = tags$div(class = "well", 
+                                      data.intro = "This plot shows us the most popular search term variations including coronavirus from all search engine traffic.", plotlyOutput("sw_keywords_plot")),
+                                                bs_collapse(id = "sw_keywords_collapse", content = tags$div(class = "well", 
                                                 tags$em(p("Top organic search keywords including ‘coronavirus’ ranked by volume 
-                                                of searches and destination (mobile and desktop traffic combined) for the period Feb 1st to Apr 30th; Data: SimilarWeb.")))),
+                                                of searches and destination (mobile and desktop traffic combined) for the period Feb 1st to Apr 30th; Data: SimilarWeb.")),
+                                                br(),
+                                                "From Feb-April Australians have been mostly concerned with understanding the virus 
+                                                and its symptoms, assessing how it was spread (both locally and abroad) and the 
+                                                possibility of a vaccine. ", tags$b("They are visibly as anxious about personal safety with 
+                                                detection of the disease front of mind as they are about its eradication."), br(),
+                                                
+                                                tags$li("Australians have been turning to government websites (health.gov.au, cdc.gov, 
+                                                who.int) as their primary source of truth on COVID-19, particularly when it came to 
+                                                researching symptoms and policy updates."),
+                                                tags$li("Local news outlets (news.com.au, couriermail.com, abc.net.au, theguardian.com, 
+                                                watoday.com) have been the preferred go-to destinations for the latest developments on 
+                                                the spread of the disease at home and the development of a vaccine, with a particular 
+                                                interest in news with a geographic lens (i.e. NSW, QLD, Sydney, Perth and Melbourne)."),
+                                                tags$li("Well-established reputable international news outlets  (straitstimes.com, 
+                                                aljazeera.com, telegraph.co.uk) while less popular, were the top destinations 
+                                                for those searching ‘how did coronavirus start’ and other key overseas 
+                                                developments (i.e. total cases and the outbreak in Italy and Singapore)."))
+                                                
+                                                
+                                                )),
                                                  bs_button("Analysis", button_type = "default") %>%
                                                    bs_attach_collapse("sw_keywords_collapse")), br(), br(),
                                      
-                                      column(width = 6, align = "left", h5("Trending up apps, last 28 days - Apple App store"), introBox(data.step = 11, data.intro = "This chart shows the top 10 upwardly trending apps among all 
-                                                                                                                                         categories in Australia over last 28 days in the Apple app store.", 
+                                      column(width = 6, align = "left", h5("Trending up apps, App Store/iPhone (Australia - last 28 days)"), introBox(data.step = 11, data.intro = "This chart shows the top 10 free trending apps across all categories in Australia over the last 28 days in the App store (iPhone only).", 
                                                                                                                                          wellPanel(reactableOutput("apple_table")))),
-                                      column(width = 6, align = "left", h5("Trending up apps, last 28 days - Google Play store"), introBox(data.step = 12, data.intro = "This chart shows 
-                                                                                                                                           the top 10 upwardly trending apps among all categories in Australia over last 28 days in 
-                                                                                                                                           the Google Play store.", wellPanel(reactableOutput("google_trending_apps")))),
+                                      column(width = 6, align = "left", h5("Trending up apps, Play Store (Australia - last 28 days)"), introBox(data.step = 12, data.intro = "This chart shows the top 10 free trending apps across all categories in Australia over the last 28 days in Google Play Store.", wellPanel(reactableOutput("google_trending_apps")))),
                                       br(),
                                      column(width = 12, wellPanel(
                                        bs_collapse(id = "apps_collapse", content = tags$div(class = "well", 
-                                                                                                   column(width=6,
-                                                                                                          tags$em(tags$p("Top 10 upward trending apps on the Apple app store in the last 28 days. Data: SimilarWeb." 
-                                                                                                                         ))),                                                        
-                                                                                                   column(width = 6,
-                                                                                                          tags$em(tags$p("Top 10 upward trending apps on the Google Play store in the last 28 days. Data: SimilarWeb. ")), br(), 
-                                                                                                   ))),
+                                                                                                   column(width=12,
+                                                                                                          tags$em(tags$p("Top Free Apps (across all categories) with the biggest increase over the last 28 days in Store Rank or in Usage Rank." 
+                                                                                                                         )), 
+                                                                                                          
+                                                                                                          tags$li("Interestingly, all of the trending up apps for the period pan hard to either end of the 
+                                                                                                          entertainment/utility scale. With less to do, but more to worry about than ever before, ", tags$b("it 
+                                                                                                          appears Australians are playing a balancing act between staying informed, while staying sane.")), 
+                                                                                                          br(),
+                                                                                                          tags$li("As such, entertainment (in particular gaming, social, music and dating) apps dominate the charts 
+                                                                                                          as ", tags$b("consumers look for novel ways to distract themselves during the current crisis.")), br(),  
+                                                                                                          tags$li("On the utility end of the spectrum, the official Coronavirus Australia app took the top 
+                                                                                                          spot - providing consumers with live government updates. With a large segment of 
+                                                                                                          the workforce now working from home, functional apps such as Google Home, 
+                                                                                                          NordVPN and Canon Print are also trending up."), br()
+                                                                                                          )
+                                                                                            # ,      column(width = 6,
+                                                                                            #               tags$em(tags$p("Top 10 upward trending apps on the Google Play store in the last 28 days. Data: SimilarWeb. ")), br(), 
+                                                                                            #        )
+                                                                                            )),
                                       bs_button("Analysis", button_type = "default") %>%
                                         bs_attach_collapse("apps_collapse"))), br(), br(),
-                             )))
+                             ))
          
     )
     
@@ -689,7 +739,6 @@ pdf(NULL)
               )
          }
     
-?str_remove
 shinyApp(ui = ui, server = server)
             
 
