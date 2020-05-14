@@ -240,7 +240,7 @@ pdf(NULL)
                                          the ",  
                                           tags$b("total weekly mentions "),  
                                           "between the 29th of December and the 4th of January inclusive. 
-                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - May 2nd, 2020. 
+                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - May 8th, 2020. 
                                           Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.", 
                                                      tags$style(type = "text/css", "p { font-size: 12px; }")))),
                                 br(), br(),
@@ -344,7 +344,7 @@ pdf(NULL)
                                          labelled date. For example, the first point labelled 'Dec 29, 2019' represents
                                          the average weekly sentiment between the 29th of December and the 4th of January inclusive. 
                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
-                                          and Tweets Dec 29, 2019 - May 2nd, 2020. Note: Neutral sentiment refers to 
+                                          and Tweets Dec 29, 2019 - May 8th, 2020. Note: Neutral sentiment refers to 
                                           mentions in which either negative or positive keywords could not be identified.")), 
                                   
                                column(width=12, 
@@ -386,7 +386,7 @@ pdf(NULL)
                                                             comments, blogs and forums over the last week.", 
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
-                                                             tags$em( tags$p("Sentiment in the 7 day period between the 26th of April and the 2nd of May inclusive. 
+                                                             tags$em( tags$p("Sentiment in the 7 day period between the 2nd and the 8th of May inclusive. 
                                                                       Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets. 
                                                                       Note: Neutral sentiment refers to mentions in which either 
                                                                       negative or positive keywords could not be identified.")), 
@@ -412,7 +412,7 @@ pdf(NULL)
                                                              plotlyOutput("hashtags_7days"),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
                                                                  content = tags$div(class = "well",
-                                                                                  tags$em(  tags$p("Trending hashtags between the 26th of April and the 2nd of May inclusive.
+                                                                                  tags$em(  tags$p("Trending hashtags between the 2nd and the 8th of May inclusive.
                                                                                            Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
                                                                                   
                                                                                   tags$h5("Trending hashtags were grouped around four main concerns:"), br(),
@@ -452,26 +452,25 @@ pdf(NULL)
                                                                                    column(width=6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                                  " sentiment analysis lexicon. 7 day period 26th April - 2nd May inclusive. 
+                                                                                                  " sentiment analysis lexicon. 7 day period 2nd and the 8th of May inclusive. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
                                                                 column(width = 6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                        " sentiment analysis lexicon. 4 week period 5th April - 2nd May inclusive. 
+                                                                                        " sentiment analysis lexicon. 4 week period 2nd and the 8th of May inclusive. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), 
+                                                            
                                                                     tags$li("The largest contributors to negative sentiment continue to be focused on virus casualties 
                                                                     and spread (e.g. dead, infected, die, death, died). 
-                                                                    ", tags$b("Although the curve is flattening, 
-                                                                    this demonstrates there is still a high level of fear within the community, and 
-                                                                              that possibly most Australians aren’t ready to return to normal and let go 
-                                                                              of social distancing just yet.")), br(),
+                                                                    ", tags$b("There is visibly still a high level of fear within the community, 
+                                                                              with many questioning whether the country is ready to start easing restrictions.")), br(),
                                               tags$li("While only accounting for a small portion of mentions, terms that generated 
                                               positive online sentiment reflect the ‘good news stories’ that are emerging from this 
-                                              crisis (e.g. help, care, support, thank) ", tags$b("showing that there is a consumer appetite for 
+                                              crisis (e.g. help, care, support, thanks, love) ", tags$b("showing that there is a consumer appetite for 
                                               uplifting stories in these challenging times.")), br(),
-                                              tags$li("In the last 7 days, there has been a higher proportion of negative words 
-                                                      driving sentiment. These new emerging terms (shit, worse, important) ", tags$b("continue 
-                                                      to reflect a climate of uncertainty despite an improvement in the domestic crisis situation.")))),
+                                              tags$li("In the last 7 days conspiracy has emerged as a new trending negative term, as anti-lockdown protests are held across 
+                                                      the country. Vaccines, the 5G network and tracking apps are at the centre of debate, with a small but loud minority 
+                                                      questioning whether “COVID-19 is a pandemic or a plandemic?”."))),
                       bs_button("Analysis", button_type = "default") %>%
                         bs_attach_collapse("contribution_collapse"))), br(), br(),
                       column(width = 6, h4("Brand sentiment (Australian VoC only)", align = "center"), 
@@ -491,7 +490,7 @@ pdf(NULL)
                                     content = tags$div(class = "well",
                                         column(width = 12,
                                             tags$em(tags$p("Top 7 brands associated with positive 
-                                                           or negative consumer sentiment in the last 7 days."))))),
+                                                           or negative consumer sentiment between the 2nd and the 8th of May inclusive."))))),
                         bs_button("Analysis", button_type = "default") %>%
                           bs_attach_collapse("business_cloud"), br()
                         )), br(), br(), 
