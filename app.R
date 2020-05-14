@@ -416,8 +416,7 @@ pdf(NULL)
                                                                  content = tags$div(class = "well",
                                                                                   tags$em(  tags$p("Trending hashtags between the 2nd and the 8th of May inclusive.
                                                                                            Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
-                                                                                  
-                                                                                  tags$h5("Trending hashtags were grouped around four main concerns:"), br(),
+       
                                                                                     column(width = 12,
                                                                                     tags$li("Politics was at the forefront of online conversation with ", tags$b("#scottyfrommarketing "), 
                                                                                             "emerging as the top hashtag this week, as controversy around the new ", tags$b("#COVIDSafe "), 
