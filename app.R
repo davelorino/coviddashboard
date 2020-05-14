@@ -278,7 +278,7 @@ pdf(NULL)
                                         the VoC conversation around the virus  has been on the decline,", tags$b("suggesting increased 
                                         media fatigue and disengagement by the Australian public. The worst of the crisis 
                                         appears to be over as the curve begins to flatten and conversation shifts from outbreak, 
-                                        to the subsequent economic fallout.")),
+                                        to the subsequent economic fallout.")), br(),
                                 tags$li("Last weekend’s announcement of the easing of the restrictions for the first time since 
                                         lockdown failed to spark any significant interest with conversations continuing to decline,", 
                                         tags$b("indicative of a cautious behaviour and an overall fatigue with the ongoing COVID crisis."))
