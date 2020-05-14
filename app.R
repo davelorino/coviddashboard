@@ -473,7 +473,7 @@ pdf(NULL)
                                                       questioning whether “COVID-19 is a pandemic or a plandemic?”."))),
                       bs_button("Analysis", button_type = "default") %>%
                         bs_attach_collapse("contribution_collapse"))), br(), br(),
-                      column(width = 6, h4("Brand sentiment (Australian VoC only)", align = "center"), 
+                      column(width = 12, h5("Brand sentiment (Australian VoC only) - weekly snapshot", align = "center"), 
                              wellPanel(introBox(data.step = 8, 
                                                 data.hint = "Click on a word to see a snippet of the conversation.", 
                              data.intro = "This chart shows the brands and organisations that are being
@@ -493,11 +493,11 @@ pdf(NULL)
                                                            or negative consumer sentiment between the 2nd and the 8th of May inclusive."))))),
                         bs_button("Analysis", button_type = "default") %>%
                           bs_attach_collapse("business_cloud"), br()
-                        )), br(), br(), 
-                      column(width = 6, h4("Test"), 
-                             wellPanel(twitterwidgetOutput("tweet_output")
+                        )), br(), br() 
+                      # ,column(width = 6, h4("Test"), 
+                      #        wellPanel(twitterwidgetOutput("tweet_output")
                         #verbatimTextOutput("print")
-                        ))
+                       # ))
                       #  wellPanel(introBox(column(width = 4, plotlyOutput("udpipe_plot")))),
                             )
                     
@@ -530,8 +530,12 @@ pdf(NULL)
                                                  bs_button("Analysis", button_type = "default") %>%
                                                    bs_attach_collapse("sw_keywords_collapse")), br(), br(),
                                      
-                                      column(width = 6, align = "left", h5("Trending Up Apps, Last 28 Days - Apple App store"), wellPanel(reactableOutput("apple_table"))),
-                                      column(width = 6, align = "left", h5("Trending Up Apps, Last 28 Days - Google Play store"), wellPanel(reactableOutput("google_trending_apps"))),
+                                      column(width = 6, align = "left", h5("Trending Up Apps, Last 28 Days - Apple App store"), introBox(data.step = 11, data.intro = "This chart shows the top 10 upwardly trending apps among all 
+                                                                                                                                         categories in Australia over last 28 days in the Apple app store.", 
+                                                                                                                                         wellPanel(reactableOutput("apple_table")))),
+                                      column(width = 6, align = "left", h5("Trending Up Apps, Last 28 Days - Google Play store"), introBox(data.step = 12, data.intro = "This chart shows 
+                                                                                                                                           the top 10 upwardly trending apps among all categories in Australia over last 28 days in 
+                                                                                                                                           the Google Play store.", wellPanel(reactableOutput("google_trending_apps")))),
                                       br(),
                                      column(width = 12, wellPanel(
                                        bs_collapse(id = "apps_collapse", content = tags$div(class = "well", 
