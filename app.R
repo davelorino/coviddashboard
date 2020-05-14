@@ -220,6 +220,7 @@ pdf(NULL)
                       .introjs-tooltiptext {
                         color: #212121;
                       }
+                     
                     "))), 
                                     ),
                        mainPanel(
@@ -493,7 +494,8 @@ pdf(NULL)
                                             tags$em(tags$p("Top 7 most talked about brands in connection with Coronavirus 
                                             in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
-                                            Period May 2nd to May 8th. Data: Meltwater. Brand Detection: OpenNLP.")), br(),
+                                            Period May 2nd to May 8th. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
+                                          column(width = 6,
                                             h5("Not surprisingly, some of the most impacted industries by the virus outbreak 
                                                (retail, air travel, sporting codes and pharmaceuticals) have been at the centre of many debates in the last week:"),
                                             tags$li("In the past week, the ", tags$b("NRL "), "has generated the largest volume of brand conversations in Australia. A majority 
@@ -514,7 +516,35 @@ pdf(NULL)
                                             tags$li("The Wuhan Institute of Virology (", tags$b("WIOV"), ") generated the third highest level of negative sentiment in the last week, 
                                                     recently blacklisted by the NIH over suspicions that they falsified scientific records."), br()
                                             
-                                            ))),
+                                            ),
+                                        tags$style(" 
+                                               .blockquote.twitter-tweet {
+                                                display: inline-block;
+                                                font-family: 'Helvetica Neue', Roboto, 'Segoe UI', Calibri, sans-serif;
+                                                font-size: 12px;
+                                                font-weight: bold;
+                                                line-height: 16px;
+                                                border-color: #eee #ddd #bbb;
+                                                border-radius: 5px;
+                                                border-style: solid;
+                                                border-width: 1px;
+                                                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+                                                margin: 10px 5px;
+                                                padding: 0 16px 16px 16px;
+                                                max-width: 10px;
+                                              } "),
+                                        column(width = 6, align = "center",
+                                            wellPanel( style = "overflow-y:scroll; max-height: 700px",  
+                                                       h5("Scroll down to see more."),
+                                           HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I hope to proved wrong but I have the feeling the push to open up Australia too early is going to be a disaster. Big push by Murdoch, big business, Morrison, NRL. It might end in tears. <a href="https://twitter.com/hashtag/auspol?src=hash&amp;ref_src=twsrc%5Etfw">#auspol</a> <a href="https://twitter.com/hashtag/qanda?src=hash&amp;ref_src=twsrc%5Etfw">#qanda</a></p>&mdash; Eddy Jokovich (@EddyJokovich) <a href="https://twitter.com/EddyJokovich/status/1254757356107268102?ref_src=twsrc%5Etfw">April 27, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                                HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Coles delivers +13.1% supermarket sales growth<br><br>Alcohol sales jump +7.2%<br><br>But online sales growth drops to 14% given widespread restrictions on home deliveries due to the decision to prioritise elderly and vulnerable customers <br><br>Costs also higher due to extra staff &amp; cleaning <a href="https://t.co/847hTsNnCF">pic.twitter.com/847hTsNnCF</a></p>&mdash; Gemma Felicity Acton (@GemmaActon) <a href="https://twitter.com/GemmaActon/status/1255274677666226178?ref_src=twsrc%5Etfw">April 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                           HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Virgin Australia administrators stop giving credits and refunds for cancelled flights <a href="https://t.co/2O4HDlx4zG">https://t.co/2O4HDlx4zG</a></p>&mdash; The Guardian (@guardian) <a href="https://twitter.com/guardian/status/1258297808379170818?ref_src=twsrc%5Etfw">May 7, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                           HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Would-be owners of Virgin Australia have two weeks to lodge their first offer, in what the administrator says will be &quot;a very competitive process&quot; involving &quot;high-quality bidders with fantastic credentials and the ability to restructure this business.” <a href="https://t.co/zlW1XPZdtf">https://t.co/zlW1XPZdtf</a></p>&mdash; Executive Traveller (@AusBT) <a href="https://twitter.com/AusBT/status/1255690289236197377?ref_src=twsrc%5Etfw">April 30, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                           HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">A German company working with US pharmaceutical giant Pfizer has begun human trials of a potential Covid-19 vaccine that could supply millions by the end of the year, according to the two firms. <a href="https://t.co/Ip2DaZDsCH">https://t.co/Ip2DaZDsCH</a></p>&mdash; CNN (@CNN) <a href="https://twitter.com/CNN/status/1255731644587180032?ref_src=twsrc%5Etfw">April 30, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                           HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://t.co/UfZg0aVHH0">https://t.co/UfZg0aVHH0</a><br><br>&quot;Wuhan Institute of Virology has been engaged in so-called &quot;gain of function&quot; (GOF) research ... used to turn viruses into human pathogens capable of causing a global pandemic.&quot; <br><br>Thank you, Newsweek, for confirming what I have been saying for two months</p>&mdash; StevenWMosher (@StevenWMosher) <a href="https://twitter.com/StevenWMosher/status/1254992528518111236?ref_src=twsrc%5Etfw">April 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
+                                           
+                                              ))
+                                        )),
                         bs_button("Analysis", button_type = "default") %>%
                           bs_attach_collapse("business_cloud"), br()
                         )), br(), br() 
@@ -663,6 +693,8 @@ pdf(NULL)
                 contribution_plot_30days
               })
               
+              
+              
               output$apple_trending_apps <- renderReactable({
                 apple_trending_apps1
               })
@@ -726,11 +758,25 @@ pdf(NULL)
                 else if(reactive_brand_selection() == "NRL:285"){
                   reactive_tweet <- twitterwidget("1252785725549842432")
                 }
+              })
+                
+               
+               nrl_neg_tweet <- twitterwidget("1254757356107268102", width = "100%", height = "10px")
+               
+               coles_pos_tweet <- twitterwidget("1255274677666226178") 
+               
+               output$coles_positive_tweet <- renderTwitterwidget({
+                 coles_pos_tweet
+               })
+               
+                output$nrl_negative_tweet <- renderTwitterwidget({
+                  nrl_neg_tweet
+                })
                 
               output$tweet_output = renderTwitterwidget({
-                reactive_tweet
+                reactive_tweet()
                 })
-              })
+          
               
               output$print  = renderPrint(
                 reactive_brand_selection()
