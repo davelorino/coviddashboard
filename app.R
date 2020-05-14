@@ -489,8 +489,10 @@ pdf(NULL)
                         bs_collapse("business_cloud", 
                                     content = tags$div(class = "well",
                                         column(width = 12,
-                                            tags$em(tags$p("Top 7 brands associated with positive 
-                                                           or negative consumer sentiment between the 2nd and the 8th of May inclusive."))))),
+                                            tags$em(tags$p("Top 7 brands by VoC in the last 7 days (Australia only). 
+                                                           Brands are split out by both negative and positive sentiment, 
+                                                           in order to demonstrate what is driving this conversation online, 
+                                                           hence why some brands are shown twice."))))),
                         bs_button("Analysis", button_type = "default") %>%
                           bs_attach_collapse("business_cloud"), br()
                         )), br(), br() 
@@ -530,10 +532,10 @@ pdf(NULL)
                                                  bs_button("Analysis", button_type = "default") %>%
                                                    bs_attach_collapse("sw_keywords_collapse")), br(), br(),
                                      
-                                      column(width = 6, align = "left", h5("Trending Up Apps, Last 28 Days - Apple App store"), introBox(data.step = 11, data.intro = "This chart shows the top 10 upwardly trending apps among all 
+                                      column(width = 6, align = "left", h5("Trending up apps, last 28 days - Apple App store"), introBox(data.step = 11, data.intro = "This chart shows the top 10 upwardly trending apps among all 
                                                                                                                                          categories in Australia over last 28 days in the Apple app store.", 
                                                                                                                                          wellPanel(reactableOutput("apple_table")))),
-                                      column(width = 6, align = "left", h5("Trending Up Apps, Last 28 Days - Google Play store"), introBox(data.step = 12, data.intro = "This chart shows 
+                                      column(width = 6, align = "left", h5("Trending up apps, last 28 days - Google Play store"), introBox(data.step = 12, data.intro = "This chart shows 
                                                                                                                                            the top 10 upwardly trending apps among all categories in Australia over last 28 days in 
                                                                                                                                            the Google Play store.", wellPanel(reactableOutput("google_trending_apps")))),
                                       br(),
