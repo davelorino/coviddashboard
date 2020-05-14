@@ -573,9 +573,9 @@ pdf(NULL)
                                                  bs_button("Analysis", button_type = "default") %>%
                                                    bs_attach_collapse("sw_keywords_collapse"))), br(), br(),
                                      
-                                      column(width = 6, align = "left", h5("Trending up apps, App Store/iPhone (Australia - last 28 days)"), introBox(data.step = 11, data.intro = "This chart shows the top 10 free trending apps across all categories in Australia over the last 28 days in the App store (iPhone only).", 
+                                      column(width = 6, align = "left", h5("Trending up apps, App Store/iPhone (last 28 days)"), introBox(data.step = 11, data.intro = "This chart shows the top 10 free trending apps across all categories in Australia over the last 28 days in the App store (iPhone only).", 
                                                                                                                                          wellPanel(reactableOutput("apple_table")))),
-                                      column(width = 6, align = "left", h5("Trending up apps, Play Store (Australia - last 28 days)"), introBox(data.step = 12, data.intro = "This chart shows the top 10 free trending apps across all categories in Australia over the last 28 days in Google Play Store.", wellPanel(reactableOutput("google_trending_apps")))),
+                                      column(width = 6, align = "left", h5("Trending up apps, Play Store (last 28 days)"), introBox(data.step = 12, data.intro = "This chart shows the top 10 free trending apps across all categories in Australia over the last 28 days in Google Play Store.", wellPanel(reactableOutput("google_trending_apps")))),
                                       br(),
                                      column(width = 12, wellPanel(
                                        bs_collapse(id = "apps_collapse", content = tags$div(class = "well", 
