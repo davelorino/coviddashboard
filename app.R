@@ -609,7 +609,7 @@ pdf(NULL)
                                      column(width = 12, wellPanel(
                                        bs_collapse(id = "apps_collapse", content = tags$div(class = "well", 
                                                                                                    column(width=12,
-                                                                                                          tags$em(tags$p("Top Free Apps (across all categories) with the biggest increase over the last 28 days in Store Rank or in Usage Rank." 
+                                                                                                          tags$em(tags$p("Top Free Apps (across all categories) with the biggest increase over the last 28 days in Store Rank or in Usage Rank, Australia only." 
                                                                                                                          )), 
                                                                                                           
                                                                                                           tags$li("Interestingly, all of the trending up apps for the period pan hard to either end of the 
