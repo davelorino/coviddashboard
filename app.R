@@ -86,6 +86,7 @@ pdf(NULL)
     google_trending_apps1 <- readRDS("google_trending_table.rds")
     #uris <- readRDS("uris.rds")
     #urisclick <- readRDS("urisclick.rds")
+    
     #coronavirus <- readRDS("coronavirus2.rds")
     corona7daycases <- readRDS("corona7daycases.rds")
     sw_keywords_plot <- readRDS("sw_keywords_plot.rds")
@@ -503,7 +504,7 @@ pdf(NULL)
                                             tags$li("Australian supermarkets ", tags$b("Coles ", "and ", tags$b("Woolworths "), "continue to dominate the COVID conversation, as controversial 
                                                     measures to protect customers and staff are introduced such as their new checkout policies. From a business 
                                                     perspective, both brands have released figures each citing a multi-billion dollar COVID-19 boom which has 
-                                                    garnered negative speculation."), br(),
+                                                    garnered positive speculation.")), br(),
                                             tags$li("Home-grown airline ", tags$b("Virgin "), "Australia has also been the centre of conversation online after they entered voluntary 
                                                     administration off the back of travel bans and declining sales. There has however been a number of positive 
                                                     conversations online around the possibility of the airline becoming a public asset owned by the QLD government."), br(),
@@ -513,7 +514,7 @@ pdf(NULL)
                                             tags$li("The Wuhan Institute of Virology (", tags$b("WIOV"), ") generated the third highest level of negative sentiment in the last week, 
                                                     recently blacklisted by the NIH over suspicions that they falsified scientific records."), br()
                                             
-                                            )))),
+                                            ))),
                         bs_button("Analysis", button_type = "default") %>%
                           bs_attach_collapse("business_cloud"), br()
                         )), br(), br() 
@@ -687,10 +688,7 @@ pdf(NULL)
                                                                        div(style = list(display = "inline-block", width = "10px"), image),
                                                                        value
                                                                      )
-                                                                   } ), 
-                                                      "Store Rank" = colDef(name = "Store Rank", 
-                                                                            headerStyle = list(fontWeight = 700),
-                                                                            defaultSortOrder = "asc")), 
+                                                                   } )), 
                                                   # details = function(index) {
                                                   #       if (index == 3) {
                                                   #         tabsetPanel(
