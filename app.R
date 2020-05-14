@@ -490,9 +490,9 @@ pdf(NULL)
                                     content = tags$div(class = "well",
                                         column(width = 12,
                                             tags$em(tags$p("Top 7 brands by VoC in the last 7 days (Australia only). 
-                                                           Brands are split out by both negative and positive sentiment, 
-                                                           in order to demonstrate what is driving this conversation online, 
-                                                           hence why some brands are shown twice."))))),
+                                                           Brands are split out by both negative and positive sentiment 
+                                                           in order to demonstrate what is driving this conversation online. 
+                                                           Brands may appear twice as a result. Period May 2nd to May 8th. Data: Meltwater. Brand Detection: OpenNLP."))))),
                         bs_button("Analysis", button_type = "default") %>%
                           bs_attach_collapse("business_cloud"), br()
                         )), br(), br() 
