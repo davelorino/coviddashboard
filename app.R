@@ -250,7 +250,8 @@ pdf(NULL)
                         color: #212121;
                       }
                      
-                    "))), 
+                    "))),
+                                    tags$head(includeHTML("google-analytics.html")), 
                                     ),
                        mainPanel(
                          fluidRow( height = 12,
