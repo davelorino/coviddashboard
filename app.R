@@ -659,7 +659,7 @@ pdf(NULL)
                                                                                             )),
                                       bs_button("Analysis", button_type = "default") %>%
                                         bs_attach_collapse("apps_collapse"))), br(), br(),
-                                     column(width = 12, align = "center", h5("Destinations Test", align = "center"), wellPanel(reactableOutput("better_keywords_branded")) 
+                                     column(width = 12, align = "center", h5("Search Top  Keywords - Paid & Organic - Banking Category", align = "center"), wellPanel(reactableOutput("better_keywords_branded")) 
                                             )
                              ))
          
@@ -753,7 +753,7 @@ pdf(NULL)
                                                   #         paste("Details for row:", index)
                                                   #       }
                                                   #     }, 
-                                                  theme = theme1)
+                                                  theme = spotify_theme())
               })
               
               output$google_trending_apps <- renderReactable({
@@ -784,7 +784,7 @@ pdf(NULL)
                           #         paste("Details for row:", index)
                           #       }
                           #     }, 
-                          theme = theme1)
+                          theme = spotify_theme())
               })
           
               # reactive_brand_selection <- reactive({
@@ -803,6 +803,73 @@ pdf(NULL)
          #        }
          #    
          #      })
+              
+              spotify_theme <- function() {
+                  
+                  text_color <- "hsl(0, 0%, 95%)"
+                  text_color_light <- "hsl(0, 0%, 70%)"
+                  text_color_lighter <- "hsl(0, 0%, 55%)"
+                  bg_color <- "hsl(0, 0%, 10%)"
+                  reactableTheme(
+                    color = text_color,
+                    backgroundColor = bg_color,
+                    borderColor = "hsl(0, 0%, 16%)",
+                    borderWidth = "1px",
+                    highlightColor = "rgba(255, 255, 255, 0.1)",
+                    cellPadding = "10px 8px",
+                    style = list(
+                      fontFamily = "Work Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+                      fontSize = "14px",
+                      "a" = list(
+                        color = text_color,
+                        "&:hover, &:focus" = list(
+                          textDecoration = "none",
+                          borderBottom = "1px solid currentColor"
+                        )
+                      ),
+                      ".number" = list(
+                        color = text_color_light,
+                        fontFamily = "Source Code Pro, Consolas, Monaco, monospace"
+                      ),
+                      ".tag" = list(
+                        padding = "2px 4px",
+                        color = "hsl(0, 0%, 40%)",
+                        fontSize = "12px",
+                        border = "1px solid hsl(0, 0%, 24%)",
+                        borderRadius = "2px"
+                      )
+                    ),
+                    headerStyle = list(
+                      color = text_color_light,
+                      fontWeight = 400,
+                      fontSize = "12px",
+                      letterSpacing = "1px",
+                      textTransform = "uppercase",
+                      "&:hover, &:focus" = list(color = text_color)
+                    ),
+                    rowHighlightStyle = list(
+                      ".tag" = list(color = text_color, borderColor = text_color_lighter)
+                    ),
+                    # Full-width search bar with search icon
+                    searchInputStyle = list(
+                      paddingLeft = "30px",
+                      paddingTop = "8px",
+                      paddingBottom = "8px",
+                      width = "100%",
+                      border = "none",
+                      backgroundColor = bg_color,
+                      backgroundSize = "16px",
+                      backgroundPosition = "left 8px center",
+                      backgroundRepeat = "no-repeat",
+                      "&:focus" = list(backgroundColor = "rgba(255, 255, 255, 0.1)", border = "none"),
+                      "::placeholder" = list(color = text_color_lighter),
+                      "&:hover::placeholder, &:focus::placeholder" = list(color = text_color)
+                    ),
+                    paginationStyle = list(color = text_color_light),
+                    pageButtonHoverStyle = list(backgroundColor = "hsl(0, 0%, 20%)"),
+                    pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)")
+                  )
+                }
               
               
               output$destinations_test_table <- renderReactable({
