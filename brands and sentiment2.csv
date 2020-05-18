@@ -1,0 +1,33 @@
+"","name","Sentiment","n"
+"1","AFL","Neutral",271
+"2","NRL","Neutral",94
+"3","AFL","Negative",88
+"4","NRL","Negative",77
+"5","AFL","Positive",70
+"6","Virgin","Negative",62
+"7","Virgin","Neutral",50
+"8","Microsoft","Neutral",37
+"9","Coles","Neutral",36
+"10","News Corp","Neutral",20
+"11","Toyota","Neutral",19
+"12","Virgin","Positive",19
+"13","WIOV","Neutral",19
+"14","Coles","Negative",18
+"15","Microsoft","Positive",17
+"16","WIOV","Negative",16
+"17","Disneyland","Neutral",15
+"18","Microsoft","Negative",15
+"19","Woolworths","Negative",15
+"20","NRL","Positive",14
+"21","News Corp","Negative",13
+"22","News Corp","Positive",10
+"23","Woolworths","Neutral",7
+"24","WIOV","Positive",5
+"25","Coles","Positive",2
+"26","Disneyland","Positive",2
+"27","Pfizer","Negative",2
+"28","Pfizer","Neutral",2
+"29","Woolworths","Positive",2
+"30","Disneyland","Negative",1
+"31","Toyota","Negative",1
+"32","Toyota","Positive",1

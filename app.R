@@ -12,6 +12,7 @@ library(reactable)
 library(htmltools)
 library(stringr)
 library(twitterwidget)
+library(DT)
 
 pdf(NULL)
 
@@ -86,6 +87,7 @@ pdf(NULL)
     google_trending_apps1 <- readRDS("google_trending_table.rds")
     #uris <- readRDS("uris.rds")
     #urisclick <- readRDS("urisclick.rds")
+    destinations_test_data <- readRDS("destinations_test.rds")
     
     #coronavirus <- readRDS("coronavirus2.rds")
     corona7daycases <- readRDS("corona7daycases.rds")
@@ -630,6 +632,8 @@ pdf(NULL)
                                                                                             )),
                                       bs_button("Analysis", button_type = "default") %>%
                                         bs_attach_collapse("apps_collapse"))), br(), br(),
+                                     column(width = 12, align = "center", h5("Destinations Test", align = "center"), wellPanel(reactableOutput("destinations_test_table")) 
+                                            )
                              ))
          
     )
@@ -703,6 +707,10 @@ pdf(NULL)
                 google_trending_apps1
               })
               
+              output$apple_dt <- renderDataTable({
+                apple_trending_apps1
+              })
+              
               output$apple_table <- renderReactable({
                                               reactable(apple_trending_apps1, 
                                                   style = list(fontFamily = "Arial, sans-serif", fontSize = "14px"),
@@ -713,11 +721,13 @@ pdf(NULL)
                                                       App = colDef(
                                                         minWidth = 200,
                                                         cell = function(value){
-                                                                     image <- img(class = "appletrendingapplogo", 
-                                                                                  alt= "", 
-                                                                                  src = sprintf("images/%s.png", value))
-                                                                     tagList(
-                                                                       div(style = list(display = "inline-block", width = "10px"), image),
+                                                                     image <- img(class = "appletrendingapplogo",
+                                                                                   alt= "",
+                                                                                   src = sprintf("images/%s.png", value))
+                                                                    # image_src <- knitr::image_uri(sprintf("images/%s.png", value))
+                                                                    # image <- img(src=image_src, height = "24p", alt = "alt") 
+                                                                    tagList(
+                                                                       div(style = list(display = "inline-block", width = "24px"), image),
                                                                        value
                                                                      )
                                                                    } )), 
@@ -749,6 +759,10 @@ pdf(NULL)
          #    
          #      })
               
+              
+              output$destinations_test_table <- renderReactable({
+                destinations_test_data
+              })
               
               observeEvent(input$selected_word, {
                 

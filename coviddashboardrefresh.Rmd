@@ -1,0 +1,1120 @@
+---
+title: "coviddashboardupdater"
+output: 
+  html_document:
+    theme: darkly
+---
+
+### Helper Functions
+
+```{r message = FALSE, warning = FALSE}
+library(tidyverse)
+library(tidytext)
+library(plotly)
+library(lubridate)
+
+stripHTML <- function(htmlString) {
+      return(gsub("<.*?>", "", htmlString))
+    }
+    
+    onlyASCII <- function(stringVector){
+      return(gsub('[^\x20-\x7E]', '', stringVector))
+    }
+    
+    meltwater_week <- function(arg){
+      arg %>%
+        separate(Date, c("Date", "Time"), sep = " ") %>%
+        mutate(Date_Fix = as.Date(`Date`, "%d/%m/%y")) %>%
+        mutate(`Week Beginning` = floor_date(Date_Fix, "weeks")) %>%
+        filter(!is.na(`Week Beginning`))
+    }
+    
+    summarise_meltwater_by_week <- function(arg){
+      arg %>%
+        group_by(`Week Beginning`) %>%
+        summarise(All = sum(`Count`)) %>%
+        arrange(`Week Beginning`)
+    }
+    
+    summarise_meltwater_sentiment_by_week <- function(arg){
+      arg %>%
+        group_by(`Week Beginning`) %>%
+        summarise(Negative = sum(`Negative`), Positive = sum(Positive), Neutral = sum(Neutral)) %>%
+        mutate(Percentage_Positive = round(Positive / (Positive + Negative + Neutral) * 100, 2)) %>%
+        mutate(Percentage_Negative = round(Negative / (Positive + Negative + Neutral) * 100, 2)) %>%
+        mutate(Percentage_Neutral = round(Neutral / (Positive + Negative + Neutral) * 100, 2)) %>%
+        arrange(`Week Beginning`)
+    }
+
+
+```
+
+### Refresh Coronavirus Data
+
+```{r eval = FALSE}
+
+coronavirus <- read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus-csv/master/coronavirus_dataset.csv")
+
+```
+
+### Manipulate John Hopkins Dataset for Visualization
+
+```{r}
+
+coronavirus2 <- coronavirus %>%
+      group_by(Country.Region, date, type) %>%
+      mutate(`Worldwide` = sum(cases)) %>%
+      ungroup() %>%
+      filter(`Country.Region` %in% c("Australia"
+                                     ,"China"
+                                     #,"US"
+                                     )) %>%
+      group_by(Country.Region, date, type) %>%
+      dplyr::summarise(Total = sum(cases)) %>%
+      pivot_wider(names_from = c(type, Country.Region), values_from = Total) %>%
+      mutate(`Week Beginning` = floor_date(date, unit = "weeks")) %>%
+      ungroup() %>%
+      group_by(`Week Beginning`) %>%
+      dplyr::summarise(confirmed_Australia = sum(confirmed_Australia),
+                death_Australia = sum(death_Australia),
+                #confirmed_US = sum(confirmed_US),
+                #death_US = sum(death_US),
+                #recovered_US = sum(recovered_US),
+                confirmed_China = sum(confirmed_China),
+                death_China = sum(death_China),
+                recovered_China = sum(recovered_China)) %>%
+      mutate(cumulative_confirmed_Australia = cumsum(confirmed_Australia)) %>%
+      mutate(cumulative_death_Australia = cumsum(death_Australia)) %>%
+      #mutate(cumulative_confirmed_US = cumsum(confirmed_US)) %>%
+      #mutate(cumulative_death_US = cumsum(death_US)) %>%
+      mutate(cumulative_confirmed_China = cumsum(confirmed_China)) %>%
+      mutate(cumulative_death_China = cumsum(death_China))
+
+```
+
+### Create Hover Functions
+
+```{r}
+library(base64enc)
+
+volumeovertime <- read_csv("~/Downloads/coviddashboardfiles/chart1_volume.csv")
+
+corona_weeks <- volumeovertime %>%
+        meltwater_week() %>%
+        summarise_meltwater_by_week() %>%
+        left_join(coronavirus2, by = "Week Beginning") %>%
+        filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
+
+corona_weeks
+
+uris <- purrr::map_chr(
+       corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/Images/%s.jpeg", .x))
+  )
+
+uri_df <- data.frame(uri = uris)
+
+write_rds(uri_df, "~/NetBaseApi/coviddashboard/uri_df.rds")
+
+urisclick <- purrr::map_chr(
+    corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s-2.jpeg", .x))
+  )
+
+uri_df <- data.frame(uri = uris)
+
+#saveRDS(uris, "~/NetBaseApi/coviddashboard/uris.rds")
+#saveRDS(urisclick, "~/NetBaseApi/coviddashboard/urisclick.rds")
+
+```
+
+### FIRST CHART = VOLUMES + HOVER STUFF
+
+```{r}
+
+total_mentions_colour <- "#FFFFFF"
+twitter_colour <- "#1da1f2"
+
+legend_features <- list(
+        font = list(
+            size = 12,
+            color = "#FFFFFF"),
+        bgcolor = "#212121",
+        bordercolor = "#FFFFFF",
+        borderwidth = 1,
+        x = 0.1, 
+        y = 1.0)
+
+whatisthis <- map2(uris, urisclick, ~list(.x, .y))
+
+saveRDS(whatisthis, "~/NetBaseApi/coviddashboard/uris.rds")
+
+VOLUME_CHART <-  plotly::plot_ly(data = corona_weeks,
+                                 source = "hoverplotsource",
+                             customdata = whatisthis,
+                             height = 500
+                             ) %>%
+                plotly::config(displayModeBar = FALSE) %>%
+                 plotly::add_trace(
+                     x = ~`Week Beginning`,
+                     # y = ~active_cum,
+                     y = ~`All`,
+                     type = "scatter",
+                     mode = "lines+markers",
+                     # name = "Active",
+                     name = "Total Mentions",
+                     line = list(color = total_mentions_colour),
+                     marker = list(color = total_mentions_colour)) %>%
+                  # plotly::add_trace(
+                  #    x = ~`Week Beginning`,
+                  #    # y = ~active_cum,
+                  #    y = ~`cumulative_confirmed_US`,
+                  #    type = "scatter",
+                  #    mode = "lines+markers",
+                  #    # name = "Active",
+                  #    name = "Confirmed Cases US",
+                  #    line = list(color = twitter_colour),
+                  #    marker = list(color = twitter_colour)
+                  #  ) %>%
+                   plotly::add_trace(
+                     x = ~`Week Beginning`,
+                     # y = ~active_cum,
+                     y = ~`cumulative_confirmed_China`,
+                     type = "scatter",
+                     mode = "lines+markers",
+                     # name = "Active",
+                     name = "Confirmed Cases China",
+                     line = list(color = "red"),
+                     marker = list(color = "red")
+                   ) %>%
+                 plotly::add_trace(
+                     x = ~`Week Beginning`,
+                     # y = ~active_cum,
+                     y = ~`cumulative_confirmed_Australia`,
+                     type = "scatter",
+                     mode = "lines+markers",
+                     # name = "Active",
+                     name = "Confirmed Cases Australia",
+                     line = list(color = twitter_colour),
+                     marker = list(color = twitter_colour)
+                   ) %>%
+             #   htmlwidgets::onRender(readLines("~/NetBaseApi/coviddashboard/tooltip-imageclick.js")) %>%
+                 htmlwidgets::onRender(readLines("~/NetBaseApi/coviddashboard/tooltip-image.js")) %>%
+                 plotly::add_annotations(
+                     x = as.Date("2019-12-29"),
+                     y = 1,
+                     text = paste("First case in Wuhan, China"),
+                     xref = "x",
+                     yref = "y",
+                     arrowhead = 5,
+                     arrowhead = 3,
+                     arrowsize = 1,
+                     showarrow = TRUE,
+                     font = list(color = '#FFFFFF'),
+                     ax = 30,
+                     ay = -90
+                 ) %>%
+                 plotly::add_annotations(
+                     x = as.Date("2020-01-12"),
+                     y = 2,
+                     text = paste("First Case Outside of China (Thailand)"),
+                     xref = "x",
+                     yref = "y",
+                     arrowhead = 5,
+                     arrowhead = 3,
+                     arrowsize = 1,
+                     showarrow = TRUE,
+                     font = list(color = '#FFFFFF'),
+                     ax = 30,
+                     ay = -120
+                 ) %>%
+                 plotly::add_annotations(
+                     x = as.Date("2020-01-26"),
+                     y = 3,
+                     text = paste("First 'Imported' Case in Australia"),
+                     xref = "x",
+                     yref = "y",
+                     arrowhead = 5,
+                     arrowhead = 3,
+                     arrowsize = 1,
+                     showarrow = TRUE,
+                     font = list(color = '#FFFFFF'),
+                     ax =  0,
+                     ay = -180
+                 ) %>%
+                 plotly::add_annotations(
+                     x = as.Date("2020-03-15"),
+                     y = 3,
+                     text = paste(
+                         "New containment measures"
+                     ),
+                     xref = "x",
+                     yref = "y",
+                     arrowhead = 10,
+                     arrowhead = 3,
+                     arrowsize = 1,
+                     showarrow = TRUE,
+                     font = list(color = '#FFFFFF'),
+                     ax = -10,
+                     ay = -90
+                 ) %>%
+                   plotly::add_annotations(
+                     x = as.Date("2020-03-01"),
+                     y = 3,
+                     text = paste(
+                       "First community spread cases in Australia"
+                     ),
+                     xref = "x",
+                     yref = "y",
+                     arrowhead = 10,
+                     arrowhead = 3,
+                     arrowsize = 1,
+                     showarrow = TRUE,
+                     font = list(color = '#FFFFFF'),
+                     ax = -0,
+                     ay = -130
+                   ) %>% plotly::add_annotations(
+                     x = as.Date("2020-03-22"),
+                     y = 3,
+                     text = paste(
+                       "Australia reaches 1000 cases"
+                     ),
+                     xref = "x",
+                     yref = "y",
+                     arrowhead = 10,
+                     arrowhead = 3,
+                     arrowsize = 1,
+                     showarrow = TRUE,
+                     font = list(color = '#FFFFFF'),
+                     ax = -10,
+                     ay = -150
+                   ) %>% plotly::add_annotations(
+                     x = as.Date("2020-04-12"),
+                     y = 3,
+                     text = paste(
+                       "Gov passes JobKeeper legislation"
+                     ),
+                     xref = "x",
+                     yref = "y",
+                     arrowhead = 10,
+                     arrowhead = 3,
+                     arrowsize = 1,
+                     showarrow = TRUE,
+                     font = list(color = '#FFFFFF'),
+                     ax = -10,
+                     ay = -180
+                   ) %>%
+                  plotly::add_annotations(
+                     x = as.Date("2020-05-03"),
+                     y = 3,
+                     text = paste(
+                       "Restrictions begin to ease"
+                     ),
+                     xref = "x",
+                     yref = "y",
+                     arrowhead = 10,
+                     arrowhead = 3,
+                     arrowsize = 1,
+                     showarrow = TRUE,
+                     font = list(color = '#FFFFFF'),
+                     ax = -10,
+                     ay = -111
+                   ) %>%
+                 plotly::layout(
+                     title = "",
+                     yaxis = list(title = "Conversation Over Time", color = "#FFFFFF"),
+                     xaxis = list(title = "", color = "#FFFFFF", showticklabels = T, type = "category"
+                                  ),
+                     legend = legend_features,
+                     paper_bgcolor='#212121',
+                     plot_bgcolor='#212121'
+                 )
+
+
+VOLUME_CHART
+
+
+saveRDS(VOLUME_CHART, "~/NetBaseApi/coviddashboard/volumechart.rds")
+
+```
+
+
+### SENTIMENT TIMELINE DATA
+
+```{r}
+
+coronasent <- read_csv("~/NetBaseApi/coviddashboard/coronasent.csv")
+
+legend_features3 <- list(
+    font = list(
+      size = 12,
+      color = "#FFFFFF"),
+    bgcolor = "#212121",
+    bordercolor = "#FFFFFF",
+    borderwidth = 1,
+    x = 0.1, 
+    y = 0.9
+  )
+  
+meltwater_sentiment_week <- function(arg){
+arg %>%
+  mutate(Date_Fix = as.Date(`Date`, "%d/%m/%y")) %>%
+  mutate(`Week Beginning` = floor_date(Date_Fix, "weeks")) %>%
+  filter(!is.na(`Week Beginning`))
+}
+  
+corona_sentiment <- coronasent %>%
+meltwater_sentiment_week() %>%
+summarise_meltwater_sentiment_by_week() %>%
+filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
+
+corona_sentiment <- corona_sentiment %>%
+  mutate(Percentage_Positive = round(Positive / (Positive + Negative + Neutral) * 100, 2)) %>%
+  mutate(Percentage_Negative = round(Negative / (Positive + Negative + Neutral) * 100, 2)) %>%
+  mutate(Percentage_Neutral = round(Neutral / (Positive + Negative + Neutral) * 100, 2))
+
+```
+
+
+
+
+```{r}
+coronasent_plot <- plotly::plot_ly(data = corona_sentiment,
+                              source = "hoverplotsource",
+                              mode = "none",
+                              stackgroup = "one",
+                              hoveron = 'points+fills',
+                              height = 450
+                                 ) %>%
+                   plotly::config(displayModeBar = FALSE) %>%
+                  plotly::add_trace(
+                     x = ~`Week Beginning`,
+                     y = ~`Percentage_Neutral`,
+                     name = "Neutral",
+                     fillcolor = "white"
+                   ) %>%
+                   plotly::add_trace(
+                     x = ~`Week Beginning`,
+                     y = ~`Percentage_Negative`,
+                     name = "Negative",
+                     fillcolor = "red"
+                   ) %>%
+                   plotly::config(displayModeBar = FALSE) %>%
+                   plotly::add_trace(
+                     x = ~`Week Beginning`,
+                     y = ~`Percentage_Positive`,
+                     name = "Positive",
+                     fillcolor = "lightgreen"
+                   ) %>%
+                   plotly::layout(
+                     title = "",
+                     xaxis = list(title = "", color = "#ffffff"),
+                     yaxis = list(title = "Sentiment Over Time", color = "#ffffff"),
+                     legend = legend_features3,
+                     paper_bgcolor='#212121',
+                     plot_bgcolor='#212121'
+                     ,hovermode = "compare"
+                   ) %>%
+  highlight(on = "plotly_hover")
+              
+coronasent_plot
+
+saveRDS(coronasent_plot, "~/NetBaseApi/coviddashboard/sentiment_timeline_plot.rds")
+```
+
+
+
+## Sentiment Donut
+
+```{r}
+library(IRdisplay)
+
+sentiment_donut <- read_csv("~/NetBaseApi/coviddashboard/sevendaysentimentdonut.csv")
+
+  legend_features4 <- list(
+    font = list(
+      size = 12,
+      color = "#FFFFFF"),
+    bgcolor = "#212121",
+    bordercolor = "#FFFFFF",
+    borderwidth = 1)
+
+# Donut chart with plotly
+donut <- plot_ly(data = sentiment_donut, labels = ~Category, values = ~Count, sort= FALSE,
+            marker= list(colors=c("#90EE90", "#FF0100", "#FFFFFF"), line = list(color="white", width=1))) %>%
+            layout(title="",
+                   paper_bgcolor="#212121",
+                   plot_bgcolor="#212121",
+                   yaxis = list(title = "", color = "#FFFFFF"),
+                   xaxis = list(title = "", color = "#FFFFFF"),
+                   legend = legend_features4) %>%
+                   add_pie(hole = 0.6) %>%
+  config(displayModeBar = FALSE) 
+                 
+donut %>%
+  saveRDS("~/NetBaseApi/coviddashboard/sevendaydonut2.rds")
+```
+
+## Hashtags
+
+```{r}
+library(ggdark)
+ 
+hashtags <- read_csv("~/NetBaseApi/coviddashboard/hashtags_7days3.csv")
+
+hashtags_ggplot <- hashtags %>%
+  mutate(Name = reorder(Name, Count)) %>%
+  filter(!Name == "auspol" ) %>%
+ggplot(aes(x = Name, y = Count)) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  dark_theme_grey()
+
+
+ggplotly(hashtags_ggplot) %>%
+    plotly::config(displayModeBar = FALSE) %>%
+  plotly::layout(showlegend = F,
+          paper_bgcolor = "#212121",
+         plot_bgcolor = "#212121",
+         yaxis = list(title = "", color = "#FFFFFF"),
+         xaxis = list(title = "", color = "#FFFFFF")
+         ) %>%
+saveRDS("~/NetBaseApi/coviddashboard/hashtags_plot7day.rds")
+
+```
+
+
+## Contribution 7 Day
+
+```{r}
+library(dplyr)
+library(tidytext)
+library(stringr)
+library(tidyr)
+
+load_data <- function(path){
+  files <- dir(path, pattern = "\\.csv", full.names = TRUE)
+  tables <- lapply(files, read.csv)
+  do.call(plyr::rbind.fill, tables)
+}
+
+#cov_7day <- load_data("~/NetBaseApi/coviddashboard/covid_7day2/")
+cov_7day <- load_data("~/Downloads/Corona7dayMay10/")
+
+cov_7day2 <- cov_7day[1:50000,]
+
+cov_7dayfiltered <- cov_7day2 %>%
+#  filter(!Reach > 1000) %>%
+  select(Date, Source, Subregion, Influencer, `Hit.Sentence`, Sentiment, URL) %>%
+  filter(!duplicated(`Hit.Sentence`))
+
+
+cov_7dayfiltered_tokens <- cov_7dayfiltered %>%
+  mutate(Hit.Sentence = onlyASCII(as.character(`Hit.Sentence`))) %>%
+ unnest_tokens(word, `Hit.Sentence`)
+
+stop_words <- get_stopwords()
+
+cov_7dayfiltered_tokens_nostop <- cov_7dayfiltered_tokens %>%
+  filter(!word %in% stop_words$word)
+
+## DOUBLE TOKENS / BIGRAMS / WORD PAIRS
+# cov_7dayfiltered_bigrams <- cov_7dayfiltered %>%
+#   unnest_tokens(bigrams, `Hit.Sentence`, token = "ngrams", n = 2) %>%
+#   separate(bigrams, c("word1", "word2"), sep = " ") %>%
+#   filter(!word1 %in% stop_words$word) %>%
+#   filter(!word2 %in% stop_words$word)
+  
+
+cov_contributions <- cov_7dayfiltered_tokens_nostop %>%
+  inner_join(get_sentiments("afinn"), by = "word") %>%
+  group_by(word) %>%
+  summarize(occurrences = n(),
+            contribution = sum(value))
+
+library(ggplot2)
+library(ggdark)
+library(plotly)
+
+p <- cov_contributions %>%
+  top_n(25, abs(contribution)) %>%
+  mutate(word = reorder(word, contribution)) %>%
+  ggplot(aes(word, contribution, fill = contribution > 0)) +
+  geom_col(show.legend = FALSE) +
+  theme(legend.position='none') +
+  labs(y = NULL, x = NULL) +
+  coord_flip() +
+  dark_theme_bw() +
+  scale_fill_manual(values = c("#FF0100", "#90EE90"))
+
+
+plotly_object <- ggplotly(p) %>%
+  config(displayModeBar = F) %>%
+  layout(showlegend = FALSE,
+         paper_bgcolor='#212121',
+                     plot_bgcolor='#212121')
+
+plotly_object
+
+plotly_object %>%
+  write_rds("~/NetBaseApi/coviddashboard/plotly_object.rds")
+
+# plotly_object %>%
+#   write_rds("~/NetBaseApi/coviddashboard/plotly_object30days.rds")
+
+```
+
+## Contribution 30 Day
+
+```{r}
+
+load_data <- function(path){
+  files <- dir(path, pattern = "\\.csv", full.names = TRUE)
+  tables <- lapply(files, read.csv)
+  do.call(plyr::rbind.fill, tables)
+}
+
+#cov_7day <- load_data("~/NetBaseApi/coviddashboard/covid_7day2/")
+cov_30day <- load_data("~/Downloads/Corona7DayMay10/")
+
+cov_30dayfiltered <- cov_30day %>%
+#  filter(!Reach > 1000) %>%
+  select(Date, Source, Subregion, Influencer, `Hit.Sentence`, Sentiment, URL) %>%
+  filter(!duplicated(`Hit.Sentence`))
+
+cov_30dayfiltered_tokens <- cov_30dayfiltered %>%
+  mutate(Hit.Sentence = onlyASCII(as.character(`Hit.Sentence`))) %>%
+  unnest_tokens(word, `Hit.Sentence`)
+
+stop_words <- get_stopwords()
+
+cov_30dayfiltered_tokens_nostop <- cov_30dayfiltered_tokens %>%
+  filter(!word %in% stop_words$word)
+
+cov_contributions30 <- cov_30dayfiltered_tokens_nostop %>%
+  inner_join(get_sentiments("afinn"), by = "word") %>%
+  group_by(word) %>%
+  summarize(occurrences = n(),
+            contribution = sum(value))
+
+p30 <- cov_contributions30 %>%
+  top_n(25, abs(contribution)) %>%
+  mutate(word = reorder(word, contribution)) %>%
+  ggplot(aes(word, contribution, fill = contribution > 0)) +
+  geom_col(show.legend = FALSE) +
+  theme(legend.position='none') +
+  labs(y = NULL, x = NULL) +
+  coord_flip() +
+  dark_theme_bw() +
+  scale_fill_manual(values = c("#FF0100", "#90EE90"))
+
+
+plotly_object30 <- ggplotly(p30) %>%
+  config(displayModeBar = F) %>%
+  layout(showlegend = FALSE,
+         paper_bgcolor='#212121',
+                     plot_bgcolor='#212121')
+
+plotly_object30
+
+#plotly_object %>%
+#  write_rds("~/NetBaseApi/coviddashboard/plotly_object.rds")
+
+plotly_object30 %>%
+  write_rds("~/NetBaseApi/coviddashboard/plotly_object30days.rds")
+
+```
+
+```{r}
+library(wordcloud2)
+library(tm)
+
+cov_7dayfiltered_textonly <- as.character(cov_7dayfiltered$Hit.Sentence)
+
+brands_and_sentiments <- read_csv("~/brands and sentiment2.csv")
+
+brands_sentiments_cloud <-brands_and_sentiments %>%
+  select(word, freq, Sentiment) %>%
+    wordcloud2a(shape = "cirle", fontFamily = "Arial", color = ifelse(brands_and_sentiments$Sentiment == 'Negative', '#FF0100', '#90EE90'), size = 0.8, backgroundColor = "#212121") 
+
+brands_sentiments_cloud
+
+saveRDS(brands_sentiments_cloud, "~/NetBaseApi/coviddashboard/ronacloud.rds")
+
+ronacloud
+
+roni2 <- readRDS("ronacloud.rds")
+
+roni2
+
+```
+
+
+```{r}
+library(entity)
+library(qdapRegex)
+library(tm)
+
+cov_7dayfiltered <- cov_7day %>%
+  select(Date, Source, Subregion, Influencer, `Hit.Sentence`, Sentiment, URL) %>%
+  filter(!duplicated(`Hit.Sentence`))
+
+cov_30dayfiltered <- cov_30day %>%
+  filter(!duplicated(Hit.Sentence)) %>%
+  mutate(text = rm_url(tolower(stripHTML(onlyASCII(as.character(Hit.Sentence)))), pattern=pastex("@rm_twitter_url", "@rm_url"))) 
+
+cov_30dayfiltered$organizations <- organization_entity(cov_30dayfiltered$text)
+cov_7dayfiltered$Hit.Sentence <- onlyASCII(as.character(cov_7dayfiltered$Hit.Sentence))
+cov_7dayfiltered$organizations <- organization_entity(cov_7dayfiltered$Hit.Sentence)
+
+  cov_7dayfiltered %>%
+    {.[!sapply(.$organizations, is.null), ]} %>%
+    rowwise() %>%
+    mutate(organizations = paste(organizations, collapse=", ")) %>%
+    select(Source, Influencer, Sentiment, organizations) %>%
+  separate(organizations, c("o1", "o2", "o3", "o4", "o5", "o6", "o7"), sep = ", ") %>%
+  pivot_longer(cols = c("o1", "o2", "o3", "o4", "o5", "o6", "o7"), names_to = "Organizations") %>%
+  filter(!value == "NA") %>%
+  group_by(Sentiment, value) %>%
+  count() %>%
+  arrange(desc(n))
+  filter(value %in% c("Virgin Australia Airlines", "Apple", "Virgin Australia", "Smithfield Foods", "Microsoft", "Disneyland", "Ford", "Commonwealth"))
+  mutate(value = case_when(value == "Virgin Australia" ~ "Virgin Australia Airlines", TRUE ~ value)) %>%
+  ggplot(aes(x = value, y = n, fill = Sentiment)) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  dark_theme_bw()
+
+```
+
+
+```{r}
+cov_7dayfiltered %>%
+  mutate(Hit.Sentence = as.character(Hit.Sentence)) %>%
+  mutate(Woolworths = case_when(
+    str_detect(Hit.Sentence, regex("Woolworths", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+mutate(Virgin = case_when(
+    str_detect(Hit.Sentence, regex("Virgin", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate(Coles = case_when(
+    str_detect(Hit.Sentence, regex("Coles", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate(NRL = case_when(
+    str_detect(Hit.Sentence, regex("NRL", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+    mutate(AFL = case_when(
+    str_detect(Hit.Sentence, regex("AFL", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate(Pfizer = case_when(
+    str_detect(Hit.Sentence, regex("Pfizer", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+    mutate("WIOV" = case_when(
+    str_detect(Hit.Sentence, regex("Wuhan Institute of Virology", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate("Toyota" = case_when(
+    str_detect(Hit.Sentence, regex("Toyota", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate("Sydney University" = case_when(
+    str_detect(Hit.Sentence, regex("Sydney University", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate("News Corp" = case_when(
+    str_detect(Hit.Sentence, regex("News Corp", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+    mutate("Microsoft" = case_when(
+    str_detect(Hit.Sentence, regex("Microsoft", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+    mutate("Disneyland" = case_when(
+    str_detect(Hit.Sentence, regex("Disneyland", ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  pivot_longer(cols = c("Coles", "Woolworths", "Virgin", "AFL", "NRL", "Pfizer", "WIOV", "Toyota", "News Corp", 
+                        "Microsoft", "Disneyland")) %>%
+  filter(value == 1) %>%
+  group_by(name, Sentiment) %>%
+  count() %>%
+  arrange(desc(n)) %>%
+  write.csv("brands and sentiment2.csv")
+```
+
+
+```{r}
+
+
+
+#businesses <- 
+
+
+library(ggdark)
+ggplotly(businesses) %>%
+  config(displayModeBar = F) %>%
+  layout(showlegend = FALSE,
+         paper_bgcolor='#212121',
+                     plot_bgcolor='#212121')
+
+
+cov_7day_businesses <- cov_7dayfiltered %>%
+  filter(str_detect(Hit.Sentence, regex(c(".*Wuhan Institute of Virology.*", ".*NRL.*", ".*Bank of England.*", ".*McDonald's.*", ".*News Corp.*", ".*Pfizer.*", ".*AFL.*", ".*Commonwealth Bank.*", ".*Vogue.*", ".*UTS.*", ".*Carnival Cruise.*"), ignore_case = TRUE)))
+
+cov_7day_businesses %>%
+  mutate()
+
+{
+  for(i in c("Wuhan Institute of Virology", "NRL", "Bank of England", "McDonald's", "News Corp", "Pfizer", "AFL", "Commonwealth Bank", "Vogue", "UTS", "Carnival Cruise")){
+     print(noquote(paste("mutate('", i, "' = case_when(str_detect(regex('.*", i, ".*')) ~ 1, TRUE ~ 0)) %>%")))
+  }
+}
+
+```
+
+
+
+
+```{r}
+?str_detect
+
+
+```
+
+
+
+```{r}
+library(reactable)
+
+reactable_rona <- reactable(cov_7day[1:10,])
+
+saveRDS(reactable_rona, "~/reactable_rona.rds")
+
+reactable_rona2 <- readRDS("reactable_rona.rds")
+
+
+reactable_rona2
+```
+
+```{r}
+library(dplyr)
+library(stringr)
+
+cov_7day_businesses_wide <- cov_7day_businesses %>%
+  mutate(Hit.Sentence = as.character(Hit.Sentence)) %>%
+mutate("Wuhan Institute of Virology" = case_when(str_detect(`Hit.Sentence`, regex('.* Wuhan Institute of Virology .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+mutate("NRL"= case_when(str_detect(`Hit.Sentence`, regex('.* NRL .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+mutate("Bank of England"= case_when(str_detect(`Hit.Sentence`, regex('.* Bank of England .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+mutate("McDonalds"= case_when(str_detect(`Hit.Sentence`, regex('.* McDonald\'s .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+mutate(  "News Corp" = case_when(str_detect(`Hit.Sentence`, regex('.* News Corp .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+mutate(  "Pfizer"  = case_when(str_detect(`Hit.Sentence`, regex('.* Pfizer .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+mutate(  "AFL"  = case_when(str_detect(`Hit.Sentence`, regex('.* AFL .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+mutate(  "Commonwealth Bank"  = case_when(str_detect(`Hit.Sentence`, regex('.* Commonwealth Bank .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+mutate(  "Vogue"  = case_when(str_detect(`Hit.Sentence`, regex('.* Vogue .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+mutate(  "UTS"  = case_when(str_detect(`Hit.Sentence`, regex('.* UTS .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+mutate(  "Carnival Cruise"  = case_when(str_detect(`Hit.Sentence`, regex('.* Carnival Cruise .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0))
+
+cov_7day_businesses_wide %>%
+  pivot_longer(cols = c("NRL", "Pfizer", "Bank of England", "McDonalds", "News Corp", "AFL", "Commonwealth Bank", "Vogue", "UTS", "Carnival Cruise"), names_to = "Business") %>%
+  filter(value == 1) %>%
+  group_by(Sentiment, Business) %>%
+  summarise(Total = n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = Business, y = Total, fill = Sentiment)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  dark_theme_bw()
+```
+
+
+
+
+```{r}
+
+wordcloud2a <- function (data, size = 1, minSize = 0, gridSize = 0, fontFamily = "Segoe UI", 
+          fontWeight = "bold", color = "random-dark", backgroundColor = "white", 
+          minRotation = -pi/4, maxRotation = pi/4, shuffle = TRUE, 
+          rotateRatio = 0.4, shape = "circle", ellipticity = 0.65, 
+          widgetsize = NULL, figPath = NULL, hoverFunction = NULL) 
+{
+  if ("table" %in% class(data)) {
+    dataOut = data.frame(name = names(data), freq = as.vector(data))
+  }
+  else {
+    data = as.data.frame(data)
+    dataOut = data[, 1:2]
+    names(dataOut) = c("name", "freq")
+  }
+  if (!is.null(figPath)) {
+    if (!file.exists(figPath)) {
+      stop("cannot find fig in the figPath")
+    }
+    spPath = strsplit(figPath, "\\.")[[1]]
+    len = length(spPath)
+    figClass = spPath[len]
+    if (!figClass %in% c("jpeg", "jpg", "png", "bmp", "gif")) {
+      stop("file should be a jpeg, jpg, png, bmp or gif file!")
+    }
+    base64 = base64enc::base64encode(figPath)
+    base64 = paste0("data:image/", figClass, ";base64,", 
+                    base64)
+  }
+  else {
+    base64 = NULL
+  }
+  weightFactor = size * 180/max(dataOut$freq)
+  settings <- list(word = dataOut$name, freq = dataOut$freq, 
+                   fontFamily = fontFamily, fontWeight = fontWeight, color = color, 
+                   minSize = minSize, weightFactor = weightFactor, backgroundColor = backgroundColor, 
+                   gridSize = gridSize, minRotation = minRotation, maxRotation = maxRotation, 
+                   shuffle = shuffle, rotateRatio = rotateRatio, shape = shape, 
+                   ellipticity = ellipticity, figBase64 = base64, hover = htmlwidgets::JS(hoverFunction))
+  chart = htmlwidgets::createWidget("wordcloud2", settings, 
+                                    width = widgetsize[1], height = widgetsize[2], sizingPolicy = htmlwidgets::sizingPolicy(viewer.padding = 0, 
+                                                                                                                            browser.padding = 0, browser.fill = TRUE))
+  chart
+}
+
+```
+
+
+```{r}
+library(tidyverse)
+library(plotly)
+library(reactable)
+
+theme <- reactableTheme(color = "hsl(0, 0%, 90%)", backgroundColor = "hsl(0, 0%, 10%)", 
+    borderColor = "hsl(0, 0%, 18%)", stripedColor = "hsl(0, 0%, 13%)", 
+    headerStyle = list(`&:hover[aria-sort]` = list(backgroundColor = "hsl(0, 0%, 14%)")), 
+    tableBodyStyle = list(color = "hsl(0, 0%, 75%)"), rowHighlightStyle = list(color = "hsl(0, 0%, 90%)", 
+        backgroundColor = "hsl(0, 0%, 14%)"), selectStyle = list(backgroundColor = "hsl(0, 0%, 20%)"), 
+    inputStyle = list(backgroundColor = "hsl(0, 0%, 10%)", borderColor = "hsl(0, 0%, 21%)", 
+        `&:hover, &:focus` = list(borderColor = "hsl(0, 0%, 30%)")), 
+    pageButtonHoverStyle = list(backgroundColor = "hsl(0, 0%, 20%)"), 
+    pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)"))
+
+reactable(iris, resizable = TRUE, showPageSizeOptions = TRUE, 
+    onClick = "expand", highlight = TRUE, columns = list(Sepal.Length = colDef(name = "Sepal Length", 
+        aggregate = "max", format = colFormat(suffix = " cm", 
+            digits = 1)), Sepal.Width = colDef(name = "Sepal Width", 
+        defaultSortOrder = "desc", aggregate = "mean", format = list(aggregated = colFormat(suffix = " (avg)", 
+            digits = 2)), cell = function(value) {
+                    if (value >= 3.3) {
+                      classes <- "tag num-high"
+                    } else if (value >= 3) {
+                      classes <- "tag num-med"
+                    } else {
+                      classes <- "tag num-low"
+                    }
+                    value <- format(value, nsmall = 1)
+                    span(class = classes, value)
+                  }), Petal.Length = colDef(name = "Petal Length", 
+        aggregate = "sum"), Petal.Width = colDef(name = "Petal Width", 
+        aggregate = "count"), Species = colDef(aggregate = "frequency")), 
+    details = function(index) {
+          if (index == 3) {
+            tabsetPanel(
+              
+            )
+          } else if (index == 5) {
+            paste("Details for row:", index)
+          }
+        }, theme = theme)
+
+library(tidyverse)
+library(reactable)
+trending_up_apps <- read_csv("~/Downloads/apple_store_apps.csv")
+trending_up_apps$App
+playstore_apps <- read_csv("~/Downloads/playstore_apps.csv")
+
+apple_trending_table <- reactable(trending_up_apps, 
+          style = list(fontFamily = "Arial, sans-serif", fontSize = "14px"),
+          resizable = TRUE, showPageSizeOptions = TRUE, 
+    onClick = "expand", highlight = TRUE, 
+    columns = 
+      list(
+        App = colDef(name = "App",
+                     headerStyle = list(fontWeight = 700),
+                     cell = function(value){
+                        image <- img(class = "appletrendingapplogo", 
+                                     alt= "", 
+                                     src = sprintf("images/%s.png", value))
+                        tagList(
+                          div(style = list(display = "inline-block", width = "45px"), image),
+                          value
+                        )
+                     } ), 
+        "Store Rank" = colDef(name = "Store Rank", 
+                              headerStyle = list(fontWeight = 700),
+                              defaultSortOrder = "asc")), 
+        # details = function(index) {
+        #       if (index == 3) {
+        #         tabsetPanel(
+        #         )
+        #       } else if (index == 5) {
+        #         paste("Details for row:", index)
+        #       }
+        #     }, 
+    theme = theme)
+apple_trending_table
+```
+
+```{r}
+str(playstore_apps)
+library(htmltools)
+google_trending_table <- reactable(
+          data = playstore_apps, 
+          style = list(fontFamily = "Arial, sans-serif", 
+                       fontSize = "14px"),
+          resizable = TRUE, 
+          showPageSizeOptions = TRUE, 
+          onClick = "expand", 
+          highlight = TRUE, 
+    columns = 
+      list(
+        App = colDef(
+          minWidth = 300,
+          cell = function(value){
+                        images <- img(src = sprintf("apple_logo/%s.png", value), 
+                                     height = "24px", 
+                                     alt = "")
+                        tagList(
+                          div(style = list(display = "inline-block"
+                                           , width = "20px")
+                              , images),
+                          value
+                        )
+                     })) 
+        # details = function(index) {
+        #       if (index == 3) {
+        #         tabsetPanel(
+        #         )
+        #       } else if (index == 5) {
+        #         paste("Details for row:", index)
+        #       }
+        #     }, 
+   , theme = theme )
+google_trending_table
+saveRDS(google_trending_table, "~/NetBaseApi/coviddashboard/google_trending_table.rds")
+saveRDS(apple_trending_table, "~/NetBaseApi/coviddashboard/apple_trending_table.rds")
+
+Animal = colDef(cell = function(value) {
+    image <- img(src = sprintf("images/%s.png", value), height = "24px", alt = "")
+    tagList(
+      div(style = list(display = "inline-block", width = "45px"), image),
+      value
+    )
+  })
+
+
+src_val = sprintf("~/NetBaseApi/coviddashboard/apple_logo/%s.png", trending_up_apps$App)
+src_val
+library(shiny)
+```
+
+
+
+```{r}
+
+library(htmltools)
+
+data <- data.frame(
+  Animal = c("beaver", "cow", "wolf", "goat"),
+  Body = c(1.35, 465, 36.33, 27.66),
+  Brain = c(8.1, 423, 119.5, 115)
+)
+
+reactable(data, columns = list(
+  Animal = colDef(cell = function(value) {
+    image <- img(src = sprintf("~/NetBaseApi/coviddashboard/images2/%s.png", value), height = "24px", alt = "")
+    tagList(
+      div(style = list(display = "inline-block", width = "45px"), image),
+      value
+    )
+  }),
+  Body = colDef(name = "Body (kg)"),
+  Brain = colDef(name = "Brain (g)")
+))
+
+
+```
+
+```{r}
+
+bar_chart_banks <- function(label, value, max_value = 1, height = "16px",
+                              comm_fill = "#f2c40e", 
+                              nab_fill = "#f6182a",
+                              stg_fill = "#78be20", 
+                              anz_fill = "#004164",
+                              wes_fill = "#02aa5c"
+                              ) {
+  neg_chart <- div(style = list(flex = "1 1 0"))
+  pos_chart <- div(style = list(flex = "1 1 0"))
+  width <- paste0(abs(value / max_value) * 100, "%")
+
+  if (value == "0") {
+    bar <- div(style = list(marginLeft = "8px", background = neg_fill, width = width, height = height))
+    chart <- div(style = list(display = "flex", alignItems = "center"), label, bar)
+    neg_chart <- tagAppendChild(neg_chart, chart)
+  } else {
+    bar <- div(style = list(marginLeft = "8px", background = pos_fill, width = width, height = height))
+    chart <- div(style = list(display = "flex", alignItems = "center"), label, bar)
+    pos_chart <- tagAppendChild(pos_chart, chart)
+  }
+
+  div(style = list(display = "flex"), neg_chart, pos_chart)
+}
+
+```
+
+```{r}
+
+      theme1<- reactableTheme(color = "hsl(0, 0%, 90%)", backgroundColor = "hsl(0, 0%, 10%)", 
+                                    borderColor = "hsl(0, 0%, 18%)", stripedColor = "hsl(0, 0%, 13%)", 
+                                    headerStyle = list(`&:hover[aria-sort]` = list(backgroundColor = "hsl(0, 0%, 14%)")), 
+                                    tableBodyStyle = list(color = "hsl(0, 0%, 75%)"), rowHighlightStyle = list(color = "hsl(0, 0%, 90%)", 
+                                                                                                               backgroundColor = "hsl(0, 0%, 14%)"), selectStyle = list(backgroundColor = "hsl(0, 0%, 20%)"), 
+                                    inputStyle = list(backgroundColor = "hsl(0, 0%, 10%)", borderColor = "hsl(0, 0%, 21%)", 
+                                                      `&:hover, &:focus` = list(borderColor = "hsl(0, 0%, 30%)")), 
+                                    pageButtonHoverStyle = list(backgroundColor = "hsl(0, 0%, 20%)"), 
+                                    pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)"))
+
+kw_branded <- read_csv("~/Downloads/search_keywords_branded.csv")
+
+url_cols <- kw_branded %>%
+  select(contains(".com")) %>%
+  names()
+
+kw_branded_top25 <-
+  kw_branded %>%
+  pivot_longer(cols = url_cols) %>%
+  filter(!value == "NA") %>%
+  filter(!`Total Traffic Share` == "NA") %>%
+  mutate(TrafficShare = as.double(str_remove(`Total Traffic Share`, "%"))) %>% 
+  mutate("Traffic Share" = as.double(str_remove(`Organic`, "%"))) %>% 
+  top_n(25, `TrafficShare`) %>%
+  mutate(Destination = name, `Search Terms` = `Search terms`) %>%
+  select(`Search Terms`, `Traffic Share`, name) 
+
+library(reactable)
+library(htmltools)
+bar_chart <- function(label, destination, width = "100%", height = "16px", fill = "#00bfc4", background = NULL) {
+                 
+  bar <- div(style = list(background = fill, width = width, height = height))
+  chart <- div(style = list(flexGrow = 1
+                            , marginLeft = "8px"
+                            , background = background), bar)
+  div(style = list(display = "flex", alignItems = "center"), paste(round(as.numeric(label)), "%"), chart)
+}
+
+destinations_test <- reactable(
+  kw_branded_top25,
+  columns = list(
+    "Search Terms" = colDef(
+      minWidth = 200
+    ),
+  "Traffic Share" = colDef(
+    cell = function(value) {
+      width <- paste0(value / max(kw_branded_top25$`Traffic Share`) * 100, "%")
+      label <- format(value, nsmall = 5)
+      bar_chart(label, width = width)
+    }) 
+), theme = theme1) 
+
+saveRDS(destinations_test, "~/NetBaseApi/coviddashboard/destinations_test.rds")
+
+destinations_test
+
+urivec <- knitr::image_uri(paste("/images/", trending_up_apps$App, ".png", sep = "")) 
+
+
+?image_uri
+```
+
+
+
+
+
+
+
+
