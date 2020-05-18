@@ -201,7 +201,6 @@ pdf(NULL)
       x = 0.1, 
       y = 0.9)
     
-    
     contribution_plot <- read_rds("plotly_object.rds")
     contribution_plot_30days <- read_rds("plotly_object30days.rds")
     bing_sentiment_plot <- read_rds("covid_bingsent_plot.rds")
@@ -740,6 +739,37 @@ pdf(NULL)
                                                   #       }
                                                   #     }, 
                                                   theme = theme1)
+              })
+              
+              output$google_table <- renderReactable({
+                reactable(google_trending_apps1, 
+                          style = list(fontFamily = "Arial, sans-serif", fontSize = "14px"),
+                          resizable = TRUE, showPageSizeOptions = TRUE, 
+                          onClick = "expand", highlight = TRUE, 
+                          columns = 
+                            list(
+                              App = colDef(
+                                minWidth = 200,
+                                cell = function(value){
+                                  image <- img(class = "googletrendingapplogo",
+                                               alt= "",
+                                               src = sprintf("images/%s.png", value))
+                                  # image_src <- knitr::image_uri(sprintf("images/%s.png", value))
+                                  # image <- img(src=image_src, height = "24p", alt = "alt") 
+                                  tagList(
+                                    div(style = list(display = "inline-block", width = "24px"), image),
+                                    value
+                                  )
+                                } )), 
+                          # details = function(index) {
+                          #       if (index == 3) {
+                          #         tabsetPanel(
+                          #         )
+                          #       } else if (index == 5) {
+                          #         paste("Details for row:", index)
+                          #       }
+                          #     }, 
+                          theme = theme1)
               })
           
               reactive_brand_selection <- reactive({
