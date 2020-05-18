@@ -84,11 +84,11 @@ pdf(NULL)
    # coronaverbatims <- read_csv("coronaverbatims_l7d_wed8thmar.csv")
    # afinn <- readRDS("afinn.rds")
     apple_trending_apps1 <- read_csv("apple_store_apps.csv")
-    google_trending_apps1 <- readRDS("google_trending_table.rds")
+    google_trending_apps1 <- read_csv("playstore_apps.csv")
     #uris <- readRDS("uris.rds")
     #urisclick <- readRDS("urisclick.rds")
     destinations_test_data <- readRDS("destinations_test.rds")
-    
+  
     #coronavirus <- readRDS("coronavirus2.rds")
     corona7daycases <- readRDS("corona7daycases.rds")
     sw_keywords_plot <- readRDS("sw_keywords_plot.rds")
@@ -631,7 +631,7 @@ pdf(NULL)
                                                                                             )),
                                       bs_button("Analysis", button_type = "default") %>%
                                         bs_attach_collapse("apps_collapse"))), br(), br(),
-                                     column(width = 12, align = "center", h5("Destinations Test", align = "center"), wellPanel(reactableOutput("destinations_test_table")) 
+                                     column(width = 12, align = "center", h5("Destinations Test", align = "center"), wellPanel(reactableOutput("better_keywords_branded")) 
                                             )
                              ))
          
@@ -697,19 +697,6 @@ pdf(NULL)
               })
               
               
-              
-              output$apple_trending_apps <- renderReactable({
-                apple_trending_apps1
-              })
-              
-              output$google_trending_apps <- renderReactable({
-                google_trending_apps1
-              })
-              
-              output$apple_dt <- renderDataTable({
-                apple_trending_apps1
-              })
-              
               output$apple_table <- renderReactable({
                                               reactable(apple_trending_apps1, 
                                                   style = list(fontFamily = "Arial, sans-serif", fontSize = "14px"),
@@ -741,7 +728,7 @@ pdf(NULL)
                                                   theme = theme1)
               })
               
-              output$google_table <- renderReactable({
+              output$google_trending_apps <- renderReactable({
                 reactable(google_trending_apps1, 
                           style = list(fontFamily = "Arial, sans-serif", fontSize = "14px"),
                           resizable = TRUE, showPageSizeOptions = TRUE, 
@@ -772,12 +759,12 @@ pdf(NULL)
                           theme = theme1)
               })
           
-              reactive_brand_selection <- reactive({
-                #cleaned_brand <- str_remove(input$selected_word, ":.*")
-                cleaned_brand <- input$selected_word
-                cleaned_brand
-                              })
-              
+              # reactive_brand_selection <- reactive({
+              #   #cleaned_brand <- str_remove(input$selected_word, ":.*")
+              #   cleaned_brand <- input$selected_word
+              #   cleaned_brand
+              #                 })
+              # 
          #      reactive_tweet <- reactive({
          # #       output$tweet_output <- FALSE
          #        if(reactive_brand_selection() == "NRL:437"){
@@ -794,16 +781,156 @@ pdf(NULL)
                 destinations_test_data
               })
               
-              observeEvent(input$selected_word, {
+              # observeEvent(input$selected_word, {
+              #   
+              #   if(reactive_brand_selection() == "NRL:437"){
+              #     reactive_tweet <- twitterwidget("1252785723830226944")
+              #   }
+              #   else if(reactive_brand_selection() == "NRL:285"){
+              #     reactive_tweet <- twitterwidget("1252785725549842432")
+              #   }
+              # })
+              
+              
+              renderKeywordsBankingSectorTable <- function(data){
+                tracks_table <- function(data) {
+                  reactable(
+                    data,
+                    searchable = TRUE,
+                    highlight = TRUE,
+                    wrap = FALSE,
+                    paginationType = "simple",
+                    minRows = 10,
+                    columns = list(
+                      "Search Terms" = colDef(
+                        minWidth = 300
+                        ),
+                      "Traffic Share" = colDef(
+                        cell = function(value) {
+                          value2 <- removeWords(value, c("anz.com.au", "nab.com.au", "commbank.com.au", "westpac.com.au", "stgeorge.com.au"))
+                          value3 <- as.numeric(value2)
+                          width <- paste0(value3 / max(kw_branded_top25$`_TrafficShare`) * 100, "%")
+                          label <- format(value3, nsmall = 5)
+                          bar_chart(label, value = value, width = width)
+                        }
+                      ),
+                      "_TrafficShare" = colDef(show = FALSE)
+                    ),
+                    language = reactableLang(
+                      searchPlaceholder = "Filter search terms",
+                      noData = "No tracks found",
+                      pageInfo = "{rowStart}\u2013{rowEnd} of {rows} terms",
+                      pagePrevious = "\u276e",
+                      pageNext = "\u276f",
+                    ),
+                    theme = spotify_theme()
+                  )
+                }
                 
-                if(reactive_brand_selection() == "NRL:437"){
-                  reactive_tweet <- twitterwidget("1252785723830226944")
+                # Icon to indicate trend: unchanged, up, down, or new
+                trend_indicator <- function(value = c("unchanged", "up", "down", "new")) {
+                  value <- match.arg(value)
+                  label <- switch(value,
+                                  unchanged = "Unchanged", up = "Trending up",
+                                  down = "Trending down", new = "New")
+                  # Add img role and tooltip/label for accessibility
+                  args <- list(role = "img", title = label)
+                  if (value == "unchanged") {
+                    args <- c(args, list("–", style = "color: #666; font-weight: 700"))
+                  } else if (value == "up") {
+                    args <- c(args, list(shiny::icon("caret-up"), style = "color: #1ed760"))
+                  } else if (value == "down") {
+                    args <- c(args, list(shiny::icon("caret-down"), style = "color: #cd1a2b"))
+                  } else {
+                    args <- c(args, list(shiny::icon("circle"), style = "color: #2e77d0; font-size: 10px"))
+                  }
+                  do.call(span, args)
                 }
-                else if(reactive_brand_selection() == "NRL:285"){
-                  reactive_tweet <- twitterwidget("1252785725549842432")
+                spotify_theme <- function() {
+                  search_icon <- function(fill = "none") {
+                    # Icon from https://boxicons.com
+                    svg <- sprintf('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="%s" d="M10 18c1.85 0 3.54-.64 4.9-1.69l4.4 4.4 1.4-1.42-4.39-4.4A8 8 0 102 10a8 8 0 008 8.01zm0-14a6 6 0 11-.01 12.01A6 6 0 0110 4z"/></svg>', fill)
+                    sprintf("url('data:image/svg+xml;base64,%s')", jsonlite::base64_enc(svg))
+                  }
+                  text_color <- "hsl(0, 0%, 95%)"
+                  text_color_light <- "hsl(0, 0%, 70%)"
+                  text_color_lighter <- "hsl(0, 0%, 55%)"
+                  bg_color <- "hsl(0, 0%, 10%)"
+                  reactableTheme(
+                    color = text_color,
+                    backgroundColor = bg_color,
+                    borderColor = "hsl(0, 0%, 16%)",
+                    borderWidth = "1px",
+                    highlightColor = "rgba(255, 255, 255, 0.1)",
+                    cellPadding = "10px 8px",
+                    style = list(
+                      fontFamily = "Work Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+                      fontSize = "14px",
+                      "a" = list(
+                        color = text_color,
+                        "&:hover, &:focus" = list(
+                          textDecoration = "none",
+                          borderBottom = "1px solid currentColor"
+                        )
+                      ),
+                      ".number" = list(
+                        color = text_color_light,
+                        fontFamily = "Source Code Pro, Consolas, Monaco, monospace"
+                      ),
+                      ".tag" = list(
+                        padding = "2px 4px",
+                        color = "hsl(0, 0%, 40%)",
+                        fontSize = "12px",
+                        border = "1px solid hsl(0, 0%, 24%)",
+                        borderRadius = "2px"
+                      )
+                    ),
+                    headerStyle = list(
+                      color = text_color_light,
+                      fontWeight = 400,
+                      fontSize = "12px",
+                      letterSpacing = "1px",
+                      textTransform = "uppercase",
+                      "&:hover, &:focus" = list(color = text_color)
+                    ),
+                    rowHighlightStyle = list(
+                      ".tag" = list(color = text_color, borderColor = text_color_lighter)
+                    ),
+                    # Full-width search bar with search icon
+                    searchInputStyle = list(
+                      paddingLeft = "30px",
+                      paddingTop = "8px",
+                      paddingBottom = "8px",
+                      width = "100%",
+                      border = "none",
+                      backgroundColor = bg_color,
+                      backgroundImage = search_icon(text_color_light),
+                      backgroundSize = "16px",
+                      backgroundPosition = "left 8px center",
+                      backgroundRepeat = "no-repeat",
+                      "&:focus" = list(backgroundColor = "rgba(255, 255, 255, 0.1)", border = "none"),
+                      "&:hover, &:focus" = list(backgroundImage = search_icon(text_color)),
+                      "::placeholder" = list(color = text_color_lighter),
+                      "&:hover::placeholder, &:focus::placeholder" = list(color = text_color)
+                    ),
+                    paginationStyle = list(color = text_color_light),
+                    pageButtonHoverStyle = list(backgroundColor = "hsl(0, 0%, 20%)"),
+                    pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)")
+                  )
                 }
+                
+              
+                    tracks_table(data)
+                
+              }
+              
+              branded_table <- renderKeywordsBankingSectorTable(kw_branded_top25)
+              
+              output$better_keywords_branded <- renderReactable({
+                branded_table
               })
                 
+              
                
                nrl_neg_tweet <- twitterwidget("1254757356107268102", width = "100%", height = "10px")
                

@@ -13,6 +13,50 @@ library(tidytext)
 library(plotly)
 library(lubridate)
 
+wordcloud2a <- function (data, size = 1, minSize = 0, gridSize = 0, fontFamily = "Segoe UI", 
+          fontWeight = "bold", color = "random-dark", backgroundColor = "white", 
+          minRotation = -pi/4, maxRotation = pi/4, shuffle = TRUE, 
+          rotateRatio = 0.4, shape = "circle", ellipticity = 0.65, 
+          widgetsize = NULL, figPath = NULL, hoverFunction = NULL) 
+{
+  if ("table" %in% class(data)) {
+    dataOut = data.frame(name = names(data), freq = as.vector(data))
+  }
+  else {
+    data = as.data.frame(data)
+    dataOut = data[, 1:2]
+    names(dataOut) = c("name", "freq")
+  }
+  if (!is.null(figPath)) {
+    if (!file.exists(figPath)) {
+      stop("cannot find fig in the figPath")
+    }
+    spPath = strsplit(figPath, "\\.")[[1]]
+    len = length(spPath)
+    figClass = spPath[len]
+    if (!figClass %in% c("jpeg", "jpg", "png", "bmp", "gif")) {
+      stop("file should be a jpeg, jpg, png, bmp or gif file!")
+    }
+    base64 = base64enc::base64encode(figPath)
+    base64 = paste0("data:image/", figClass, ";base64,", 
+                    base64)
+  }
+  else {
+    base64 = NULL
+  }
+  weightFactor = size * 180/max(dataOut$freq)
+  settings <- list(word = dataOut$name, freq = dataOut$freq, 
+                   fontFamily = fontFamily, fontWeight = fontWeight, color = color, 
+                   minSize = minSize, weightFactor = weightFactor, backgroundColor = backgroundColor, 
+                   gridSize = gridSize, minRotation = minRotation, maxRotation = maxRotation, 
+                   shuffle = shuffle, rotateRatio = rotateRatio, shape = shape, 
+                   ellipticity = ellipticity, figBase64 = base64, hover = htmlwidgets::JS(hoverFunction))
+  chart = htmlwidgets::createWidget("wordcloud2", settings, 
+                                    width = widgetsize[1], height = widgetsize[2], sizingPolicy = htmlwidgets::sizingPolicy(viewer.padding = 0, 
+                                                                                                                            browser.padding = 0, browser.fill = TRUE))
+  chart
+}
+
 stripHTML <- function(htmlString) {
       return(gsub("<.*?>", "", htmlString))
     }
@@ -627,19 +671,17 @@ plotly_object30 %>%
 library(wordcloud2)
 library(tm)
 
-cov_7dayfiltered_textonly <- as.character(cov_7dayfiltered$Hit.Sentence)
-
 brands_and_sentiments <- read_csv("~/brands and sentiment2.csv")
 
-brands_sentiments_cloud <-brands_and_sentiments %>%
+brands_sentiments_cloud 
+
+brands_sentiments_cloud <- brands_and_sentiments %>%
   select(word, freq, Sentiment) %>%
+  ungroup() %>%
     wordcloud2a(shape = "cirle", fontFamily = "Arial", color = ifelse(brands_and_sentiments$Sentiment == 'Negative', '#FF0100', '#90EE90'), size = 0.8, backgroundColor = "#212121") 
 
-brands_sentiments_cloud
 
 saveRDS(brands_sentiments_cloud, "~/NetBaseApi/coviddashboard/ronacloud.rds")
-
-ronacloud
 
 roni2 <- readRDS("ronacloud.rds")
 
@@ -753,16 +795,6 @@ cov_7day_businesses %>%
 ```
 
 
-
-
-```{r}
-?str_detect
-
-
-```
-
-
-
 ```{r}
 library(reactable)
 
@@ -771,7 +803,6 @@ reactable_rona <- reactable(cov_7day[1:10,])
 saveRDS(reactable_rona, "~/reactable_rona.rds")
 
 reactable_rona2 <- readRDS("reactable_rona.rds")
-
 
 reactable_rona2
 ```
@@ -782,17 +813,17 @@ library(stringr)
 
 cov_7day_businesses_wide <- cov_7day_businesses %>%
   mutate(Hit.Sentence = as.character(Hit.Sentence)) %>%
-mutate("Wuhan Institute of Virology" = case_when(str_detect(`Hit.Sentence`, regex('.* Wuhan Institute of Virology .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
-mutate("NRL"= case_when(str_detect(`Hit.Sentence`, regex('.* NRL .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
-mutate("Bank of England"= case_when(str_detect(`Hit.Sentence`, regex('.* Bank of England .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
-mutate("McDonalds"= case_when(str_detect(`Hit.Sentence`, regex('.* McDonald\'s .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
-mutate(  "News Corp" = case_when(str_detect(`Hit.Sentence`, regex('.* News Corp .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
-mutate(  "Pfizer"  = case_when(str_detect(`Hit.Sentence`, regex('.* Pfizer .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
-mutate(  "AFL"  = case_when(str_detect(`Hit.Sentence`, regex('.* AFL .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
-mutate(  "Commonwealth Bank"  = case_when(str_detect(`Hit.Sentence`, regex('.* Commonwealth Bank .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
-mutate(  "Vogue"  = case_when(str_detect(`Hit.Sentence`, regex('.* Vogue .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
-mutate(  "UTS"  = case_when(str_detect(`Hit.Sentence`, regex('.* UTS .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
-mutate(  "Carnival Cruise"  = case_when(str_detect(`Hit.Sentence`, regex('.* Carnival Cruise .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0))
+  mutate("Wuhan Institute of Virology" = case_when(str_detect(`Hit.Sentence`, regex('.* Wuhan Institute of Virology .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate("NRL"= case_when(str_detect(`Hit.Sentence`, regex('.* NRL .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate("Bank of England"= case_when(str_detect(`Hit.Sentence`, regex('.* Bank of England .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate("McDonalds"= case_when(str_detect(`Hit.Sentence`, regex('.* McDonald\'s .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate("News Corp" = case_when(str_detect(`Hit.Sentence`, regex('.* News Corp .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate("Pfizer"  = case_when(str_detect(`Hit.Sentence`, regex('.* Pfizer .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate(  "AFL"  = case_when(str_detect(`Hit.Sentence`, regex('.* AFL .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate(  "Commonwealth Bank"  = case_when(str_detect(`Hit.Sentence`, regex('.* Commonwealth Bank .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate(  "Vogue"  = case_when(str_detect(`Hit.Sentence`, regex('.* Vogue .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate(  "UTS"  = case_when(str_detect(`Hit.Sentence`, regex('.* UTS .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0)) %>%
+  mutate(  "Carnival Cruise"  = case_when(str_detect(`Hit.Sentence`, regex('.* Carnival Cruise .*', ignore_case = TRUE)) ~ 1, TRUE ~ 0))
 
 cov_7day_businesses_wide %>%
   pivot_longer(cols = c("NRL", "Pfizer", "Bank of England", "McDonalds", "News Corp", "AFL", "Commonwealth Bank", "Vogue", "UTS", "Carnival Cruise"), names_to = "Business") %>%
@@ -804,57 +835,6 @@ cov_7day_businesses_wide %>%
   geom_col(position = "dodge") +
   coord_flip() +
   dark_theme_bw()
-```
-
-
-
-
-```{r}
-
-wordcloud2a <- function (data, size = 1, minSize = 0, gridSize = 0, fontFamily = "Segoe UI", 
-          fontWeight = "bold", color = "random-dark", backgroundColor = "white", 
-          minRotation = -pi/4, maxRotation = pi/4, shuffle = TRUE, 
-          rotateRatio = 0.4, shape = "circle", ellipticity = 0.65, 
-          widgetsize = NULL, figPath = NULL, hoverFunction = NULL) 
-{
-  if ("table" %in% class(data)) {
-    dataOut = data.frame(name = names(data), freq = as.vector(data))
-  }
-  else {
-    data = as.data.frame(data)
-    dataOut = data[, 1:2]
-    names(dataOut) = c("name", "freq")
-  }
-  if (!is.null(figPath)) {
-    if (!file.exists(figPath)) {
-      stop("cannot find fig in the figPath")
-    }
-    spPath = strsplit(figPath, "\\.")[[1]]
-    len = length(spPath)
-    figClass = spPath[len]
-    if (!figClass %in% c("jpeg", "jpg", "png", "bmp", "gif")) {
-      stop("file should be a jpeg, jpg, png, bmp or gif file!")
-    }
-    base64 = base64enc::base64encode(figPath)
-    base64 = paste0("data:image/", figClass, ";base64,", 
-                    base64)
-  }
-  else {
-    base64 = NULL
-  }
-  weightFactor = size * 180/max(dataOut$freq)
-  settings <- list(word = dataOut$name, freq = dataOut$freq, 
-                   fontFamily = fontFamily, fontWeight = fontWeight, color = color, 
-                   minSize = minSize, weightFactor = weightFactor, backgroundColor = backgroundColor, 
-                   gridSize = gridSize, minRotation = minRotation, maxRotation = maxRotation, 
-                   shuffle = shuffle, rotateRatio = rotateRatio, shape = shape, 
-                   ellipticity = ellipticity, figBase64 = base64, hover = htmlwidgets::JS(hoverFunction))
-  chart = htmlwidgets::createWidget("wordcloud2", settings, 
-                                    width = widgetsize[1], height = widgetsize[2], sizingPolicy = htmlwidgets::sizingPolicy(viewer.padding = 0, 
-                                                                                                                            browser.padding = 0, browser.fill = TRUE))
-  chart
-}
-
 ```
 
 
@@ -1071,35 +1051,66 @@ kw_branded_top25 <-
   filter(!value == "NA") %>%
   filter(!`Total Traffic Share` == "NA") %>%
   mutate(TrafficShare = as.double(str_remove(`Total Traffic Share`, "%"))) %>% 
-  mutate("Traffic Share" = as.double(str_remove(`Organic`, "%"))) %>% 
+  mutate("_TrafficShare" = as.double(str_remove(`value`, "%"))) %>%
+  mutate("Traffic Share" = paste(`_TrafficShare`, name, sep = " ")) %>% 
   top_n(25, `TrafficShare`) %>%
   mutate(Destination = name, `Search Terms` = `Search terms`) %>%
-  select(`Search Terms`, `Traffic Share`, name) 
+  select(`Search Terms`, `Traffic Share`, `_TrafficShare`, Destination) 
 
+kw_branded_top25 %>%
+  mutate(value2 = removeWords(`Traffic Share`, c("anz.com.au", "nab.com.au", "commbank.com.au", "westpac.com.au", "stgeorge.com.au"))) %>%
+  mutate(value3 = as.numeric(value2))
+```
+
+```{r}    
 library(reactable)
 library(htmltools)
-bar_chart <- function(label, destination, width = "100%", height = "16px", fill = "#00bfc4", background = NULL) {
-                 
-  bar <- div(style = list(background = fill, width = width, height = height))
-  chart <- div(style = list(flexGrow = 1
+bar_chart <- function(label, value, destination, width = "100%", height = "16px", background = NULL) {
+  
+  if(value == "100 anz.com.au")               
+    bar <- div(style = list(background = "#004164", width = width, height = height))
+  
+  else if(value == "100 commbank.com.au")
+    bar <- div(style = list(background = "#f2c40e", width = width, height = height))
+  
+  else if(value == "100 westpac.com.au")
+    bar <- div(style = list(background = "#db002c", width = width, height = height))
+  
+  else if(value == "100 nab.com.au")
+    bar <- div(style = list(background = "#3fc1c9", width = width, height = height))
+  
+  else if(value == "100 stgeorge.com.au")
+    bar <- div(style = list(background = "#78be20", width = width, height = height))
+  
+  else
+    bar <- div(style = list(background = "#FFFFF", width = width, height = height))
+  
+   chart <- div(style = list(flexGrow = 1
                             , marginLeft = "8px"
                             , background = background), bar)
   div(style = list(display = "flex", alignItems = "center"), paste(round(as.numeric(label)), "%"), chart)
 }
 
+
+
 destinations_test <- reactable(
   kw_branded_top25,
+  highlight = TRUE,
   columns = list(
     "Search Terms" = colDef(
       minWidth = 200
     ),
   "Traffic Share" = colDef(
     cell = function(value) {
-      width <- paste0(value / max(kw_branded_top25$`Traffic Share`) * 100, "%")
-      label <- format(value, nsmall = 5)
-      bar_chart(label, width = width)
+      value2 <- removeWords(value, c("anz.com.au", "nab.com.au", "commbank.com.au", "westpac.com.au", "stgeorge.com.au"))
+      value3 <- as.numeric(value2)
+      width <- paste0(value3 / max(kw_branded_top25$`_TrafficShare`) * 100, "%")
+      label <- format(value3, nsmall = 5)
+      bar_chart(label, value = value, width = width)
     }) 
 ), theme = theme1) 
+
+destinations_test
 
 saveRDS(destinations_test, "~/NetBaseApi/coviddashboard/destinations_test.rds")
 
@@ -1108,11 +1119,161 @@ destinations_test
 urivec <- knitr::image_uri(paste("/images/", trending_up_apps$App, ".png", sep = "")) 
 
 
-?image_uri
 ```
 
+```{css}
 
+.title {
+  margin: 12px 6px 24px;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
 
+```
+
+```{r}
+
+renderKeywordsBankingSectorTable <- function(data){
+tracks_table <- function(data) {
+  reactable(
+    data,
+    searchable = TRUE,
+    highlight = TRUE,
+    wrap = FALSE,
+    paginationType = "simple",
+    minRows = 10,
+    columns = list(
+      "Search Terms" = colDef(
+      minWidth = 300,
+      header = tagList(
+          span("", "aria-hidden" = "true", title = "Search Terms"),
+          # Column label for screen readers (sr-only comes from Bootstrap)
+          span("Search Terms", class = "sr-only")
+    )),
+  "Traffic Share" = colDef(
+        header = span("Traffic Share", class = "sr-only"),
+    cell = function(value) {
+      value2 <- removeWords(value, c("anz.com.au", "nab.com.au", "commbank.com.au", "westpac.com.au", "stgeorge.com.au"))
+      value3 <- as.numeric(value2)
+      width <- paste0(value3 / max(kw_branded_top25$`_TrafficShare`) * 100, "%")
+      label <- format(value3, nsmall = 5)
+      bar_chart(label, value = value, width = width)
+    }
+  ),
+  "_TrafficShare" = colDef(show = FALSE)
+  ),
+    language = reactableLang(
+      searchPlaceholder = "Filter search terms",
+      noData = "No tracks found",
+      pageInfo = "{rowStart}\u2013{rowEnd} of {rows} terms",
+      pagePrevious = "\u276e",
+      pageNext = "\u276f",
+    ),
+    theme = spotify_theme()
+  )
+}
+
+# Icon to indicate trend: unchanged, up, down, or new
+trend_indicator <- function(value = c("unchanged", "up", "down", "new")) {
+  value <- match.arg(value)
+  label <- switch(value,
+                  unchanged = "Unchanged", up = "Trending up",
+                  down = "Trending down", new = "New")
+  # Add img role and tooltip/label for accessibility
+  args <- list(role = "img", title = label)
+  if (value == "unchanged") {
+    args <- c(args, list("–", style = "color: #666; font-weight: 700"))
+  } else if (value == "up") {
+    args <- c(args, list(shiny::icon("caret-up"), style = "color: #1ed760"))
+  } else if (value == "down") {
+    args <- c(args, list(shiny::icon("caret-down"), style = "color: #cd1a2b"))
+  } else {
+    args <- c(args, list(shiny::icon("circle"), style = "color: #2e77d0; font-size: 10px"))
+  }
+  do.call(span, args)
+}
+spotify_theme <- function() {
+  search_icon <- function(fill = "none") {
+    # Icon from https://boxicons.com
+    svg <- sprintf('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="%s" d="M10 18c1.85 0 3.54-.64 4.9-1.69l4.4 4.4 1.4-1.42-4.39-4.4A8 8 0 102 10a8 8 0 008 8.01zm0-14a6 6 0 11-.01 12.01A6 6 0 0110 4z"/></svg>', fill)
+    sprintf("url('data:image/svg+xml;base64,%s')", jsonlite::base64_enc(svg))
+  }
+  text_color <- "hsl(0, 0%, 95%)"
+  text_color_light <- "hsl(0, 0%, 70%)"
+  text_color_lighter <- "hsl(0, 0%, 55%)"
+  bg_color <- "hsl(0, 0%, 10%)"
+  reactableTheme(
+    color = text_color,
+    backgroundColor = bg_color,
+    borderColor = "hsl(0, 0%, 16%)",
+    borderWidth = "1px",
+    highlightColor = "rgba(255, 255, 255, 0.1)",
+    cellPadding = "10px 8px",
+    style = list(
+      fontFamily = "Work Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+      fontSize = "14px",
+      "a" = list(
+        color = text_color,
+        "&:hover, &:focus" = list(
+          textDecoration = "none",
+          borderBottom = "1px solid currentColor"
+        )
+      ),
+      ".number" = list(
+        color = text_color_light,
+        fontFamily = "Source Code Pro, Consolas, Monaco, monospace"
+      ),
+      ".tag" = list(
+        padding = "2px 4px",
+        color = "hsl(0, 0%, 40%)",
+        fontSize = "12px",
+        border = "1px solid hsl(0, 0%, 24%)",
+        borderRadius = "2px"
+      )
+    ),
+    headerStyle = list(
+      color = text_color_light,
+      fontWeight = 400,
+      fontSize = "12px",
+      letterSpacing = "1px",
+      textTransform = "uppercase",
+      "&:hover, &:focus" = list(color = text_color)
+    ),
+    rowHighlightStyle = list(
+      ".tag" = list(color = text_color, borderColor = text_color_lighter)
+    ),
+    # Full-width search bar with search icon
+    searchInputStyle = list(
+      paddingLeft = "30px",
+      paddingTop = "8px",
+      paddingBottom = "8px",
+      width = "100%",
+      border = "none",
+      backgroundColor = bg_color,
+      backgroundImage = search_icon(text_color_light),
+      backgroundSize = "16px",
+      backgroundPosition = "left 8px center",
+      backgroundRepeat = "no-repeat",
+      "&:focus" = list(backgroundColor = "rgba(255, 255, 255, 0.1)", border = "none"),
+      "&:hover, &:focus" = list(backgroundImage = search_icon(text_color)),
+      "::placeholder" = list(color = text_color_lighter),
+      "&:hover::placeholder, &:focus::placeholder" = list(color = text_color)
+    ),
+    paginationStyle = list(color = text_color_light),
+    pageButtonHoverStyle = list(backgroundColor = "hsl(0, 0%, 20%)"),
+    pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)")
+  )
+}
+
+div(class = "spotify-charts",
+  tracks_table(data)
+)
+}
+
+renderKeywordsBankingSectorTable(kw_branded_top25)
+
+```
 
 
 
