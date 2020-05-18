@@ -1045,8 +1045,7 @@ url_cols <- kw_branded %>%
   select(contains(".com")) %>%
   names()
 
-kw_branded_top25 <-
-  kw_branded %>%
+kw_branded_top25 <- kw_branded %>%
   pivot_longer(cols = url_cols) %>%
   filter(!value == "NA") %>%
   filter(!`Total Traffic Share` == "NA") %>%
@@ -1056,6 +1055,8 @@ kw_branded_top25 <-
   top_n(25, `TrafficShare`) %>%
   mutate(Destination = name, `Search Terms` = `Search terms`) %>%
   select(`Search Terms`, `Traffic Share`, `_TrafficShare`, Destination) 
+
+saveRDS(kw_branded_top25, "~/NetBaseApi/coviddashboard/kw_branded_top25.rds")
 
 kw_branded_top25 %>%
   mutate(value2 = removeWords(`Traffic Share`, c("anz.com.au", "nab.com.au", "commbank.com.au", "westpac.com.au", "stgeorge.com.au"))) %>%

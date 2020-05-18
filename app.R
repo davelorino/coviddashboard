@@ -13,6 +13,7 @@ library(htmltools)
 library(stringr)
 library(twitterwidget)
 library(DT)
+library(tm)
 
 pdf(NULL)
 
@@ -72,6 +73,32 @@ pdf(NULL)
         mutate(Percentage_Negative = round(Negative / (Positive + Negative + Neutral) * 100, 2)) %>%
         mutate(Percentage_Neutral = round(Neutral / (Positive + Negative + Neutral) * 100, 2)) %>%
         arrange(`Week Beginning`)
+    }
+    
+    bar_chart <- function(label, value, destination, width = "100%", height = "16px", background = NULL) {
+      
+      if(value == "100 anz.com.au")               
+        bar <- div(style = list(background = "#004164", width = width, height = height))
+      
+      else if(value == "100 commbank.com.au")
+        bar <- div(style = list(background = "#f2c40e", width = width, height = height))
+      
+      else if(value == "100 westpac.com.au")
+        bar <- div(style = list(background = "#db002c", width = width, height = height))
+      
+      else if(value == "100 nab.com.au")
+        bar <- div(style = list(background = "#3fc1c9", width = width, height = height))
+      
+      else if(value == "100 stgeorge.com.au")
+        bar <- div(style = list(background = "#78be20", width = width, height = height))
+      
+      else
+        bar <- div(style = list(background = "#FFFFF", width = width, height = height))
+      
+      chart <- div(style = list(flexGrow = 1
+                                , marginLeft = "8px"
+                                , background = background), bar)
+      div(style = list(display = "flex", alignItems = "center"), paste(round(as.numeric(label)), "%"), chart)
     }
 
     
@@ -901,7 +928,6 @@ pdf(NULL)
                       width = "100%",
                       border = "none",
                       backgroundColor = bg_color,
-                      backgroundImage = search_icon(text_color_light),
                       backgroundSize = "16px",
                       backgroundPosition = "left 8px center",
                       backgroundRepeat = "no-repeat",
