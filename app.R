@@ -78,19 +78,19 @@ pdf(NULL)
     
     bar_chart <- function(label, value, destination, width = "100%", height = "16px", background = NULL) {
       
-      if(value == "100 anz.com.au")               
+      if(str_detect(value, "anz.com.au"))               
         bar <- div(style = list(background = "#004164", width = width, height = height))
       
-      else if(value == "100 commbank.com.au")
+      else if(str_detect(value, "commbank.com.au"))
         bar <- div(style = list(background = "#f2c40e", width = width, height = height))
       
-      else if(value == "100 westpac.com.au")
+      else if(str_detect(value, "westpac.com.au"))
         bar <- div(style = list(background = "#db002c", width = width, height = height))
       
-      else if(value == "100 nab.com.au")
+      else if(str_detect(value, "nab.com.au"))
         bar <- div(style = list(background = "#3fc1c9", width = width, height = height))
       
-      else if(value == "100 stgeorge.com.au")
+      else if(str_detect(value, "stgeorge.com.au"))
         bar <- div(style = list(background = "#78be20", width = width, height = height))
       
       else
@@ -100,6 +100,129 @@ pdf(NULL)
                                 , marginLeft = "8px"
                                 , background = background), bar)
       div(style = list(display = "flex", alignItems = "center"), paste(round(as.numeric(label)), "%"), chart)
+    }
+    
+    renderKeywordsBankingSectorTableUnbranded <- function(data){
+      tracks_table <- function(data) {
+        reactable(
+          data,
+          searchable = TRUE,
+          highlight = TRUE,
+          wrap = FALSE,
+          paginationType = "simple",
+          minRows = 10,
+          columns = list(
+            "Search Terms" = colDef(
+              minWidth = 300,
+              ),
+            "Traffic Share" = colDef(
+              cell = function(value) {
+                value2 <- removeWords(value, c("anz.com.au", "nab.com.au", "commbank.com.au", "westpac.com.au", "stgeorge.com.au"))
+                value3 <- as.numeric(value2)
+                width <- paste0(value3 / max(kw_unbranded_top25$`_TrafficShare`) * 100, "%")
+                label <- format(value3, nsmall = 5)
+                bar_chart(label, value = value, width = width)
+              }
+            ),
+            "_TrafficShare" = colDef(show = FALSE)
+          ),
+          language = reactableLang(
+            searchPlaceholder = "Filter search terms",
+            noData = "No tracks found",
+            pageInfo = "{rowStart}\u2013{rowEnd} of {rows} terms",
+            pagePrevious = "\u276e",
+            pageNext = "\u276f",
+          ),
+          theme = spotify_theme()
+        )
+      }
+      
+      # Icon to indicate trend: unchanged, up, down, or new
+      trend_indicator <- function(value = c("unchanged", "up", "down", "new")) {
+        value <- match.arg(value)
+        label <- switch(value,
+                        unchanged = "Unchanged", up = "Trending up",
+                        down = "Trending down", new = "New")
+        # Add img role and tooltip/label for accessibility
+        args <- list(role = "img", title = label)
+        if (value == "unchanged") {
+          args <- c(args, list("–", style = "color: #666; font-weight: 700"))
+        } else if (value == "up") {
+          args <- c(args, list(shiny::icon("caret-up"), style = "color: #1ed760"))
+        } else if (value == "down") {
+          args <- c(args, list(shiny::icon("caret-down"), style = "color: #cd1a2b"))
+        } else {
+          args <- c(args, list(shiny::icon("circle"), style = "color: #2e77d0; font-size: 10px"))
+        }
+        do.call(span, args)
+      }
+      spotify_theme <- function() {
+        
+        text_color <- "hsl(0, 0%, 95%)"
+        text_color_light <- "hsl(0, 0%, 70%)"
+        text_color_lighter <- "hsl(0, 0%, 55%)"
+        bg_color <- "hsl(0, 0%, 10%)"
+        reactableTheme(
+          color = text_color,
+          backgroundColor = bg_color,
+          borderColor = "hsl(0, 0%, 16%)",
+          borderWidth = "1px",
+          highlightColor = "rgba(255, 255, 255, 0.1)",
+          cellPadding = "10px 8px",
+          style = list(
+            fontFamily = "Work Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+            fontSize = "14px",
+            "a" = list(
+              color = text_color,
+              "&:hover, &:focus" = list(
+                textDecoration = "none",
+                borderBottom = "1px solid currentColor"
+              )
+            ),
+            ".number" = list(
+              color = text_color_light,
+              fontFamily = "Source Code Pro, Consolas, Monaco, monospace"
+            ),
+            ".tag" = list(
+              padding = "2px 4px",
+              color = "hsl(0, 0%, 40%)",
+              fontSize = "12px",
+              border = "1px solid hsl(0, 0%, 24%)",
+              borderRadius = "2px"
+            )
+          ),
+          headerStyle = list(
+            color = text_color_light,
+            fontWeight = 400,
+            fontSize = "12px",
+            letterSpacing = "1px",
+            textTransform = "uppercase",
+            "&:hover, &:focus" = list(color = text_color)
+          ),
+          rowHighlightStyle = list(
+            ".tag" = list(color = text_color, borderColor = text_color_lighter)
+          ),
+          # Full-width search bar with search icon
+          searchInputStyle = list(
+            paddingLeft = "30px",
+            paddingTop = "8px",
+            paddingBottom = "8px",
+            width = "100%",
+            border = "none",
+            backgroundColor = bg_color,
+            backgroundSize = "16px",
+            backgroundPosition = "left 8px center",
+            backgroundRepeat = "no-repeat",
+            "&:focus" = list(backgroundColor = "rgba(255, 255, 255, 0.1)", border = "none"),
+            "::placeholder" = list(color = text_color_lighter),
+            "&:hover::placeholder, &:focus::placeholder" = list(color = text_color)
+          ),
+          paginationStyle = list(color = text_color_light),
+          pageButtonHoverStyle = list(backgroundColor = "hsl(0, 0%, 20%)"),
+          pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)")
+        )
+      }
+          tracks_table(data)
     }
 
     
@@ -117,6 +240,7 @@ pdf(NULL)
     #urisclick <- readRDS("urisclick.rds")
     destinations_test_data <- readRDS("destinations_test.rds")
     kw_branded_top25 <- readRDS("kw_branded_top25.rds")
+    kw_unbranded_top25 <- readRDS("kw_unbranded_top25.rds")
   
     #coronavirus <- readRDS("coronavirus2.rds")
     corona7daycases <- readRDS("corona7daycases.rds")
@@ -127,61 +251,8 @@ pdf(NULL)
     sw_mobile_phrases_donut <- readRDS("mobile_phrases_donut.rds")
     sw_desktop_phrases_donut <- readRDS("desktop_phrases_donut.rds")
     rona_cloud <- readRDS("ronacloud.rds")
-    # coronavirus <- coronavirus %>%
-    #   group_by(Country.Region, date, type) %>%
-    #   mutate(`Worldwide` = sum(cases)) %>%
-    #   ungroup() %>%
-    #   filter(`Country.Region` %in% c("Australia", "China")) %>%
-    #   group_by(Country.Region, date, type) %>%
-    #   summarise(Total = sum(cases)) %>%
-    #   pivot_wider(names_from = c(type, Country.Region), values_from = Total) %>%
-    #   mutate(`Week Beginning` = floor_date(date, unit = "weeks")) %>%
-    #   group_by(`Week Beginning`) %>%
-    #   summarise(confirmed_Australia = sum(confirmed_Australia),
-    #             death_Australia = sum(death_Australia),
-    #             recovered_Australia = sum(recovered_Australia),
-    #             confirmed_China = sum(confirmed_China),
-    #             death_China = sum(death_China),
-    #             recovered_China = sum(recovered_China)) %>%
-    #   mutate(cumulative_confirmed_Australia = cumsum(confirmed_Australia)) %>%
-    #   mutate(cumulative_death_Australia = cumsum(death_Australia)) %>%
-    #   mutate(cumulative_confirmed_China = cumsum(confirmed_China)) %>%
-    #   mutate(cumulative_death_China = cumsum(death_China))
-
-    
-    #coronavirus::update_datasets()
-   
-    # corona_sentiment <- coronasent %>%
-    #   meltwater_sentiment_week() %>%
-    #   summarise_meltwater_sentiment_by_week() %>%
-    #   filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
-    # 
-
-    # write_rds(corona_sentiment, "~/NetBaseApi/coviddashboard/corona_sentiment.rds")
-    
-    # corona_weeks <- volumeovertime %>%
-    #     meltwater_week() %>%
-    #     summarise_meltwater_by_week() %>%
-    #     left_join(coronavirus, by = "Week Beginning") %>%
-    #     filter(`Week Beginning` > as.Date("22/12/2019", "%d/%m/%Y"))
     
     corona_7day <- read_rds("corona7day.rds")
-    
-    
-    # write_rds(corona_weeks, "~/NetBaseApi/coviddashboard/corona_sentiment.rds")
-    
-    
-    # base64 encoded string of each image
-    
-     # uris <- purrr::map_chr(
-     #        corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("~/NetBaseApi/coviddashboard/%s.jpeg", .x))
-     #   )
-     #  
-     #uri_df <- data.frame(uri = uris)
-    
-    #write_rds(uri_df, "~/NetBaseApi/coviddashboard/uri_df.rds")
-    
-  #  uris <- read_rds("uri_df.rds")
     
     uri_links <- c( "https://twitter.com/MackayIM/status/1211957651849920513",
                    "https://twitter.com/GreenEpidemic/status/1215253360057544704",
@@ -203,10 +274,6 @@ pdf(NULL)
                    
                    
    )
-    
-    # urisclick <- purrr::map_chr(
-    #   corona_weeks$`Week Beginning`, ~ base64enc::dataURI(file = sprintf("%s-2.jpeg", .x))
-    # )
     
     total_mentions_colour <- "#FFFFFF"
     twitter_colour <- "#1da1f2"
@@ -250,14 +317,12 @@ pdf(NULL)
                       .introjs-tooltiptext {
                         color: #212121;
                       }
-                     
                     "))),
                                     tags$head(includeHTML("google-analytics.html")), 
                                     ),
                        mainPanel(
                          fluidRow( height = 12,
                          column(width = 12, align = "left",
-                              
                          h4("Volume of COVID-19 conversation over time, Australia (VoC only)", align = "center"),
                       wellPanel(introBox(plotlyOutput("lineplot", height = "500px"), 
                                  data.step = 1, 
@@ -666,7 +731,12 @@ pdf(NULL)
                                      column(width = 12, align = "center", h5("Search Top (paid and organic) Keywords for Banking Category - Branded", align = "center"),
                                             wellPanel(reactableOutput("better_keywords_branded")
                                                       )
+                                            ),
+                                     column(width = 12, align = "center", h5("Search Top (paid and organic) Keywords for Banking Category - Unbranded", align = "center"),
+                                            wellPanel(reactableOutput("better_keywords_unbranded")
                                             )
+                                     )
+                                     
                              ))
          
     )
@@ -710,6 +780,8 @@ pdf(NULL)
             output$lineplot <- plotly::renderPlotly(
               volume_chart
             )
+            
+            
             
             theme1<- reactableTheme(color = "hsl(0, 0%, 90%)", backgroundColor = "hsl(0, 0%, 10%)", 
                                     borderColor = "hsl(0, 0%, 18%)", stripedColor = "hsl(0, 0%, 13%)", 
@@ -775,8 +847,6 @@ pdf(NULL)
                                   image <- img(class = "googletrendingapplogo",
                                                alt= "",
                                                src = sprintf("images/%s.png", value))
-                                  # image_src <- knitr::image_uri(sprintf("images/%s.png", value))
-                                  # image <- img(src=image_src, height = "24p", alt = "alt") 
                                   tagList(
                                     div(style = list(display = "inline-block", width = "24px"), image),
                                     value
@@ -879,9 +949,9 @@ pdf(NULL)
               
 ### DESTINATIONS DATA START --------------------------------------------------------
                             
-              output$destinations_test_table <- renderReactable({
-                destinations_test_data
-              })
+              # output$destinations_test_table <- renderReactable({
+              #   destinations_test_data
+              # })
               
 ### DESTINATIONS DATA END   --------------------------------------------------------
               
@@ -1024,9 +1094,13 @@ pdf(NULL)
               output$better_keywords_branded <- renderReactable({
                 branded_table
               })
-                
               
-               
+              unbranded_table <- renderKeywordsBankingSectorTableUnbranded(kw_unbranded_top25)
+              
+              output$better_keywords_unbranded <- renderReactable({
+                unbranded_table
+              })
+              
                nrl_neg_tweet <- twitterwidget("1254757356107268102", width = "100%", height = "10px")
                
                coles_pos_tweet <- twitterwidget("1255274677666226178") 

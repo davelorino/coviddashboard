@@ -1040,8 +1040,13 @@ bar_chart_banks <- function(label, value, max_value = 1, height = "16px",
                                     pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)"))
 
 kw_branded <- read_csv("~/Downloads/search_keywords_branded.csv")
+kw_unbranded <- read_csv("~/NetBaseApi/coviddashboard//search_keywords_unbranded.csv")
 
 url_cols <- kw_branded %>%
+  select(contains(".com")) %>%
+  names()
+
+url_cols_unbranded <- kw_unbranded %>%
   select(contains(".com")) %>%
   names()
 
@@ -1056,7 +1061,23 @@ kw_branded_top25 <- kw_branded %>%
   mutate(Destination = name, `Search Terms` = `Search terms`) %>%
   select(`Search Terms`, `Traffic Share`, `_TrafficShare`, Destination) 
 
+kw_unbranded_top25 <- kw_unbranded %>%
+  pivot_longer(cols = url_cols_unbranded) %>%
+  filter(!value == "NA") %>%
+  filter(!`Total Traffic Share` == "NA") %>%
+  mutate(TrafficShare = as.double(str_remove(`Total Traffic Share`, "%"))) %>% 
+  mutate("_TrafficShare" = as.double(str_remove(`value`, "%"))) %>%
+  mutate("Traffic Share" = paste(`_TrafficShare`, name, sep = " ")) %>%
+  head(25) %>%
+  mutate(Destination = name, `Search Terms` = `Search terms`) %>%
+  select(`Search Terms`, `Traffic Share`, `_TrafficShare`, Destination) 
+
+kw_unbranded_top25
+
 saveRDS(kw_branded_top25, "~/NetBaseApi/coviddashboard/kw_branded_top25.rds")
+saveRDS(kw_unbranded_top25, "~/NetBaseApi/coviddashboard/kw_unbranded_top25.rds")
+
+test <- readRDS("~/NetBaseApi/coviddashboard/kw_unbranded_top25.rds")
 
 kw_branded_top25 %>%
   mutate(value2 = removeWords(`Traffic Share`, c("anz.com.au", "nab.com.au", "commbank.com.au", "westpac.com.au", "stgeorge.com.au"))) %>%
@@ -1068,19 +1089,19 @@ library(reactable)
 library(htmltools)
 bar_chart <- function(label, value, destination, width = "100%", height = "16px", background = NULL) {
   
-  if(value == "100 anz.com.au")               
+  if(str_detect(value, "anz.com.au"))               
     bar <- div(style = list(background = "#004164", width = width, height = height))
   
-  else if(value == "100 commbank.com.au")
+  else if(str_detect(value, "commbank.com.au"))
     bar <- div(style = list(background = "#f2c40e", width = width, height = height))
   
-  else if(value == "100 westpac.com.au")
+  else if(str_detect(value, "westpac.com.au"))
     bar <- div(style = list(background = "#db002c", width = width, height = height))
   
-  else if(value == "100 nab.com.au")
+  else if(str_detect(value, "nab.com.au"))
     bar <- div(style = list(background = "#3fc1c9", width = width, height = height))
   
-  else if(value == "100 stgeorge.com.au")
+  else if(str_detect(value, "stgeorge.com.au"))
     bar <- div(style = list(background = "#78be20", width = width, height = height))
   
   else
@@ -1094,48 +1115,12 @@ bar_chart <- function(label, value, destination, width = "100%", height = "16px"
 
 
 
-destinations_test <- reactable(
-  kw_branded_top25,
-  highlight = TRUE,
-  columns = list(
-    "Search Terms" = colDef(
-      minWidth = 200
-    ),
-  "Traffic Share" = colDef(
-    cell = function(value) {
-      value2 <- removeWords(value, c("anz.com.au", "nab.com.au", "commbank.com.au", "westpac.com.au", "stgeorge.com.au"))
-      value3 <- as.numeric(value2)
-      width <- paste0(value3 / max(kw_branded_top25$`_TrafficShare`) * 100, "%")
-      label <- format(value3, nsmall = 5)
-      bar_chart(label, value = value, width = width)
-    }) 
-), theme = theme1) 
-
-destinations_test
-
-saveRDS(destinations_test, "~/NetBaseApi/coviddashboard/destinations_test.rds")
-
-destinations_test
-
-urivec <- knitr::image_uri(paste("/images/", trending_up_apps$App, ".png", sep = "")) 
-
-
 ```
 
-```{css}
-
-.title {
-  margin: 12px 6px 24px;
-  padding: 0;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-```
 
 ```{r}
 
-renderKeywordsBankingSectorTable <- function(data){
+renderKeywordsBankingSectorTableUnbranded <- function(data){
 tracks_table <- function(data) {
   reactable(
     data,
@@ -1157,7 +1142,7 @@ tracks_table <- function(data) {
     cell = function(value) {
       value2 <- removeWords(value, c("anz.com.au", "nab.com.au", "commbank.com.au", "westpac.com.au", "stgeorge.com.au"))
       value3 <- as.numeric(value2)
-      width <- paste0(value3 / max(kw_branded_top25$`_TrafficShare`) * 100, "%")
+      width <- paste0(value3 / max(kw_unbranded_top25$`_TrafficShare`) * 100, "%")
       label <- format(value3, nsmall = 5)
       bar_chart(label, value = value, width = width)
     }
@@ -1273,6 +1258,8 @@ div(class = "spotify-charts",
 }
 
 renderKeywordsBankingSectorTable(kw_branded_top25)
+renderKeywordsBankingSectorTableUnbranded(kw_unbranded_top25)
+
 
 ```
 
