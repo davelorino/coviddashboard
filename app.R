@@ -226,6 +226,7 @@ pdf(NULL)
     destinations_test_data <- readRDS("destinations_test.rds")
     kw_branded_top25 <- readRDS("kw_branded_top25.rds")
     kw_unbranded_top25 <- readRDS("kw_unbranded_top25.rds")
+    alan_kohler_ms <- readRDS("alankohler.rds")
   
     #coronavirus <- readRDS("coronavirus2.rds")
     corona7daycases <- readRDS("corona7daycases.rds")
@@ -646,8 +647,25 @@ pdf(NULL)
                                         )
                                         ),
                          bs_button("Analysis", button_type = "default") %>%
-                          bs_attach_collapse("business_cloud"))), br(), br() 
-                     )))
+                          bs_attach_collapse("business_cloud"))), br(), br(),
+                      h5("Hello! This is only visible on the old server and not on the deployed link."),
+                      h6("What do we think of this chart? I think it does a great job of explaining the impact and gradual return to normal from a consumer pov."),
+                      column(width = 6, h6("Pros: "), tags$li("Consumer touchpoints"), tags$li("Progressive & optimistic narrative")),
+                      column(width = 6, h6("Cons: "), 
+                             tags$li("The data is from a news source, not social (see analysis container for source)"), 
+                              tags$li("The original datasource is not accessible, we have access to the news source 
+                                      reporting on the original Morgan Stanley data ($$$)"),
+                             tags$li("The 'trough' period is not clearly defined, it is explained as just the 
+                                     lowest point for each sector during lockdown measures."), br()),
+                      column(width = 12, wellPanel(plotlyOutput("kohler_report", height = "500px"),
+                                                   bs_collapse("kohler_collapse", 
+                                                               content = tags$div(class = "well", 
+                                                                         tags$p("Change in Australian consumer behaviour from peak lockdown to May 18th, 2020. 
+                                                                                Source: ", tags$a(href ="https://www.abc.net.au/news/2020-05-20/wednesday-finance-with-alan-kohler/12269202?nw=0",  
+                                                                                                  "Alan Kohler, ABC News Finance Report - May 20th, 2020")))),
+                                                   bs_button("Analysis", button_type = "default") %>%
+                                                     bs_attach_collapse("kohler_collapse")
+                     ))))), 
                      ),
                  tabPanel(title = introBox( data.step = 9, data.intro = "Let's move over to the Search page - click 'Search'. 
                                             <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
@@ -784,6 +802,7 @@ pdf(NULL)
             output$lineplot <- plotly::renderPlotly(
               volume_chart
             )
+            
             
             
             
@@ -1106,6 +1125,10 @@ pdf(NULL)
               output$tweet_output = renderTwitterwidget({
                 reactive_tweet()
                 })
+              
+              output$kohler_report <- renderPlotly({
+                alan_kohler_ms
+              })
           
               
               output$sov_branded_out <- renderPlotly({
