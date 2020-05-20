@@ -314,7 +314,7 @@ pdf(NULL)
                     
                    title = "Saatchi & Saatchi COVID-19 Pulse", theme = shinytheme("darkly"),
                    tabPanel(title = "Social",
-                            themeSelector(),
+                          
                        sidebarPanel(img(src="Artboard1Logo.png", width="80%", height="80%"),
                                     br(), br(),
                                     actionButton("helpMe", "Tour"),
