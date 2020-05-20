@@ -1429,8 +1429,99 @@ div(class = "spotify-charts",
   tracks_table(data)
 )
 }
-
 ```
 
 
+```{r}
+branded_overall_percentage <- kw_branded_top25 %>%
+  ungroup() %>%
+  group_by(Destination) %>%
+  summarise(SumTrafficShare = sum(`_TrafficShare`), .groups = "keep") %>%
+  ungroup() %>%
+  mutate(`Overall Traffic Share` = round(`SumTrafficShare` / sum(`SumTrafficShare`) * 100, 2)) %>%
+  ungroup() %>%
+  mutate(Category = "Destination") %>%
+  ungroup() %>%
+  ggplot(aes(x = Category, y = `Overall Traffic Share`, fill = Destination)) +
+    geom_col(position = "stack") +
+  ggtitle("Banking Sector Share of Voice") +
+  coord_flip(clip = "off") +
+  scale_fill_manual(values = c("#004164", "#f2c40e", "#3fc1c9", "#78be20", "#f6182a")) +
+  theme(plot.title = element_text(size = 10, vjust = -2)) +
+  theme(axis.text.y=element_blank()) +
+  theme(title = element_text(color = "#FFFFFF"))
 
+legend_features_banking_keywords <- list(
+        font = list(
+            size = 8,
+            color = "#FFFFFF"),
+        bgcolor = "#212121",
+        bordercolor = "#FFFFFF",
+        orientation = "h", xanchor = "center", x = 0.5, y = -0.1,
+        borderwidth = 1)
+
+branded_overall_sov <- ggplotly(branded_overall_percentage) %>%
+  config(displayModeBar = FALSE) %>%
+     plotly::layout(
+                     #title = "Percentage of Traffic Share",
+                     yaxis = list(title = "", color = "#FFFFFF")
+                     ,xaxis = list(title = "", color = "#FFFFFF"),
+                      legend = legend_features_banking_keywords,          
+                     paper_bgcolor='#1a1a1a',
+                     plot_bgcolor='#1a1a1a'
+                 )
+
+
+saveRDS(branded_overall_sov, "~/NetBaseApi/coviddashboard/branded_overall_sov.rds")
+
+branded_overall_sov
+```
+
+
+```{r}
+library(ggdark)
+
+unbranded_overall_percentage <- kw_unbranded_top25 %>%
+  ungroup() %>%
+  group_by(Destination) %>%
+  summarise(SumTrafficShare = sum(`_TrafficShare`), .groups = "keep") %>%
+  ungroup() %>%
+  mutate(`Overall Traffic Share` = round(`SumTrafficShare` / sum(`SumTrafficShare`) * 100, 2)) %>%
+  ungroup() %>%
+  mutate(Category = "Destination") %>%
+  ungroup() %>%
+  ggplot(aes(x = Category, y = `Overall Traffic Share`, fill = Destination)) +
+    geom_col(position = "stack") +
+  ggtitle("Banking Sector Share of Voice") +
+  coord_flip(clip = "off") +
+  scale_fill_manual(values = c("#004164", "#f2c40e", "#3fc1c9", "#f6182a")) +
+  theme(plot.title = element_text(size = 10, vjust = -2)) +
+  theme(axis.text.y=element_blank()) +
+  theme(title = element_text(color = "#FFFFFF"))
+
+legend_features_banking_keywords <- list(
+        font = list(
+            size = 8,
+            color = "#FFFFFF"),
+        bgcolor = "#212121",
+        bordercolor = "#FFFFFF",
+        orientation = "h", xanchor = "center", x = 0.5, y = -0.1,
+        borderwidth = 1)
+
+unbranded_overall_sov <- ggplotly(unbranded_overall_percentage) %>%
+  config(displayModeBar = FALSE) %>%
+     plotly::layout(
+                     #title = "Banking Sector Share of Voice",
+                     yaxis = list(title = "", color = "#FFFFFF")
+                     ,xaxis = list(title = "", color = "#FFFFFF"),
+                      legend = legend_features_banking_keywords,          
+                     paper_bgcolor='#1a1a1a',
+                     plot_bgcolor='#1a1a1a'
+                 )
+
+
+unbranded_overall_sov
+
+saveRDS(unbranded_overall_sov, "~/NetBaseApi/coviddashboard/unbranded_overall_sov.rds")
+
+```

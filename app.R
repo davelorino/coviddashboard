@@ -99,7 +99,11 @@ pdf(NULL)
       chart <- div(style = list(flexGrow = 1
                                 , marginLeft = "8px"
                                 , background = background), bar)
+      if(str_detect(value, "100")){
       div(style = list(display = "flex", alignItems = "center"), paste(round(as.numeric(label)), "%"), chart)
+      } else{
+        div(style = list(display = "flex", alignItems = "center"), str_pad(paste(round(as.numeric(label)), "%"), width = 5, side = "left", pad = "0"), chart)
+      }
     }
     
     renderKeywordsBankingSectorTableUnbranded <- function(data){
@@ -252,6 +256,9 @@ pdf(NULL)
     sw_desktop_phrases_donut <- readRDS("desktop_phrases_donut.rds")
     rona_cloud <- readRDS("ronacloud.rds")
     
+    sov_branded <- readRDS("branded_overall_sov.rds")
+    sov_unbranded <- readRDS("unbranded_overall_sov.rds")
+    
     corona_7day <- read_rds("corona7day.rds")
     
     uri_links <- c( "https://twitter.com/MackayIM/status/1211957651849920513",
@@ -307,6 +314,7 @@ pdf(NULL)
                     
                    title = "Saatchi & Saatchi COVID-19 Pulse", theme = shinytheme("darkly"),
                    tabPanel(title = "Social",
+                            themeSelector(),
                        sidebarPanel(img(src="Artboard1Logo.png", width="80%", height="80%"),
                                     br(), br(),
                                     actionButton("helpMe", "Tour"),
@@ -729,11 +737,15 @@ pdf(NULL)
                                         bs_attach_collapse("apps_collapse"))), br(), br()
                                      ,
                                      column(width = 12, align = "center", h5("Search Top (paid and organic) Keywords for Banking Category - Branded", align = "center"),
-                                            wellPanel(reactableOutput("better_keywords_branded")
+                                            wellPanel(
+                                              plotlyOutput("sov_branded_out", height = "100px"),
+                                              reactableOutput("better_keywords_branded")
                                                       )
                                             ),
                                      column(width = 12, align = "center", h5("Search Top (paid and organic) Keywords for Banking Category - Unbranded", align = "center"),
-                                            wellPanel(reactableOutput("better_keywords_unbranded")
+                                            wellPanel(
+                                              plotlyOutput("sov_unbranded_out", height = "100px"),
+                                              reactableOutput("better_keywords_unbranded")
                                             )
                                      )
                                      
@@ -818,7 +830,8 @@ pdf(NULL)
                                                                                    src = sprintf("images/%s.png", value))
                                                                     # image_src <- knitr::image_uri(sprintf("images/%s.png", value))
                                                                     # image <- img(src=image_src, height = "24p", alt = "alt") 
-                                                                    tagList(
+                                                                    
+                                                                     tagList(
                                                                        div(style = list(display = "inline-block", width = "24px"), image),
                                                                        value
                                                                      )
@@ -1118,9 +1131,14 @@ pdf(NULL)
                 })
           
               
-              output$print  = renderPrint(
-                reactive_brand_selection()
-              )
+              output$sov_branded_out <- renderPlotly({
+                sov_branded
+              })
+              
+              output$sov_unbranded_out <- renderPlotly({
+                sov_unbranded
+              })
+              
          }
     
 shinyApp(ui = ui, server = server)
