@@ -93,7 +93,7 @@ pdf(NULL)
       else if(str_detect(value, "stgeorge.com.au"))
         bar <- div(style = list(background = "#78be20", width = width, height = height))
       
-      else
+      else 
         bar <- div(style = list(background = "#FFFFF", width = width, height = height))
       
       chart <- div(style = list(flexGrow = 1
@@ -117,7 +117,7 @@ pdf(NULL)
           minRows = 10,
           columns = list(
             "Search Terms" = colDef(
-              minWidth = 300,
+              minWidth = 300
               ),
             "Traffic Share" = colDef(
               cell = function(value) {
@@ -135,31 +135,12 @@ pdf(NULL)
             noData = "No tracks found",
             pageInfo = "{rowStart}\u2013{rowEnd} of {rows} terms",
             pagePrevious = "\u276e",
-            pageNext = "\u276f",
+            pageNext = "\u276f"
           ),
           theme = spotify_theme()
         )
       }
-      
-      # Icon to indicate trend: unchanged, up, down, or new
-      trend_indicator <- function(value = c("unchanged", "up", "down", "new")) {
-        value <- match.arg(value)
-        label <- switch(value,
-                        unchanged = "Unchanged", up = "Trending up",
-                        down = "Trending down", new = "New")
-        # Add img role and tooltip/label for accessibility
-        args <- list(role = "img", title = label)
-        if (value == "unchanged") {
-          args <- c(args, list("–", style = "color: #666; font-weight: 700"))
-        } else if (value == "up") {
-          args <- c(args, list(shiny::icon("caret-up"), style = "color: #1ed760"))
-        } else if (value == "down") {
-          args <- c(args, list(shiny::icon("caret-down"), style = "color: #cd1a2b"))
-        } else {
-          args <- c(args, list(shiny::icon("circle"), style = "color: #2e77d0; font-size: 10px"))
-        }
-        do.call(span, args)
-      }
+    
       spotify_theme <- function() {
         
         text_color <- "hsl(0, 0%, 95%)"
@@ -225,7 +206,7 @@ pdf(NULL)
           pageButtonHoverStyle = list(backgroundColor = "hsl(0, 0%, 20%)"),
           pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)")
         )
-      }
+    }
           tracks_table(data)
     }
 
@@ -326,7 +307,7 @@ pdf(NULL)
                         color: #212121;
                       }
                     "))),
-                                    tags$head(includeHTML("google-analytics.html")), 
+                                    tags$head(includeHTML("google-analytics.html"))
                                     ),
                        mainPanel(
                          fluidRow( height = 12,
@@ -346,7 +327,7 @@ pdf(NULL)
                                          the ",  
                                           tags$b("total weekly mentions "),  
                                           "between the 29th of December and the 4th of January inclusive. 
-                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - May 8th, 2020. 
+                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - May 16th, 2020. 
                                           Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.", 
                                                      tags$style(type = "text/css", "p { font-size: 12px; }")))),
                                 br(), br(),
@@ -450,7 +431,7 @@ pdf(NULL)
                                          labelled date. For example, the first point labelled 'Dec 29, 2019' represents
                                          the average weekly sentiment between the 29th of December and the 4th of January inclusive. 
                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
-                                          and Tweets Dec 29, 2019 - May 8th, 2020. Note: Neutral sentiment refers to 
+                                          and Tweets Dec 29, 2019 - May 17th, 2020. Note: Neutral sentiment refers to 
                                           mentions in which either negative or positive keywords could not be identified.")), 
                                   
                                column(width=12, 
@@ -492,7 +473,7 @@ pdf(NULL)
                                                             comments, blogs and forums over the last week.", 
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
-                                                             tags$em( tags$p("Sentiment in the 7 day period between the 2nd and the 8th of May inclusive. 
+                                                             tags$em( tags$p("Sentiment in the 7 day period between the 11th and the 18th of May. 
                                                                       Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets. 
                                                                       Note: Neutral sentiment refers to mentions in which either 
                                                                       negative or positive keywords could not be identified.")), 
@@ -518,7 +499,7 @@ pdf(NULL)
                                                              plotlyOutput("hashtags_7days"),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
                                                                  content = tags$div(class = "well",
-                                                                                  tags$em(  tags$p("Trending hashtags between the 2nd and the 8th of May inclusive.
+                                                                                  tags$em(  tags$p("Trending hashtags between the 11th and the 18th of May.
                                                                                            Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
        
                                                                                     column(width = 12,
@@ -534,7 +515,10 @@ pdf(NULL)
                                                                                             br(), br()
                                                                                       ))),
                                                      bs_button("Analysis", button_type = "default") %>%
-                                                         bs_attach_collapse("weekly_hashtags_collapse")))),
+                                                         bs_attach_collapse("weekly_hashtags_collapse")
+                                                     )
+                                                    )
+                                          ),
                                           br(), br(),
                                  column(width = 6,  h5("Text sentiment score - weekly snapshot"), 
                                          wellPanel(introBox(data.step = 6, 
@@ -544,7 +528,8 @@ pdf(NULL)
                                                              plotlyOutput("contribution_plot")
                                                              
                                                      )
-                                                   )),
+                                                   )
+                                        ),
                                   column(width = 6, h5("Text sentiment score - monthly snapshot"), 
                                           wellPanel(introBox(data.step = 7, 
                                                              data.intro = paste("This chart analyses the top 25 words contributing to positive 
@@ -557,12 +542,12 @@ pdf(NULL)
                                                                                    column(width=6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                                  " sentiment analysis lexicon. 7 day period 2nd and the 8th of May inclusive. 
+                                                                                                  " sentiment analysis lexicon. 7 day period between the 11th and the 18th of May. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
                                                                 column(width = 6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                        " sentiment analysis lexicon. 4 week period 2nd and the 8th of May inclusive. 
+                                                                                        " sentiment analysis lexicon. 4 week period between the 20th of April and the 18th of May. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), 
                                                             
                                                                     tags$li("The largest contributors to negative sentiment continue to be focused on virus casualties 
@@ -579,7 +564,7 @@ pdf(NULL)
                       bs_button("Analysis", button_type = "default") %>%
                         bs_attach_collapse("contribution_collapse"))), br(), br(),
                       column(width = 12, h5("Most talked about brands in connection with Coronavirus (Australia VoC only) - weekly snapshot", align = "center"), 
-                             wellPanel(introBox(data.step = 8, 
+                          wellPanel(introBox(data.step = 8, 
                                                 data.hint = "Click on a word to see a snippet of the conversation.", 
                              data.intro = "This chart shows the brands and organisations that are being
                                                  talked about most by cosumers in the last week, and the sentiment towards that brand or organisation.", 
@@ -590,16 +575,16 @@ pdf(NULL)
                                                   "Shiny.onInputChange('selected_word', word);",
                                                   "});"
                                                 ))
-                             ),
-                        bs_collapse("business_cloud", 
-                                    content = tags$div(class = "well",
+                                  ),
+                                    bs_collapse("business_cloud", 
+                                                content = tags$div(class = "well",
                                                        
                                         column(width = 12,
                                             tags$em(tags$p("Top 7 most talked about brands in connection with Coronavirus 
                                             in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
-                                            Period May 2nd to May 8th. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
-                                          column(width = 12,
+                                            Period May 11th to May 18th. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
+                                          column(width = 6,
                                             h5("Not surprisingly, some of the most impacted industries by the virus outbreak 
                                                (retail, air travel, sporting codes and pharmaceuticals) have been at the centre of many debates in the last week:"),
                                             tags$li("In the past week, the ", tags$b("NRL "), "has generated the largest volume of brand conversations in Australia. A majority 
@@ -619,8 +604,7 @@ pdf(NULL)
                                             solution to the current health crisis, this is welcoming news for fearful Australians."), br(),
                                             tags$li("The Wuhan Institute of Virology (", tags$b("WIOV"), ") generated the third highest level of negative sentiment in the last week, 
                                                     recently blacklisted by the NIH over suspicions that they falsified scientific records."), br()
-                                            
-                                            ),
+                                            ,
                                         tags$style(" 
                                                .blockquote.twitter-tweet {
                                                 display: inline-block;
@@ -637,33 +621,34 @@ pdf(NULL)
                                                 padding: 0 16px 16px 16px;
                                                 max-width: 10px;
                                               } ")
-                                        #,
-                                        # column(width = 6, align = "center",
-                                        #     wellPanel( style = "overflow-y:scroll; max-height: 700px",  
-                                        #                h5("Scroll down to see more."),
-                                        #    HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I hope to proved wrong but I have the feeling the push to open up Australia too early is going to be a disaster. Big push by Murdoch, big business, Morrison, NRL. It might end in tears. <a href="https://twitter.com/hashtag/auspol?src=hash&amp;ref_src=twsrc%5Etfw">#auspol</a> <a href="https://twitter.com/hashtag/qanda?src=hash&amp;ref_src=twsrc%5Etfw">#qanda</a></p>&mdash; Eddy Jokovich (@EddyJokovich) <a href="https://twitter.com/EddyJokovich/status/1254757356107268102?ref_src=twsrc%5Etfw">April 27, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
-                                        #    HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Coles delivers +13.1% supermarket sales growth<br><br>Alcohol sales jump +7.2%<br><br>But online sales growth drops to 14% given widespread restrictions on home deliveries due to the decision to prioritise elderly and vulnerable customers <br><br>Costs also higher due to extra staff &amp; cleaning <a href="https://t.co/847hTsNnCF">pic.twitter.com/847hTsNnCF</a></p>&mdash; Gemma Felicity Acton (@GemmaActon) <a href="https://twitter.com/GemmaActon/status/1255274677666226178?ref_src=twsrc%5Etfw">April 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
-                                        #    HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Virgin Australia administrators stop giving credits and refunds for cancelled flights <a href="https://t.co/2O4HDlx4zG">https://t.co/2O4HDlx4zG</a></p>&mdash; The Guardian (@guardian) <a href="https://twitter.com/guardian/status/1258297808379170818?ref_src=twsrc%5Etfw">May 7, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
-                                        #    HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Would-be owners of Virgin Australia have two weeks to lodge their first offer, in what the administrator says will be &quot;a very competitive process&quot; involving &quot;high-quality bidders with fantastic credentials and the ability to restructure this business.” <a href="https://t.co/zlW1XPZdtf">https://t.co/zlW1XPZdtf</a></p>&mdash; Executive Traveller (@AusBT) <a href="https://twitter.com/AusBT/status/1255690289236197377?ref_src=twsrc%5Etfw">April 30, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
-                                        #    HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">A German company working with US pharmaceutical giant Pfizer has begun human trials of a potential Covid-19 vaccine that could supply millions by the end of the year, according to the two firms. <a href="https://t.co/Ip2DaZDsCH">https://t.co/Ip2DaZDsCH</a></p>&mdash; CNN (@CNN) <a href="https://twitter.com/CNN/status/1255731644587180032?ref_src=twsrc%5Etfw">April 30, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
-                                        #    HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://t.co/UfZg0aVHH0">https://t.co/UfZg0aVHH0</a><br><br>&quot;Wuhan Institute of Virology has been engaged in so-called &quot;gain of function&quot; (GOF) research ... used to turn viruses into human pathogens capable of causing a global pandemic.&quot; <br><br>Thank you, Newsweek, for confirming what I have been saying for two months</p>&mdash; StevenWMosher (@StevenWMosher) <a href="https://twitter.com/StevenWMosher/status/1254992528518111236?ref_src=twsrc%5Etfw">April 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
-                                        #    
-                                        #       ))
-                                        )),
-                        bs_button("Analysis", button_type = "default") %>%
-                          bs_attach_collapse("business_cloud"), br()
-                        )), br(), br() 
-                      # ,column(width = 6, h4("Test"), 
-                      #        wellPanel(twitterwidgetOutput("tweet_output")
-                        #verbatimTextOutput("print")
-                       # ))
-                      #  wellPanel(introBox(column(width = 4, plotlyOutput("udpipe_plot")))),
-                            )
-                    
-                          )
-                        )
-                      )
-                 ,
+                                        ),
+                                        column(width = 6, 
+                                            wellPanel(style = "overflow-y:scroll; max-height: 700px",
+                                                       h5("Scroll down to see more.", align = "center"),
+                                        h6("NRL and AFL"),
+                                           HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">What I don&#39;t get about these pathetic anti-vax <a href="https://twitter.com/NRL?ref_src=twsrc%5Etfw">@NRL</a> players is they&#39;re all covered in tattoos but won&#39;t get a tiny needle.</p>&mdash; IrmaGherd (Retired Nurse Thug) (@maureenchuck1) <a href="https://twitter.com/maureenchuck1/status/1259322306339287041?ref_src=twsrc%5Etfw">May 10, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                           HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Pardon my lingo, but if the AFL and NRL can start playing again, why the fk can I not get my brows done?</p>&mdash; GemmaTognini (@GemmaTognini) <a href="https://twitter.com/GemmaTognini/status/1260820975215448064?ref_src=twsrc%5Etfw">May 14, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                           HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">NRL player worried flu shot might brain his damage <a href="https://t.co/xcJbR81Tg3">https://t.co/xcJbR81Tg3</a></p>&mdash; 𝚃𝚑𝚎 𝙲𝚑𝚊𝚜𝚎𝚛 (@chaser) <a href="https://twitter.com/chaser/status/1260457614544179211?ref_src=twsrc%5Etfw">May 13, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                        br(),
+                                        h6("Wuhan Institute of Virology"),
+                                            HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The Wuhan Institute of Virology takes 10 days to notify the world of the sequence of coronavirus - and American taxpayers are supposed to keep funding them? After the State Dept said they weren’t being safe?<br><br>Looks like <a href="https://twitter.com/CBSNews?ref_src=twsrc%5Etfw">@CBSNews</a> is going all China First. <a href="https://t.co/TYqRBg23as">https://t.co/TYqRBg23as</a></p>&mdash; Matt Gaetz (@mattgaetz) <a href="https://twitter.com/mattgaetz/status/1259685433056940036?ref_src=twsrc%5Etfw">May 11, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                        br(),
+                                        h6("Virgin Airlines Australia"),
+                                            HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Queensland Labor expresses interest in purchasing Virgin Airlines, but <a href="https://twitter.com/abcnews?ref_src=twsrc%5Etfw">@ABCNews</a> provides commentary from Dutton saying it&#39;s outrageous and reckless. Why the false balance with comments from a madman? Business people and the community are saying it&#39;s a good move. <a href="https://twitter.com/hashtag/AUSPOL?src=hash&amp;ref_src=twsrc%5Etfw">#AUSPOL</a></p>&mdash; Eddy Jokovich (@EddyJokovich) <a href="https://twitter.com/EddyJokovich/status/1260556080179892224?ref_src=twsrc%5Etfw">May 13, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                        br(),
+                                        h6('Coles, Woolworths and IGA'),
+                                            HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Some IGA stores r getting on board with this major shift ppl r wanting. Isn&#39;t it about time u did the right thing for a change <a href="https://twitter.com/Coles?ref_src=twsrc%5Etfw">@Coles</a> <a href="https://twitter.com/woolworths?ref_src=twsrc%5Etfw">@woolworths</a> <a href="https://t.co/Pko1nr0CJ2">pic.twitter.com/Pko1nr0CJ2</a></p>&mdash; Alison (@Pussaluss04) <a href="https://twitter.com/Pussaluss04/status/1261116725073833985?ref_src=twsrc%5Etfw">May 15, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                        br(),
+                                        h6('Pfizer'),
+                                            HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Incorrect.<br>Yes, pharmaceutical companies do make huge profits.<br>They do NOT make them from vaccines/antibiotics - these are used only very occasionally. <br>Big Pharma makes its profits from drugs that you take every day, for years (eg, ulcers, hypertension, Type II Diabetes, etc) <a href="https://t.co/5lugfDQYXD">https://t.co/5lugfDQYXD</a></p>&mdash; Dr Karl (@DoctorKarl) <a href="https://twitter.com/DoctorKarl/status/1260338915577233408?ref_src=twsrc%5Etfw">May 12, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
+                                         )
+                                        )
+                                        )
+                                        ),
+                         bs_button("Analysis", button_type = "default") %>%
+                          bs_attach_collapse("business_cloud"))), br(), br() 
+                     )))
+                     ),
                  tabPanel(title = introBox( data.step = 9, data.intro = "Let's move over to the Search page - click 'Search'. 
                                             <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
                              sidebarPanel(img(src="Artboard1Logo.png", width="80%", height="80%"),
@@ -682,28 +667,28 @@ pdf(NULL)
                                               h4("Top organic search keywords inc. ‘coronavirus’ (desktop and mobile web, Australia only)", align = "center"),
                                       wellPanel(introBox(data.step = 10, 
                                       data.intro = "This plot shows us the most popular search term variations including coronavirus from all search engine traffic.", plotlyOutput("sw_keywords_plot")),
-                                                bs_collapse(id = "sw_keywords_collapse", content = tags$div(class = "well", 
-                                                tags$em(p("Top organic search keywords including ‘coronavirus’ ranked by volume 
-                                                of searches and destination (mobile and desktop traffic combined) for the period Feb 1st to Apr 30th; Data: SimilarWeb.")),
-                                                br(),
-                                                "From Feb-April Australians have been mostly concerned with understanding the virus 
-                                                and its symptoms, assessing how it was spread (both locally and abroad) and the 
-                                                possibility of a vaccine. ", tags$b("They are visibly as anxious about personal safety with 
-                                                detection of the disease front of mind as they are about its eradication."), br(), br(),
-                                                
-                                                tags$li("Australians have been turning to government websites (health.gov.au, cdc.gov, 
-                                                who.int) as their primary source of truth on COVID-19, particularly when it came to 
-                                                researching symptoms and policy updates."), br(),
-                                                tags$li("Local news outlets (news.com.au, couriermail.com, abc.net.au, theguardian.com, 
-                                                watoday.com) have been the preferred go-to destinations for the latest developments on 
-                                                the spread of the disease at home and the development of a vaccine, with a particular 
-                                                interest in news with a geographic lens (i.e. NSW, QLD, Sydney, Perth and Melbourne)."), br(),
-                                                tags$li("Well-established reputable international news outlets  (straitstimes.com, 
-                                                aljazeera.com, telegraph.co.uk) while less popular, were the top destinations 
-                                                for those searching ‘how did coronavirus start’ and other key overseas 
-                                                developments (i.e. total cases and the outbreak in Italy and Singapore)."))
-                                                
-                                                
+                                                bs_collapse(id = "sw_keywords_collapse", 
+                                            content = tags$div(class = "well", 
+                                                          tags$em(p("Top organic search keywords including ‘coronavirus’ ranked by volume 
+                                                          of searches and destination (mobile and desktop traffic combined) for the period Feb 1st to Apr 30th; Data: SimilarWeb.")),
+                                                          br(),
+                                                          "From Feb-April Australians have been mostly concerned with understanding the virus 
+                                                          and its symptoms, assessing how it was spread (both locally and abroad) and the 
+                                                          possibility of a vaccine. ", tags$b("They are visibly as anxious about personal safety with 
+                                                          detection of the disease front of mind as they are about its eradication."), br(), br(),
+                                                          
+                                                          tags$li("Australians have been turning to government websites (health.gov.au, cdc.gov, 
+                                                          who.int) as their primary source of truth on COVID-19, particularly when it came to 
+                                                          researching symptoms and policy updates."), br(),
+                                                          tags$li("Local news outlets (news.com.au, couriermail.com, abc.net.au, theguardian.com, 
+                                                          watoday.com) have been the preferred go-to destinations for the latest developments on 
+                                                          the spread of the disease at home and the development of a vaccine, with a particular 
+                                                          interest in news with a geographic lens (i.e. NSW, QLD, Sydney, Perth and Melbourne)."), br(),
+                                                          tags$li("Well-established reputable international news outlets  (straitstimes.com, 
+                                                          aljazeera.com, telegraph.co.uk) while less popular, were the top destinations 
+                                                          for those searching ‘how did coronavirus start’ and other key overseas 
+                                                          developments (i.e. total cases and the outbreak in Italy and Singapore).")
+                                                    )
                                                 ),
                                                  bs_button("Analysis", button_type = "default") %>%
                                                    bs_attach_collapse("sw_keywords_collapse"))), br(), br(),
@@ -734,26 +719,33 @@ pdf(NULL)
                                                                                             #        )
                                                                                             )),
                                       bs_button("Analysis", button_type = "default") %>%
-                                        bs_attach_collapse("apps_collapse"))), br(), br()
-                                     ,
-                                     column(width = 12, align = "center", h5("Search Top (paid and organic) Keywords for Banking Category - Branded", align = "center"),
+                                        bs_attach_collapse("apps_collapse"))), 
+                                     br(), br(),
+                                     column(width = 12, h5("Search Top (paid and organic) Keywords for Banking Category - Branded"), align = "center",
                                             wellPanel(
                                               plotlyOutput("sov_branded_out", height = "100px"),
                                               reactableOutput("better_keywords_branded")
                                                       )
                                             ),
-                                     column(width = 12, align = "center", h5("Search Top (paid and organic) Keywords for Banking Category - Unbranded", align = "center"),
+                                     column(width = 12, h5("Search Top (paid and organic) Keywords for Banking Category - Unbranded"), align = "center",
                                             wellPanel(
                                               plotlyOutput("sov_unbranded_out", height = "100px"),
                                               reactableOutput("better_keywords_unbranded")
                                             )
                                      )
-                                     
-                             ))
-         
+                             )
+                 )
+                        
+                 
     )
     
-                  
+     
+                    
+         
+    
+    
+                       
+                   
                    
 # SERVER-----------------------------------------------------------------------------------------------------------      
          server = function(input, output, session){
@@ -1008,31 +1000,12 @@ pdf(NULL)
                       noData = "No tracks found",
                       pageInfo = "{rowStart}\u2013{rowEnd} of {rows} terms",
                       pagePrevious = "\u276e",
-                      pageNext = "\u276f",
+                      pageNext = "\u276f"
                     ),
                     theme = spotify_theme()
                   )
                 }
-
-                # Icon to indicate trend: unchanged, up, down, or new
-                trend_indicator <- function(value = c("unchanged", "up", "down", "new")) {
-                  value <- match.arg(value)
-                  label <- switch(value,
-                                  unchanged = "Unchanged", up = "Trending up",
-                                  down = "Trending down", new = "New")
-                  # Add img role and tooltip/label for accessibility
-                  args <- list(role = "img", title = label)
-                  if (value == "unchanged") {
-                    args <- c(args, list("–", style = "color: #666; font-weight: 700"))
-                  } else if (value == "up") {
-                    args <- c(args, list(shiny::icon("caret-up"), style = "color: #1ed760"))
-                  } else if (value == "down") {
-                    args <- c(args, list(shiny::icon("caret-down"), style = "color: #cd1a2b"))
-                  } else {
-                    args <- c(args, list(shiny::icon("circle"), style = "color: #2e77d0; font-size: 10px"))
-                  }
-                  do.call(span, args)
-                }
+              
                 spotify_theme <- function() {
 
                   text_color <- "hsl(0, 0%, 95%)"
@@ -1099,9 +1072,13 @@ pdf(NULL)
                     pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)")
                   )
                 }
-                 tracks_table(data)
+                
+               tracks_table(data)
+                
               }
+            
 
+                
               branded_table <- renderKeywordsBankingSectorTable(kw_branded_top25)
 
               output$better_keywords_branded <- renderReactable({
@@ -1138,6 +1115,7 @@ pdf(NULL)
               output$sov_unbranded_out <- renderPlotly({
                 sov_unbranded
               })
+              
               
          }
     
