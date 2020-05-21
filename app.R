@@ -476,7 +476,7 @@ pdf(NULL)
                                                             comments, blogs and forums over the last week.", 
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
-                                                             tags$em( tags$p("Sentiment in the 7 day period between the 11th and the 18th of May. 
+                                                             tags$em( tags$p("Sentiment in the 7 day period between the 11th and the 17th of May. 
                                                                       Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets. 
                                                                       Note: Neutral sentiment refers to mentions in which either 
                                                                       negative or positive keywords could not be identified.")), 
@@ -504,7 +504,7 @@ pdf(NULL)
                                                              plotlyOutput("hashtags_7days"),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
                                                                  content = tags$div(class = "well",
-                                                                                  tags$em(  tags$p("Trending hashtags between the 11th and the 18th of May.
+                                                                                  tags$em(  tags$p("Trending hashtags between the 11th and the 17th of May.
                                                                                            Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
        
                                                                                     column(width = 12,
@@ -559,12 +559,12 @@ pdf(NULL)
                                                                                    column(width=6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                                  " sentiment analysis lexicon. 7 day period between the 11th and the 18th of May. 
+                                                                                                  " sentiment analysis lexicon. 7 day period between the 11th and the 17th of May. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
                                                                 column(width = 6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                        " sentiment analysis lexicon. 4 week period between the 20th of April and the 18th of May. 
+                                                                                        " sentiment analysis lexicon. 4 week period between the 20th of April and the 17th of May. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), 
                                                             
                                                                 tags$li("The largest contributors to negative sentiment continue to be focused on virus 
