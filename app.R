@@ -648,24 +648,26 @@ pdf(NULL)
                                         ),
                          bs_button("Analysis", button_type = "default") %>%
                           bs_attach_collapse("business_cloud"))), br(), br(),
-                      h5("Hello! This is only visible on the old server and not on the deployed link."),
-                      h6("What do we think of this chart? I think it does a great job of explaining the impact and gradual return to normal from a consumer pov."),
-                      column(width = 6, h6("Pros: "), tags$li("Consumer touchpoints"), tags$li("Progressive & optimistic narrative")),
-                      column(width = 6, h6("Cons: "), 
-                             tags$li("The data is from a news source, not social (see analysis container for source)"), 
-                              tags$li("The original datasource is not accessible, we have access to the news source 
-                                      reporting on the original Morgan Stanley data ($$$)"),
-                             tags$li("The 'trough' period is not clearly defined, it is explained as just the 
-                                     lowest point for each sector during lockdown measures."), br()),
-                      column(width = 12, wellPanel(plotlyOutput("kohler_report", height = "500px"),
-                                                   bs_collapse("kohler_collapse", 
-                                                               content = tags$div(class = "well", 
-                                                                         tags$p("Change in Australian consumer behaviour from peak lockdown to May 18th, 2020. 
-                                                                                Source: ", tags$a(href ="https://www.abc.net.au/news/2020-05-20/wednesday-finance-with-alan-kohler/12269202?nw=0",  
-                                                                                                  "Alan Kohler, ABC News Finance Report - May 20th, 2020")))),
-                                                   bs_button("Analysis", button_type = "default") %>%
-                                                     bs_attach_collapse("kohler_collapse")
-                     ))))), 
+                     
+                     #  h5("Hello! This is only visible on the old server and not on the deployed link."),
+                     #  h6("What do we think of this chart? I think it does a great job of explaining the impact and gradual return to normal from a consumer pov."),
+                     #  column(width = 6, h6("Pros: "), tags$li("Consumer touchpoints"), tags$li("Progressive & optimistic narrative")),
+                     #  column(width = 6, h6("Cons: "), 
+                     #         tags$li("The data is from a news source, not social (see analysis container for source)"), 
+                     #          tags$li("The original datasource is not accessible, we have access to the news source 
+                     #                  reporting on the original Morgan Stanley data ($$$)"),
+                     #         tags$li("The 'trough' period is not clearly defined, it is explained as just the 
+                     #                 lowest point for each sector during lockdown measures."), br()),
+                     #  column(width = 12, wellPanel(plotlyOutput("kohler_report", height = "500px"),
+                     #                               bs_collapse("kohler_collapse", 
+                     #                                           content = tags$div(class = "well", 
+                     #                                                     tags$p("Change in Australian consumer behaviour from peak lockdown to May 18th, 2020. 
+                     #                                                            Source: ", tags$a(href ="https://www.abc.net.au/news/2020-05-20/wednesday-finance-with-alan-kohler/12269202?nw=0",  
+                     #                                                                              "Alan Kohler, ABC News Finance Report - May 20th, 2020")))),
+                     #                               bs_button("Analysis", button_type = "default") %>%
+                     #                                 bs_attach_collapse("kohler_collapse")
+                     # ))
+                     ))), 
                      ),
                  tabPanel(title = introBox( data.step = 9, data.intro = "Let's move over to the Search page - click 'Search'. 
                                             <br/><br/> Then, click 'Next' to continue the tour.", "Search"),
@@ -739,13 +741,13 @@ pdf(NULL)
                                       bs_button("Analysis", button_type = "default") %>%
                                         bs_attach_collapse("apps_collapse"))), 
                                      br(), br(),
-                                     column(width = 12, h5("Search Top (paid and organic) Keywords for Banking Category - Branded"), align = "center",
+                                     column(width = 12, h5("Search top (paid and organic) keywords for banking category - branded"), align = "center",
                                             wellPanel(
                                               plotlyOutput("sov_branded_out", height = "100px"),
                                               reactableOutput("better_keywords_branded")
                                                       )
                                             ),
-                                     column(width = 12, h5("Search Top (paid and organic) Keywords for Banking Category - Unbranded"), align = "center",
+                                     column(width = 12, h5("Search top (paid and organic) keywords for banking category - unbranded"), align = "center",
                                             wellPanel(
                                               plotlyOutput("sov_unbranded_out", height = "100px"),
                                               reactableOutput("better_keywords_unbranded")

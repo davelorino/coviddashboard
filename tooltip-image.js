@@ -33,8 +33,8 @@ function(el) {
       
     tooltip2.html(img2)
       .style("position", "absolute")
-      .style("bottom", (xPixel - 100) + "px")
-      .style("bottom", (yPixel - 100) + "px");
+      .style("bottom", (xPixel - 5) + "px")
+      .style("bottom", (yPixel - 5) + "px");
     // Fade in the image
     tooltip2.transition()
       .duration(0)
