@@ -328,7 +328,7 @@ pdf(NULL)
                                          the ",  
                                           tags$b("total weekly mentions "),  
                                           "between the 29th of December and the 4th of January inclusive. 
-                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - May 16th, 2020. 
+                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - May 17th, 2020. 
                                           Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.", 
                                                      tags$style(type = "text/css", "p { font-size: 12px; }")))),
                                 br(), br(),
@@ -405,7 +405,7 @@ pdf(NULL)
                                        tags$li("Australian government releases COVIDSafe app."),
                                        tags$li("Some Australian states begin relaxing lockdown laws as curve flattens."), 
                                        br(),
-                                h5(tags$u("May 3rd - May 10th")),
+                                h5(tags$u("May 3rd - May 17th")),
                                       tags$li("With restrictions easing, parents debate whether schools should re-open."),
                                 tags$li("Violence breaks out at anti-lockdown protests on Spring St in Melbourne.")
                                        ))), 
@@ -602,7 +602,7 @@ pdf(NULL)
                                             tags$em(tags$p("Top 7 most talked about brands in connection with Coronavirus 
                                             in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
-                                            Period May 11th to May 18th. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
+                                            Period May 11th to May 17th. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
                                           column(width = 6,
                                                  h5("Not surprisingly, some of the most impacted industries by the virus outbreak 
                                                (retail, air travel, sporting codes and pharmaceuticals) have been at the centre of many debates in the last week:"),
