@@ -260,8 +260,6 @@ pdf(NULL)
                    "https://twitter.com/broomstick33/status/1247767301253783557?s=20",
                    "https://twitter.com/BillGates/status/1250292126643941376",
                    "https://twitter.com/ScottMorrisonMP/status/1252785723830226944"
-                   
-                   
    )
     
     total_mentions_colour <- "#FFFFFF"
