@@ -35,6 +35,7 @@ pdf(NULL)
     
 # GLOBAL OPTS & FUNCTIONS -------------------------------------------------------------------------------------------------    
     
+
     options(shiny.maxRequestSize=100*1024^2)
 
     stripHTML <- function(htmlString) {
