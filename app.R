@@ -790,7 +790,6 @@ pdf(NULL)
                                                                                                    tags$li("Searches for campaign messaging also appeared this week, including St.George’s ", tags$em("We’re here for you "),
                                                                                                            "and Westpac’s ", tags$em("Path out of coronavirus, "), tags$b("demonstrating that customers are receptive to support 
                                                                                                            communications during this time.")), br(),
-                                                                                                   tags$li("Customers also seem confused as to whether ‘banks are still open’ due to social distancing restrictions."),
                                                                                                    br(),
                                                                                                    tags$li(tags$b("SME customers continue to search for information on how their bank can keep their business afloat during the 
                                                                                                            COVID crisis. "), "The government’s SME guarantee scheme was of particular interest to NAB, 
