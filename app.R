@@ -225,8 +225,7 @@ pdf(NULL)
     #uris <- readRDS("uris.rds")
     #urisclick <- readRDS("urisclick.rds")
     destinations_test_data <- readRDS("destinations_test.rds")
-    kw_branded_top25 <- readRDS("kw_branded_top25.rds")
-    kw_unbranded_top25 <- readRDS("kw_unbranded_top25.rds")
+    
     alan_kohler_ms <- readRDS("alankohler.rds")
   
     #coronavirus <- readRDS("coronavirus2.rds")
@@ -238,9 +237,14 @@ pdf(NULL)
     sw_mobile_phrases_donut <- readRDS("mobile_phrases_donut.rds")
     sw_desktop_phrases_donut <- readRDS("desktop_phrases_donut.rds")
     rona_cloud <- readRDS("ronacloud.rds")
-    
-    sov_branded <- readRDS("branded_overall_sov.rds")
-    sov_unbranded <- readRDS("unbranded_overall_sov.rds")
+    # kw_branded_top25 <- readRDS("kw_branded_top25.rds")
+    # kw_unbranded_top25 <- readRDS("kw_unbranded_top25.rds")
+    # sov_branded <- readRDS("branded_overall_sov.rds")
+    # sov_unbranded <- readRDS("unbranded_overall_sov.rds")
+    kw_branded_top25 <- readRDS("kw_top25_branded_may17.rds")
+    kw_unbranded_top25 <- readRDS("kw_top25_unbranded_may17.rds")
+    sov_branded <- readRDS("share_of_voice_branded_may17.rds")
+    sov_unbranded <- readRDS("share_of_voice_unbranded_may17.rds")
     
     corona_7day <- read_rds("corona7day.rds")
     
