@@ -585,8 +585,8 @@ pdf(NULL)
                                                 content = tags$div(class = "well",
                                                        
                                         column(width = 12,
-                                            tags$em(tags$p("Top 7 most talked about brands in connection with Coronavirus 
-                                            in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
+                                            tags$em(tags$p("Top 5 most talked about brands in connection with Coronavirus 
+                                            in the last 5 days, ranked by VoC sentiment and volume of mentions (Australia only). 
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
                                             Period May 11th to May 17th. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
                                           column(width = 6,
