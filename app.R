@@ -711,7 +711,7 @@ pdf(NULL)
                                                           "To this day, Australians remain mostly concerned with understanding the virus symptoms, 
                                                           assessing the scale and impact of the outbreak (both locally and abroad) and the possibility 
                                                           of a vaccine. ", tags$b("They remain as anxious about personal safety (with a timely detection of the 
-                                                          disease front of mind) as they are about its eradication.")), br(), br(),
+                                                          disease front of mind) as they are about its eradication."), br(), br(),
                                                           
                                                           tags$li("Australians have been turning to government websites (health.gov.au, 
                                                                   cdc.gov, who.int) as their primary source of truth on COVID-19, 
