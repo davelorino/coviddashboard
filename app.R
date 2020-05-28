@@ -327,7 +327,7 @@ pdf(NULL)
                                          the ",  
                                           tags$b("total weekly mentions "),  
                                           "between the 29th of December and the 4th of January inclusive. 
-                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - May 17th, 2020. 
+                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - May 24th, 2020. 
                                           Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.", 
                                                      tags$style(type = "text/css", "p { font-size: 12px; }")))),
                                 br(), br(),
@@ -404,9 +404,10 @@ pdf(NULL)
                                        tags$li("Australian government releases COVIDSafe app."),
                                        tags$li("Some Australian states begin relaxing lockdown laws as curve flattens."), 
                                        br(),
-                                h5(tags$u("May 3rd - May 17th")),
+                                h5(tags$u("May 3rd - May 24th")),
                                       tags$li("With restrictions easing, parents debate whether schools should re-open."),
-                                tags$li("Violence breaks out at anti-lockdown protests on Spring St in Melbourne.")
+                                tags$li("Violence breaks out at anti-lockdown protests on Spring St in Melbourne."),
+                                tags$li("Restrictions to ease again across the country on June 1, NT declared effectively virus free.")
                                        ))), 
                                   introBox(data.step = 2, 
                                           data.intro = "Click the Analysis button located on the bottom-left of every chart to see insights.", 
@@ -433,7 +434,7 @@ pdf(NULL)
                                          labelled date. For example, the first point labelled 'Dec 29, 2019' represents
                                          the average weekly sentiment between the 29th of December and the 4th of January inclusive. 
                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
-                                          and Tweets Dec 29, 2019 - May 17th, 2020. Note: Neutral sentiment refers to 
+                                          and Tweets Dec 29, 2019 - May 24th, 2020. Note: Neutral sentiment refers to 
                                           mentions in which either negative or positive keywords could not be identified.")), 
                                   
                                column(width=12, 
@@ -475,23 +476,20 @@ pdf(NULL)
                                                             comments, blogs and forums over the last week.", 
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
-                                                             tags$em( tags$p("Sentiment in the 7 day period between the 11th and the 17th of May. 
+                                                             tags$em( tags$p("Sentiment in the 7 day period between the 17th and the 24th of May. 
                                                                       Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets. 
                                                                       Note: Neutral sentiment refers to mentions in which either 
                                                                       negative or positive keywords could not be identified.")), 
                                                              br(),
-                                     
-                                                             "As Australia moves into week 2 of eased lockdown restrictions in many states, 
-                                                             sentiment has finally begun to improve albeit marginally still. While the 
-                                                             crisis is far from over, ", tags$b("the relaxation of lockdown measures is starting to 
-                                                             positively impact the nation’s mood as friends reconnect and public life slowly 
-                                                             returns to semi-normal."),
-                                                             br(),
-                                                             "Despite this improvement and with the curve flattening still , negative sentiment 
-                                                            continues to prevail with public concern over whether some states (such as NSW) 
-                                                            are risking a second wave of infections by easing restrictions too quickly. ", tags$b("Whilst 
-                                                            longing for life to return to normal, Australians appear willing to continue 
-                                                            sacrificing personal freedoms in the short-term for a safer future."),
+                                                            "While sentiment marginally improved following the easing of lockdown restrictions, 
+                                                            in the past week this has taken a turn with a 2 point drop in positive sentiment 
+                                                            (the lowest since January). ", 
+                                                            tags$b(
+                                                              "The worst of the health crisis has passed, yet the 
+                                                            novelty of eased restrictions has begun to wane as the public re-adjusts to a 
+                                                            new normal and comes to terms with both the devastating economic impact of 
+                                                            lockdown and the possibility of a second wave of infections.")   
+                                                             ,
                                                  br(), br())),
                                                             bs_button("Analysis", button_type = "default") %>%
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
@@ -503,32 +501,22 @@ pdf(NULL)
                                                              plotlyOutput("hashtags_7days"),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
                                                                  content = tags$div(class = "well",
-                                                                                  tags$em(  tags$p("Trending hashtags between the 11th and the 17th of May.
+                                                                                  tags$em(  tags$p("Trending hashtags between the 17th and the 24th of May.
                                                                                            Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
        
                                                                                     column(width = 12,
-                                                                                           tags$li("This week bucked the local news trend with international politics dominating 
-                                                                                    the Australian social conversation. Amidst rising tensions surrounding the request by 
-                                                                                    Australia for an independent inquiry into the virus origins, #China announced a 
-                                                                                    punishing 80% tariff on Australian barley and #Trump threatened to pull funding from the WHO."),  
-                                                                                                   
-                                                                                                   tags$li("#scottyfrommarketing fell from #1 to #7 this week, as controversy around the #covidapp 
-                                                                                            continues to a significant yet lesser extent."),
-                                                                                                   br(),
-                                                                                                   
-                                                                                                   tags$li(tags$b("#RubyPrincess "), "fell from #1 to #6 this week, however as investigations continue it remains 
-                                                                                            a key topic of conversation as the source of Australia’s largest outbreak."), br(),
-                                                                                                   tags$li("Despite a preference for local news stories, international politics remained of 
-                                                                                    interest to Australians last week with ", tags$b("#Trump "), "trending in response to breaking news stories."), br(),
-                                                                                                   tags$li("As the anti #lockdown movement grows, a violent outbreak at Melbourne’s #SpringSt 
-                                                                                            protest garnered attention with Premier Daniel Andrews receiving criticism for his 
-                                                                                            ‘dictator’ like measures to stop the spread."), br(),
-                                                                                                   tags$li("On Tuesday, the world celebrated a very timely #internationalnursesday, taking a moment to thank those 
-                                                                                            Australians working on the frontline of the COVID-19 pandemic. Australia’s #mentalhealth was also in the 
-                                                                                            spotlight with Mental Health Awareness Week raising awareness of the impact the pandemic and lockdown 
-                                                                                            measures have had on many."),
-                                                                                     
-                                                                                            br(), br()
+                                                                                           tags$li("This week international politics continued to dominate the 
+                                                                                                   Australian Covid conversation. After weeks of feuding with ",
+                                                                                                   tags$b("#Australia, #China "), "finally agreed to a virus inquiry at the ", tags$b("#WHO "), "Assembly."), br(),
+                                                                                           tags$li(tags$b("#Trump "), "was meanwhile caught playing a leisurely game of golf as the 
+                                                                                                   US death toll neared 100,000. The President also revealed he was 
+                                                                                                   taking the unproven treatment ", tags$b("#hydroxychloroquine "), "(used for malaria) 
+                                                                                                   to prevent coronavirus, despite concerns from the FDA."), br(),
+                                                                                           tags$li("As the anti ", tags$b("#lockdown "), "movement grows, a violent outbreak at Melbourne’s ", 
+                                                                                                   tags$b("#SpringSt "), "protest garnered attention with Premier Daniel Andrews receiving 
+                                                                                                   criticism for his ‘dictator’ like measures to stop the spread."), br()
+                                                                                           ,
+                                                                                     br(), br()
                                                                                       ))),
                                                      bs_button("Analysis", button_type = "default") %>%
                                                          bs_attach_collapse("weekly_hashtags_collapse")
@@ -558,32 +546,31 @@ pdf(NULL)
                                                                                    column(width=6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                                  " sentiment analysis lexicon. 7 day period between the 11th and the 17th of May. 
+                                                                                                  " sentiment analysis lexicon. 7 day period between the 17th and the 24th of May. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
                                                                 column(width = 6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                        " sentiment analysis lexicon. 4 week period between the 20th of April and the 17th of May. 
+                                                                                        " sentiment analysis lexicon. 4 week period between the 27th of April and the 24th of May. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), 
                                                             
-                                                                tags$li("The largest contributors to negative sentiment continue to be focused on virus 
-                                                                            casualties and spread (e.g. lost, risk, die, death, died). ", tags$b("There is visibly 
-                                                                            still a high level of fear within the community, with many in fear of a 
-                                                                            second wave of infections hitting as lockdown measures get relaxed gradually.")), 
-                                                                br(),
-                                                                tags$li("While only accounting for a small portion of mentions, terms that generated positive 
-                                                      sentiment continue to reflect the ‘good news stories’ emerging from the ongoing crisis 
-                                                      (e.g. help, care, support, thank, thanks), ", tags$b("showing continuous consumer appetite for 
-                                                      uplifting stories in these challenging times.")), br(),
-                                                                tags$li("In the last fortnight, both ", tags$b("protest "), "and ", tags$b("conspiracy "), "have emerged as 
-                                                      new trending negative terms with anti-lockdown groups making headlines, 
-                                                      in particular the violent Smith St protest."))),
+                                                                tags$li("The largest contributors to negative sentiment continue to be focused on virus casualties and spread 
+                                                                        (e.g. lost, sick, risk, die, death, dead, died). ", tags$b("There is visibly still a high level of fear within 
+                                                                        the community, with many in fear of a second wave of infections hitting as complacency rises 
+                                                                        amidst easing lockdown measures.")), br(),
+                                                                tags$li("While only accounting for a small portion of mentions, terms that generated positive sentiment continue to 
+                                                                        reflect the ‘good news stories’ emerging from the ongoing crisis (e.g. help, care, support, thank, thanks, 
+                                                                        love), ", tags$b("showing continuous consumer appetite for uplifting stories in these challenging times.")), br(),
+                                                                tags$li(tags$b("Fake "), "has newly emerged this week, as ", tags$b("conspiracy "), "theories about the pandemic 
+                                                                        continue to garner attention online. These range from the pandemic being a 
+                                                                        complete ‘hoax’ and the belief that 5G is spreading coronavirus (the view of 1 in 8 Australians)."),
+                                                                
+                                                                )),
                       bs_button("Analysis", button_type = "default") %>%
                         bs_attach_collapse("contribution_collapse"))), br(), br(),
                       column(width = 12, 
                              h5("Most talked about brands in connection with Coronavirus (Australia VoC only) - weekly snapshot", align = "center"), 
                           wellPanel(introBox(data.step = 8, 
-                                                data.hint = "Click on a word to see a snippet of the conversation.", 
                              data.intro = "This chart shows the brands and organisations that are being
                                                  talked about most by cosumers in the last week, and the sentiment towards that brand or organisation.", 
                                                 wordcloud2Output("rona_cloud")
@@ -603,23 +590,27 @@ pdf(NULL)
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
                                             Period May 11th to May 17th. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
                                           column(width = 6,
-                                                 h5("Not surprisingly, some of the most impacted industries by the virus outbreak 
-                                               (retail, air travel, sporting codes and pharmaceuticals) have been at the centre of many debates in the last week:"),
-                                                 tags$li("The ", tags$b("NRL "), "and ", tags$b("AFL "), "continue to generate negative attention as they announced the season will 
-                                                    commence in 2020, despite the organisers deciding against compulsory flu vaccinations."), br(),
-                                                 tags$li("Australian supermarkets continue to dominate the COVID conversation, with ", tags$b("IGA "), "receiving praise for their 
-                                                    new in-store labelling initiative to support Australian Made products. Consumers have been quick to point 
-                                                    the finger at ", tags$b("Coles "), "and ", tags$b("Woolworths"), ", demanding they take similar action to support local producers."), br(),
-                                        tags$li("After entering voluntary administration early this month, talk that the Queensland Government may acquire ", 
-                                                tags$b("Virgin Australia "), "continues 
-                                                    to be a topic of interest online, with positive speculation that a publicly owned airline could provide consumers with a more 
-                                                    reliable and lower-cost flying alternative."), br(),
-                                        tags$li("While Pharmaceutical company ", tags$b("Pfizer "), "continues to be a source of positive sentiment 
-                                                    for its work on a coronavirus vaccine, consumers have begun to raise questions about 
-                                                    whether the company will be more concerned with profit than protection if they’re successful."), br(),
-                                        tags$li("The Wuhan Institute of Virology ", tags$b("(WIOV) "), "continues to generate negative conversation online 
-                                                    amidst claims that they attempted to cover-up the outbreak of a new coronavirus strain, 
-                                                    taking 10 days to alert the WHO."), br()
+                                                 h5("While debate surrounding the AFL continues, a number of heavyweight global brands 
+                                                    dominated the Australian COVID-19 conversation last week, highlighting the 
+                                                    consumer expectation of brands to “do the right thing” by the community 
+                                                    in helping curve the spread in any way they can:"),
+                                                 tags$li(tags$b("AFL "), "continues to generate negative attention as they announced the season will 
+                                                         commence in 2020, despite the organisers deciding against compulsory flu vaccinations. 
+                                                         Consumers also are frustrated that they are required to continue paying membership 
+                                                         fees in the absence of games."), br(),
+                                                 tags$li("Meanwhile in the US, the ", tags$b("NBA "), "is being praised for their tough approach to curbing 
+                                                         the spread of the virus, announcing there will be a testing program for players should 
+                                                         the season re-start."), br(),
+                                        tags$li(tags$b("Nike "), "made headlines this week after it was revealed that 25 people contracted COVID-19 at their 
+                                                Edinburgh conference in February, and are now being accused of an outbreak ‘cover up’. 
+                                                They are also under fire for not providing staff with hand sanitizer or sick leave despite 
+                                                a $6bn profit last year."), br(),
+                                        tags$li(tags$b("Disney "), "has come under scrutiny for their blunt new policy, revealed days before a 
+                                                number of resorts re-open across the US - “By visiting Walt Disney World Resort, 
+                                                you voluntarily assume all risks related to exposure to COVID-19”."), br(),
+                                        tags$li(tags$b("McDonald’s "), "was slammed online this week after reports that hundreds of 
+                                                staff from a Victorian store were placed on unpaid leave for 2 weeks, 
+                                                after coming in contact with an infected delivery driver at work."), br()
                                             ,
                                         tags$style(" 
                                                .blockquote.twitter-tweet {
@@ -701,7 +692,8 @@ pdf(NULL)
                              mainPanel(column(width = 12, align = "left",
                                               h4("Top organic search keywords inc. ‘coronavirus’ (desktop and mobile web, Australia only)", align = "center"),
                                       wellPanel(introBox(data.step = 10, 
-                                      data.intro = "This plot shows us the most popular search term variations including coronavirus from all search engine traffic.", plotlyOutput("sw_keywords_plot")),
+                                      data.intro = "This plot shows us the most popular search term variations including coronavirus from all search engine traffic.", 
+                                      plotlyOutput("sw_keywords_plot")),
                                                 bs_collapse(id = "sw_keywords_collapse", 
                                             content = tags$div(class = "well", 
                                                           tags$em(p("Top organic search keywords including ‘coronavirus’ ranked by volume 
@@ -739,12 +731,17 @@ pdf(NULL)
                                                                                                           tags$em(tags$p("Top Free Apps (across all categories) with the biggest increase over the last 28 days in Store Rank or in Usage Rank, Australia only." 
                                                                                                                          )), 
                                                                                                           
-                                                                                                          tags$li("Entertainment and utility apps remain at the top of the trending up apps charts."), 
+                                                                                                          tags$li("A number of shopping apps emerged on the charts this week 
+                                                                                                                  (Gumtree, Cotton On, Shop Delivery, eBay, Dominos) as ", tags$b("consumers "),
+                                                                                                                  "remain concerned about personal safety and continue to rely on 
+                                                                                                                  online shopping and delivery despite the reopening of brick-and-mortar shops."), 
                                                                                                           br(),
-                                                                                                          tags$li("Entertainment apps in online betting, social, music and dating categories continue 
-                                                  to be popular choices as consumers look for novel ways to distract themselves whilst in lockdown."), br(),  
-                                                                                                          tags$li("At the utility end of the spectrum, Microsoft Outlook took the top spot as many Australians continue 
-                                                  to work remotely. In the same vein, Google Home, My Optus, Canon Print and GoToWebinar were trending up this week."), br()
+                                                                                                          tags$li("Entertainment apps, particularly in gaming and social, continue 
+                                                                                                                  to be popular choices as ", tags$b("consumers look for novel ways to distract 
+                                                                                                                  themselves while at home.")), 
+                                                                                                          br(),  
+                                                                                                          tags$li("Utility apps remain popular also as ", tags$b("many Australians still work remotely, "),  
+                                                                                                                  "particularly online conferencing services and mobile providers."), br()
                                                                                                           )
                                                                                             # ,      column(width = 6,
                                                                                             #               tags$em(tags$p("Top 10 upward trending apps on the Google Play store in the last 28 days. Data: SimilarWeb. ")), br(), 
