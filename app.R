@@ -370,12 +370,11 @@ pdf(NULL)
                                         media fatigue and disengagement by the Australian public. The worst of the crisis 
                                         appears to be over as the curve begins to flatten and conversation shifts from outbreak, 
                                         to the subsequent economic fallout.")), br(),
-                                tags$li("Last week’s easing of the restrictions for the first time since lockdown and anti-lockdown 
-                                        protests in Victoria whilst generating some interest have both failed to revive the COVID 
-                                        social debate to its former peak, with conversations continuing to decline week on week. 
-                                        A sign that the COVID “fever pitch” has truly abated amongst Australians, with most remaining 
-                                        cautious about returning to a semi-normal life and increasingly weary of the ongoing crisis and its 
-                                        media coverage.")
+                                tags$li("As May wraps up, the easing of restrictions has done little to revive waning consumer 
+                                        interest in the dual COVID-19 health and economic crises, as mirrored by ongoing decline 
+                                        in conversation - 17% in the last week alone. ", tags$b("The social debate that remains has now mostly 
+                                        shifted to whether Australians are becoming too complacent despite the possibility of another 
+                                        wave of infections."))
                                 ),
                                 column(width = 6, h4(tags$b(tags$u("Key Events"))),
                                                     h5(tags$u("Dec 29th - Jan 26th")),
@@ -455,19 +454,24 @@ pdf(NULL)
                                 interest since the start of the COVID-19 crisis, Australians have been mostly feeling anxious and 
                                 uncertain about the its outcome and the future.")), 
                                 br(),
-                                tags$li("From early March, we observed a sustained increase in the proportion of positive COVID-19
-                                conversations online (from <11% to >14%). This correlates with the introduction of mandatory 
-                                government measures to protect essential workers and encourage the public to socially distance. ", 
-                                tags$b("While criticism and uncertainty about the future remain, this slight improvement in consumer 
-                                sentiment reflects widespread support and empathy for the measures in light of a new ‘preventative’ 
-                                national mindset.")),
+                                tags$li("In March, we observed a sustained yet temporary increase in positive COVID-19 conversations online 
+                                        (from <11% to >14%), following the introduction of mandatory government measures to protect essential 
+                                        workers and encourage the public to socially distance. ", tags$b("This slight improvement in consumer 
+                                        sentiment has reflected the widespread support and empathy for measures promoting a new ‘preventative’ national mindset.")),
                                 br(),
                                 tags$li("Yet despite Australia’s recent success in flattening the curve, since mid-April positive 
                                         sentiment has marginally fallen.", tags$b("With a large portion of the nation still in lockdown and 
                                         media fatigue setting in, Australians appear mostly unaffected by the good news around the 
                                         containment of the virus or easing of the restrictions. Instead they seem more 
                                         preoccupied with controversy surrounding government policy (in particular the launch of 
-                                        the government’s new COVIDSafe app and potential re-opening of schools).")), 
+                                        the government’s new COVIDSafe app and potential re-opening of schools).")),
+                               br(),
+                               tags$li("Yet despite Australia’s recent success in flattening the curve, overall positive sentiment 
+                                       remains low with no significant upside to date. ", tags$b("On the whole, Australians appear mostly unaffected 
+                                       by the good news around the containment of the virus or easing of the restrictions. "), "Instead, they 
+                                       have seemed  more preoccupied with controversy surrounding government policy (e.g. the launch of 
+                                       the new COVIDSafe app and re-opening of schools), and now the risk of a potential second wave as 
+                                       life slowly returns to semi-normal."),
                                 br(), br()
                                 , tags$style(type = "text/css", "p { font-size: 12px; }")))
                                 ),
@@ -704,10 +708,10 @@ pdf(NULL)
                                                           tags$em(p("Top organic search keywords including ‘coronavirus’ ranked by volume 
                                                           of searches and destination (mobile and desktop traffic combined) for the period Feb 1st to Apr 30th; Data: SimilarWeb.")),
                                                           br(),
-                                                          "From Feb until now, Australians have been mostly concerned with understanding 
-                                                          the virus and its symptoms, assessing how it was spread (both locally and abroad) 
-                                                          and the possibility of a vaccine. ", tags$b("They remain as anxious about personal safety 
-                                                          with detection of the disease front of mind as they are about its eradication."), br(), br(),
+                                                          "To this day, Australians remain mostly concerned with understanding the virus symptoms, 
+                                                          assessing the scale and impact of the outbreak (both locally and abroad) and the possibility 
+                                                          of a vaccine. ", tags$b("They remain as anxious about personal safety (with a timely detection of the 
+                                                          disease front of mind) as they are about its eradication.")), br(), br(),
                                                           
                                                           tags$li("Australians have been turning to government websites (health.gov.au, 
                                                                   cdc.gov, who.int) as their primary source of truth on COVID-19, 
