@@ -583,7 +583,8 @@ pdf(NULL)
                                   ),
                                     bs_collapse("business_cloud", 
                                                 content = tags$div(class = "well",
-                                                       
+                                
+                                                                                          
                                         column(width = 12,
                                             tags$em(tags$p("Top 5 most talked about brands in connection with Coronavirus 
                                             in the last 5 days, ranked by VoC sentiment and volume of mentions (Australia only). 
