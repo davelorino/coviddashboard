@@ -465,13 +465,6 @@ pdf(NULL)
                                         containment of the virus or easing of the restrictions. Instead they seem more 
                                         preoccupied with controversy surrounding government policy (in particular the launch of 
                                         the government’s new COVIDSafe app and potential re-opening of schools).")),
-                               br(),
-                               tags$li("Yet despite Australia’s recent success in flattening the curve, overall positive sentiment 
-                                       remains low with no significant upside to date. ", tags$b("On the whole, Australians appear mostly unaffected 
-                                       by the good news around the containment of the virus or easing of the restrictions. "), "Instead, they 
-                                       have seemed  more preoccupied with controversy surrounding government policy (e.g. the launch of 
-                                       the new COVIDSafe app and re-opening of schools), and now the risk of a potential second wave as 
-                                       life slowly returns to semi-normal."),
                                 br(), br()
                                 , tags$style(type = "text/css", "p { font-size: 12px; }")))
                                 ),
@@ -789,7 +782,7 @@ pdf(NULL)
                                                                                                    br(),
                                                                                                    tags$li("Searches for campaign messaging also appeared this week, including St.George’s ", tags$em("We’re here for you "),
                                                                                                            "and Westpac’s ", tags$em("Path out of coronavirus, "), tags$b("demonstrating that customers are receptive to support 
-                                                                                                           communications during this time.")), br(),
+                                                                                                           communications during this time.")),
                                                                                                    br(),
                                                                                                    tags$li(tags$b("SME customers continue to search for information on how their bank can keep their business afloat during the 
                                                                                                            COVID crisis. "), "The government’s SME guarantee scheme was of particular interest to NAB, 
