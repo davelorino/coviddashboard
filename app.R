@@ -779,21 +779,22 @@ pdf(NULL)
                                                                                                                   with the category defined as the Big 4 banks and St.George. Source: SimilarWeb."
                                                                                                    )),
                                                                                                    
-                                                                                                   tags$li("In the last 28 days, ", tags$b("SME customers have been looking for information on how their
-                                                                                                   bank can keep their business afloat during the COVID crisis."),
-                                                                                                           "The government’s SME guarantee scheme was of particular interest to NAB,
-                                                                                                   Westpac and ANZ customers, as it allows lenders to provide businesses with
-                                                                                                   timely access to working capital to see them through the crisis."),
+                                                                                                   tags$li(tags$b("As many Australians face financial hardship and revenue loss, "), "they are turning to their banks 
+                                                                                                           for support in the form of mortgage holds, bridging loans, early access to super, credit card 
+                                                                                                           repayment relief and business loans."),
                                                                                                    br(),
-                                                                                                   tags$li("", tags$b("As many Australians face financial hardship and revenue loss"), ", they are turning
-                                                                                                           to their banks for support in the form of mortgage holds, credit card repayment relief and business loans."), br(),
+                                                                                                   tags$li("Searches for campaign messaging also appeared this week, including St.George’s ", tags$em("We’re here for you "),
+                                                                                                           "and Westpac’s ", tags$em("Path out of coronavirus, "), tags$b("demonstrating that customers are receptive to support 
+                                                                                                           communications during this time.")), br(),
                                                                                                    tags$li("Customers also seem confused as to whether ‘banks are still open’ due to social distancing restrictions."),
                                                                                                    br(),
-                                                                                                   tags$li("Westpac customers were also concerned with their credit card travel insurance, ", tags$b("as international and
-                                                                                                           interstate travel bans across the country force Australians to cancel their travel plans.")), br(),
+                                                                                                   tags$li(tags$b("SME customers continue to search for information on how their bank can keep their business afloat during the 
+                                                                                                           COVID crisis. "), "The government’s SME guarantee scheme was of particular interest to NAB, 
+                                                                                                           Westpac and ANZ customers, as it allows lenders to provide businesses with timely access 
+                                                                                                           to working capital to see them through the crisis."), br(),
                                                                                                    tags$li("Of note also is the traffic CBA is getting from unbranded coronavirus-related searches.
                                                                                                    The bank is currently enjoying the greatest SOV for unbranded Coronavirus-related terms (vs Westpac for branded terms)
-                                                                                                           over its key competitors with the lion’s share (64.5%) of these terms sending traffic to its website."), br()
+                                                                                                           over its key competitors with the lion’s share (60%) of these terms sending traffic to its website."), br()
                                                                                             )
                                                                                             # ,      column(width = 6,
                                                                                             #               tags$em(tags$p("Top 10 upward trending apps on the Google Play store in the last 28 days. Data: SimilarWeb. ")), br(), 
