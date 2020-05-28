@@ -593,7 +593,7 @@ pdf(NULL)
                                             tags$em(tags$p("Top 5 most talked about brands in connection with Coronavirus 
                                             in the last 5 days, ranked by VoC sentiment and volume of mentions (Australia only). 
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
-                                            Period May 11th to May 17th. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
+                                            Period May 17th to May 24th. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
                                           column(width = 6,
                                                  h5("While debate surrounding the AFL continues, a number of heavyweight global brands 
                                                     dominated the Australian COVID-19 conversation last week, highlighting the 
