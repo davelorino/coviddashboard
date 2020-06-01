@@ -207,7 +207,8 @@ pdf(NULL)
           pageButtonHoverStyle = list(backgroundColor = "hsl(0, 0%, 20%)"),
           pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)")
         )
-    }
+      }
+      
           tracks_table(data)
     }
 
