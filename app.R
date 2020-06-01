@@ -331,7 +331,7 @@ pdf(NULL)
                                          the ",  
                                           tags$b("total weekly mentions "),  
                                           "between the 29th of December and the 4th of January inclusive. 
-                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - May 24th, 2020. 
+                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - May 31st, 2020. 
                                           Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.", 
                                                      tags$style(type = "text/css", "p { font-size: 12px; }")))),
                                 br(), br(),
@@ -437,7 +437,7 @@ pdf(NULL)
                                          labelled date. For example, the first point labelled 'Dec 29, 2019' represents
                                          the average weekly sentiment between the 29th of December and the 4th of January inclusive. 
                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
-                                          and Tweets Dec 29, 2019 - May 24th, 2020. Note: Neutral sentiment refers to 
+                                          and Tweets Dec 29, 2019 - May 31st, 2020. Note: Neutral sentiment refers to 
                                           mentions in which either negative or positive keywords could not be identified.")), 
                                   
                                column(width=12, 
@@ -477,7 +477,7 @@ pdf(NULL)
                                                             comments, blogs and forums over the last week.", 
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
-                                                             tags$em( tags$p("Sentiment in the 7 day period between the 17th and the 24th of May. 
+                                                             tags$em( tags$p("Sentiment in the 7 day period between the 25th and the 31st of May. 
                                                                       Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets. 
                                                                       Note: Neutral sentiment refers to mentions in which either 
                                                                       negative or positive keywords could not be identified.")), 
@@ -502,7 +502,7 @@ pdf(NULL)
                                                              plotlyOutput("hashtags_7days"),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
                                                                  content = tags$div(class = "well",
-                                                                                  tags$em(  tags$p("Trending hashtags between the 17th and the 24th of May.
+                                                                                  tags$em(  tags$p("Trending hashtags between the 25th and the 31st of May.
                                                                                            Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
        
                                                                                     column(width = 12,
@@ -547,12 +547,12 @@ pdf(NULL)
                                                                                    column(width=6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                                  " sentiment analysis lexicon. 7 day period between the 17th and the 24th of May. 
+                                                                                                  " sentiment analysis lexicon. 7 day period between the 25th and the 31st of May. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
                                                                 column(width = 6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                        " sentiment analysis lexicon. 4 week period between the 27th of April and the 24th of May. 
+                                                                                        " sentiment analysis lexicon. 4 week period between the 19th and the 31st of May. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), 
                                                             
                                                                 tags$li("The largest contributors to negative sentiment continue to be focused on virus casualties and spread 
@@ -590,7 +590,7 @@ pdf(NULL)
                                             tags$em(tags$p("Top 5 most talked about brands in connection with Coronavirus 
                                             in the last 5 days, ranked by VoC sentiment and volume of mentions (Australia only). 
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
-                                            Period May 17th to May 24th. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
+                                            Period May 25th to May 31st. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
                                           column(width = 6,
                                                  h5("While debate surrounding the AFL continues, a number of heavyweight global brands 
                                                     dominated the Australian COVID-19 conversation last week, highlighting the 
