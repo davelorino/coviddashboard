@@ -35,7 +35,6 @@ pdf(NULL)
     
 # GLOBAL OPTS & FUNCTIONS -------------------------------------------------------------------------------------------------    
     
-
     options(shiny.maxRequestSize=100*1024^2)
 
     stripHTML <- function(htmlString) {
@@ -208,7 +207,6 @@ pdf(NULL)
           pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)")
         )
       }
-      
           tracks_table(data)
     }
 
@@ -798,7 +796,13 @@ pdf(NULL)
                                                                                             #        )
                                        )),
                                        bs_button("Analysis", button_type = "default") %>%
-                                         bs_attach_collapse("banking_collapse"))), 
+                                         bs_attach_collapse("banking_collapse"))),
+                                     column(width = 6, wellPanel(
+                                       HTML('<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2213_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderWidget("US_cu_4Rjdh3ABAABMHM_en_en-AU", "fe_list_6676c6b0-213f-434e-99b2-7079c300945c_en-AU", {"guestPath":"https://trends.google.com:443/trends/embed/"}); </script> ')
+                                     )),
+                                     column(width = 6, wellPanel(
+                                       HTML('<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2213_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderWidget("US_cu_4Rjdh3ABAABMHM_en_en-AU", "fe_related_queries_c42508a0-7f03-4f36-a097-3d644d5ea101", {"guestPath":"https://trends.google.com:443/trends/embed/"}); </script> ')
+                                     ))
                              )
                  )
                         
