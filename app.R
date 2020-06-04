@@ -495,7 +495,7 @@ pdf(NULL)
                                                              with record unemployment and small businesses struggling to re-open despite 
                                                              eased restrictions.")  
                                                              ,
-                                                 br(), br())),
+                                                  br())),
                                                             bs_button("Analysis", button_type = "default") %>%
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
                                    column(width = 6, h5("Trending hashtags - weekly snapshot"), 
@@ -754,7 +754,7 @@ pdf(NULL)
                                                                     appetite for online fitness apps, with MyFitnessPal appearing on the charts this week. ",
                                                                     tags$b("Together with other newly adopted digital behaviours as a result of COVID (e.g. video 
                                                                     streaming), the popularity of at-home online fitness training is likely to persist 
-                                                                    beyond the outbreak, as fitness and health remain a top priority post-lockdown."))
+                                                                    beyond the outbreak, as fitness and health remain a top priority post-lockdown.")), br()
                                                             )
                                                                                             # ,      column(width = 6,
                                                                                             #               tags$em(tags$p("Top 10 upward trending apps on the Google Play store in the last 28 days. Data: SimilarWeb. ")), br(), 
