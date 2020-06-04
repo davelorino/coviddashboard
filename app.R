@@ -557,7 +557,7 @@ pdf(NULL)
                                                                 column(width = 6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                        " sentiment analysis lexicon. 4 week period between the 19th and the 31st of May. 
+                                                                                        " sentiment analysis lexicon. 4 week period between the 4th and the 31st of May. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), 
                                                             
                                                                 tags$li("The largest contributors to negative sentiment continue to be focused on virus 
@@ -600,10 +600,10 @@ pdf(NULL)
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
                                             Period May 25th to May 31st. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
                                           column(width = 6,
-                                                 h5("While debate surrounding the AFL continues, a number of heavyweight global brands 
-                                                    dominated the Australian COVID-19 conversation last week, highlighting the 
-                                                    consumer expectation of brands to “do the right thing” by the community 
-                                                    in helping curve the spread in any way they can:"),
+                                                 h5("Brands and corporations of all kinds actively involved in saving lives or jobs, or 
+                                                    failing to contribute, continue to dominate the Australian COVID-19 conversation, 
+                                                    highlighting the consumer expectation of public and private sector organisations 
+                                                    to “do the right thing” by the community in helping in any way they can:"),
                                                  tags$li("The ", tags$b("CSIRO "), "announces they are currently 
                                                          investigating a vaccine that can be delivered nasally in a spray, 
                                                          with non-human testing for two formulations currently underway."), br(),
