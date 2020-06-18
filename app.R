@@ -610,21 +610,21 @@ pdf(NULL)
                                                     to the Black Lives Matter movement, highlighting Australians’ expectation of 
                                                     public and private sector organisations to “show up” for community issues, 
                                                     without jeopardising Australia’s handle on the viral outbreak.")),
-                                                 tags$li("BLM Negative/Positive - Despite health concerns from politicians, 
+                                                 tags$li("Despite health concerns from politicians, 
                                                          allies of the Black Lives Matter movement gathered across the 
                                                          country to protest against racial inequality and incarceration. 
                                                          This has received a mixed response from the public, with some now 
                                                          arguing the protests are responsible for a small outbreak of 
                                                          COVID-19 in Melbourne, calling for attendees to voluntarily isolate."), br(),
-                                                 tags$li(paste("AMA positive - The president of the Western Australian AMA (Australian Medical 
+                                                 tags$li(paste("The president of the Western Australian AMA (Australian Medical 
                                                  Association) commended Australians for the precautionary measures he saw taken at recent 
                                                  Black Lives Matter protests across the country, stating ", '“', "Lets not be hypocritical about 
                                                  this, if you", "'", "re going to go to a shopping centre and see what I saw last weekend at 
                                                  my local shops (that", "'", "s) no different to what I saw at the protests.", '"', sep = "")), br(),
-                                        tags$li("NSW Police negative - The NSW Police faced criticism for their strong-armed approach to 
+                                        tags$li("The NSW Police faced criticism for their strong-armed approach to 
                                                 the Black Lives Matter protests, seeking an injunction from the Supreme Court to 
                                                 stop them going ahead."), br(),
-                                        tags$li("Microsoft positive - Tech heavyweight Microsoft announced they were teaming up with 
+                                        tags$li("Tech heavyweight Microsoft announced they were teaming up with 
                                                 AdaptiveBiotech to launch an initiative that aims to leverage data, to safely 
                                                 reopen society during the coronavirus pandemic."), br()
                                             ,
