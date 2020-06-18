@@ -1,7 +1,8 @@
 
 library(shiny)
 library(rintrojs)
-library(tidyverse)
+library(dplyr)
+library(readr)
 library(plotly)
 library(lubridate)
 library(shinythemes)
@@ -11,7 +12,6 @@ library(wordcloud2)
 library(reactable)
 library(htmltools)
 library(stringr)
-library(twitterwidget)
 library(DT)
 library(tm)
 
@@ -687,7 +687,7 @@ pdf(NULL)
                                           br(), br(),
                                           br(), br(),
                                           width = 2,
-                                          tags$head(
+                                         tags$head(
                                             tags$style(HTML("
                        .introjs-tooltiptext {
                          color: #212121;
@@ -1178,21 +1178,6 @@ pdf(NULL)
                 unbranded_table
               })
               
-               nrl_neg_tweet <- twitterwidget("1254757356107268102", width = "100%", height = "10px")
-               
-               coles_pos_tweet <- twitterwidget("1255274677666226178") 
-               
-               output$coles_positive_tweet <- renderTwitterwidget({
-                 coles_pos_tweet
-               })
-               
-                output$nrl_negative_tweet <- renderTwitterwidget({
-                  nrl_neg_tweet
-                })
-                
-              output$tweet_output = renderTwitterwidget({
-                reactive_tweet()
-                })
               
               output$kohler_report <- renderPlotly({
                 alan_kohler_ms
