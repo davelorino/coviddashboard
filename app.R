@@ -374,10 +374,16 @@ pdf(NULL)
                                         media fatigue and disengagement by the Australian public. The worst of the crisis 
                                         appears to be over as the curve begins to flatten and conversation shifts from outbreak, 
                                         to the subsequent economic fallout.")), br(),
-                                tags$li("As May concludes, the easing of restrictions did little to revive waning consumer interest 
-                                        in the dual COVID-19 health and economic crises, as mirrored by ongoing decline in conversation 
-                                        - 32% in the last fortnight alone. ", tags$b("The social debate that remains has shifted to whether Australians 
-                                        are becoming too complacent despite the possibility of another wave of infections."))
+                                tags$li("As May concluded, the easing of restrictions did little to revive waning consumer 
+                                        interest in the dual COVID-19 health and economic crises, as mirrored by ongoing 
+                                        decline in conversation. ", tags$b("The social debate had by then shifted to whether 
+                                        Australians were becoming too complacent despite the possibility of another wave of infections.")), br(),
+                                tags$li("As we move into June, it appears the pandemic has been overshadowed by another crisis - the Black Lives 
+                                        Matter movement. The death of George Floyd in the US sparked anti-police brutality protests around the 
+                                        world, and locally has shone a light on the overrepresentation of Indigineous Australians in 
+                                        incarceration. ", tags$b("Both pandemic and the BLM movement  have become linked however, with fierce 
+                                        debate between Australian politicians and medical professionals as to whether public 
+                                        protests might trigger a second wave of infections."))
                                 ),
                                 column(width = 6, h4(tags$b(tags$u("Key Events"))),
                                                     h5(tags$u("Dec 29th - Jan 26th")),
@@ -415,8 +421,10 @@ pdf(NULL)
                                 tags$li("Violence breaks out at anti-lockdown protests on Spring St in Melbourne."),
                                 tags$li("Restrictions to ease again across the country on June 1, NT declared effectively virus free."),
                                 br(),
-                                h5(tags$u("May 24th - May 31st")),
-                                tags$li("Australian medical experts make a breakthrough in their ability to detect a rise in cases.")
+                                h5(tags$u("May 24th - June 14th")),
+                                tags$li("Australian medical experts make a breakthrough in their ability to detect a rise in cases."),
+                                tags$li("The murder of George Flloyd by a Minneapolis police officer sparks anti-police brutality protests around the world, despite social distancing restrictions."),
+                                tags$li("For the first day since the start of the pandemic, Australia records zero new locally acquired cases."),
                                        ))), 
                                   introBox(data.step = 2, 
                                           data.intro = "Click the Analysis button located on the bottom-left of every chart to see insights.", 
@@ -465,12 +473,11 @@ pdf(NULL)
                                         workers and encourage the public to socially distance. ", tags$b("This slight improvement in consumer 
                                         sentiment has reflected the widespread support and empathy for measures promoting a new ‘preventative’ national mindset.")),
                                 br(),
-                                tags$li("Yet despite Australia’s recent success in flattening the curve, overall positive sentiment 
-                                        remains low with no significant upside to date. ", tags$b("On the whole, Australians appear mostly 
-                                        unaffected by the good news around the containment of the virus or easing of the restrictions. "),
-                                        "Instead, to date they have seemed more preoccupied with contentious government policies 
-                                        (e.g. COVIDSafe app), the potential of a second wave of infections, as well as controversy 
-                                        surrounding President Trump and the WHO’s investigation into the virus origins."),
+                                tags$li("Yet despite Australia’s success in flattening the curve, overall positive sentiment remains low with no 
+                                        significant upside to date. ", tags$b("On the whole, Australians appear mostly unaffected by the good news around 
+                                        the containment of the virus or easing of the restrictions. "), "Instead, they are now preoccupied with the 
+                                        escalation of the Black Lives Matter movement and the implications this may have on Australia’s ability 
+                                        to contain viral spread in the community."),
                                 br(), br()
                                 , tags$style(type = "text/css", "p { font-size: 12px; }")))
                                 ),
@@ -488,12 +495,12 @@ pdf(NULL)
                                                                       Note: Neutral sentiment refers to mentions in which either 
                                                                       negative or positive keywords could not be identified.")), 
                                                              br(),
-                                                             "While sentiment marginally improved following the easing of lockdown restrictions, 
-                                                             in the past week this has taken a turn with a 2 point increase in negative sentiment. ", 
-                                                             tags$b("As Australians emerge from their homes and adjust to a new normal, 
-                                                             the devastating economic impact of the COVID-19 crisis is being realised 
-                                                             with record unemployment and small businesses struggling to re-open despite 
-                                                             eased restrictions.")  
+                                                             "Despite life returning to semi-normal, consumer sentiment remains largely negative, 
+                                                             declining by less than 2 points in the last fortnight. ", tags$b("While Australians 
+                                                             continue to struggle with the devastating economic impact of the COVID-19 crisis, 
+                                                             the resurgence of the Black Lives Matter movement has fuelled an outpouring of 
+                                                             criticism over our own treatment of Indigineous communities - doing little to 
+                                                             abate the tense post-lockdown mood of the nation.")  
                                                              ,
                                                   br())),
                                                             bs_button("Analysis", button_type = "default") %>%
@@ -510,19 +517,18 @@ pdf(NULL)
                                                                                            Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
        
                                                                                     column(width = 12,
-                                                                                           tags$li("After temporarily falling off the radar, the ", tags$b("#rubyprincess "), "reappeared 
-                                                                                                   as the top hashtag this week with the ABC’s Four Corners program airing 
-                                                                                                   a special on the cruise ship outbreak and re-igniting conversation online."), br(),
-                                                                                           tags$li(tags$b("#AI "), "made headlines this week, as reports that an Australian-designed 
-                                                                                                   artificial intelligence tool has been modified to aid in the diagnosis of patients."), br(),
-                                                                                           tags$li(tags$b("#China "), "agrees to an inquiry into the coronavirus #pandemic, as 
-                                                                                                   they struggle with a new surge in ", tags$b("#sarscov2 "), "cases (the highest in three weeks)."), br(),
-                                                                                           tags$li("A violent outbreak at Melbourne’s ", tags$b("#SpringSt "), "continues to provide a 
-                                                                                                   platform for anti-lockdown conversation online."), br(),
-                                                                                           tags$li("Conspiracies surrounding COVID-19 continue, with claims that an 
-                                                                                                   anti-China ", tags$b("#narrative "), "is being used to fuel Trump’s political agenda.")
-                                                                                           ,
-                                                                                     br(), br()
+                                                                                           tags$li("The ", tags$b("#blacklivesmatter (#blm, #blacklivesmatteraustralia) "), "movement 
+                                                                                                   sparked a number of protests worldwide, including Australia where a 
+                                                                                                   spotlight has been shone on the over-incarceration of First Nation Peoples."), br(),
+                                                                                           tags$li("These protests have been a source of public debate, with many suggesting 
+                                                                                                   the gatherings are irresponsible in light of the ongoing ", tags$b("#sarscov2 #pandemic.")), br(),
+                                                                                           tags$li("Crematorium data proves ", tags$b("#China "), "was seriously underplaying the severity of the virus 
+                                                                                                   outbreak in Wuhan, with researchers believing the total infections to have been 
+                                                                                                   ten times greater than the amount reported by officials in late January."), br(),
+                                                                                           tags$li("The ", tags$b("#NRL "), "welcomed a limited group of fans back to their first spectator matches, 
+                                                                                                   with a ballot system used to randomly allocate the seats to members to 
+                                                                                                   comply with social distancing measures."), br(),
+                                                                                          br()
                                                                                       ))),
                                                      bs_button("Analysis", button_type = "default") %>%
                                                          bs_attach_collapse("weekly_hashtags_collapse")
@@ -560,19 +566,19 @@ pdf(NULL)
                                                                                         " sentiment analysis lexicon. 4 week period between the 17th of May and the 13th of June.
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), 
                                                             
-                                                                tags$li("The largest contributors to negative sentiment continue to be focused on virus 
-                                                                        casualties and spread (e.g. lost, infected, risk, die, death, dead, died), 
-                                                                        as well as the dual health and economic crises COVID has triggered (e.g. crisis). ",
-                                                                        tags$b("Together with ongoing concern over the economic impact, there remains 
-                                                                        a high level of fear for personal safety within the community, with many worried 
-                                                                        about a second wave of infections hitting as complacency rises amidst easing 
-                                                                        lockdown measures.")), br(),
-                                                                tags$li("While only accounting for a small portion of mentions, terms that generated 
-                                                                        positive sentiment continue to reflect the ‘good news stories’ emerging 
-                                                                        from the ongoing crisis as Australians come together and help out each other 
-                                                                        (e.g. help, care, support, thanks, love, thank) and start to overcome the 
-                                                                        outbreak (e.g. free, better, winning, positive), all ", tags$b("showing continuous consumer 
-                                                                        appetite for uplifting stories in these challenging times.")), br()
+                                                                tags$li("Whilst terms associated with virus casualties (e.g. worst, lost, death, died) continue 
+                                                                to drive negative sentiment, terms related to the Black Lives Matter movement (e.g. 
+                                                                protestors, racism, protest, protests, risk) have now also emerged as key negative 
+                                                                ontributors over concerns that protests will encourage a rise in infections. ", 
+                                                                        tags$b("There appears to be a new tension in the public mindset as to whether people 
+                                                                        should protest against racial injustice, at the expense of public health and 
+                                                                        community safety.")), br(),
+                                                                tags$li("While only accounting for a small portion of mentions, terms that generated positive 
+                                                                        sentiment continue to reflect the ‘good news stories’ emerging from the ongoing 
+                                                                        crisis as Australians come together and help out each other (e.g. help, 
+                                                                        good, support, care, hanks, thanks) and start to overcome the outbreak (e.g. 
+                                                                        free, great, positive, better), all ", tags$b("showing continuous consumer appetite 
+                                                                        for uplifting stories in these challenging times.")), br()
                                                                 
                                                                 )),
                       bs_button("Analysis", button_type = "default") %>%
@@ -595,29 +601,32 @@ pdf(NULL)
                                 
                                                                                           
                                         column(width = 12,
-                                            tags$em(tags$p("Top 5 most talked about brands in connection with Coronavirus 
+                                            tags$em(tags$p("The most most talked about brands in connection with Coronavirus 
                                             in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
                                             Period 7th to the 13th of June. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
                                           column(width = 6,
-                                                 h5("Brands and corporations of all kinds actively involved in saving lives or jobs, or 
-                                                    failing to contribute, continue to dominate the Australian COVID-19 conversation, 
-                                                    highlighting the consumer expectation of public and private sector organisations 
-                                                    to “do the right thing” by the community in helping in any way they can:"),
-                                                 tags$li("The ", tags$b("CSIRO "), "announces they are currently 
-                                                         investigating a vaccine that can be delivered nasally in a spray, 
-                                                         with non-human testing for two formulations currently underway."), br(),
-                                                 tags$li("After the ABC’s Four Corners aired a special titled Outbreak Onboard 
-                                                         investigating the Princess cruises outbreak, the government has come 
-                                                         under fire for not sufficiently quarantining passengers. The company 
-                                                         has also been withholding refunds from customers who had their trips cancelled."), br(),
-                                        tags$li("NASA announced they were developing a new ventilator for coronavirus patients 
-                                                called VITAL, which offers a simpler more affordable option for treating critical patients."), br(),
-                                        tags$li("The Wuhan Institute of Virology (WIOV) continues to make headlines, after claims that 
-                                                they were given the green-light to engage in experimental research 
-                                                involving highly-pathogenic viruses just 10 days before the first recorded 
-                                                case of COVID-19."), br(),
-                                        tags$li("British Airways is under heat, as news breaks that they paid 3.6 billion pounds to shareholders before making 12,000 staff redundant."), br()
+                                                 h5(tags$em("Brands and organisations are in the spotlight this week over their response 
+                                                    to the Black Lives Matter movement, highlighting Australians’ expectation of 
+                                                    public and private sector organisations to “show up” for community issues, 
+                                                    without jeopardising Australia’s handle on the viral outbreak.")),
+                                                 tags$li("BLM Negative/Positive - Despite health concerns from politicians, 
+                                                         allies of the Black Lives Matter movement gathered across the 
+                                                         country to protest against racial inequality and incarceration. 
+                                                         This has received a mixed response from the public, with some now 
+                                                         arguing the protests are responsible for a small outbreak of 
+                                                         COVID-19 in Melbourne, calling for attendees to voluntarily isolate."), br(),
+                                                 tags$li(paste("AMA positive - The president of the Western Australian AMA (Australian Medical 
+                                                 Association) commended Australians for the precautionary measures he saw taken at recent 
+                                                 Black Lives Matter protests across the country, stating ", '“', "Lets not be hypocritical about 
+                                                 this, if you", "'", "re going to go to a shopping centre and see what I saw last weekend at 
+                                                 my local shops (that", "'", "s) no different to what I saw at the protests.", '"', sep = "")), br(),
+                                        tags$li("NSW Police negative - The NSW Police faced criticism for their strong-armed approach to 
+                                                the Black Lives Matter protests, seeking an injunction from the Supreme Court to 
+                                                stop them going ahead."), br(),
+                                        tags$li("Microsoft positive - Tech heavyweight Microsoft announced they were teaming up with 
+                                                AdaptiveBiotech to launch an initiative that aims to leverage data, to safely 
+                                                reopen society during the coronavirus pandemic."), br()
                                             ,
                                         tags$style(" 
                                                .blockquote.twitter-tweet {
@@ -703,29 +712,33 @@ pdf(NULL)
                                                 bs_collapse(id = "sw_keywords_collapse", 
                                             content = tags$div(class = "well", 
                                                           tags$em(p("Top organic search keywords including ‘coronavirus’ ranked by volume 
-                                                          of searches and destination (mobile and desktop traffic combined) for the period Feb 1st to Apr 30th; Data: SimilarWeb.")),
+                                                          of searches and destination (mobile and desktop traffic combined) for the period Mar 31st to May 31st; Data: SimilarWeb.")),
                                                           br(),
                                                           "To this day, Australians remain mostly concerned with understanding the virus symptoms, 
                                                           assessing the scale and impact of the outbreak (both locally and abroad) and the possibility 
                                                           of a vaccine. ", tags$b("They remain as anxious about personal safety (with a timely detection of the 
                                                           disease front of mind) as they are about its eradication."), br(), br(),
-                                                          
-                                                          tags$li("Australians have been turning to government websites (health.gov.au, 
-                                                                  cdc.gov, who.int) as their primary source of truth on COVID-19, 
-                                                                  particularly when it came to researching symptoms and policy updates."), br(),
+                                                          tags$li("Throughout the outbreak and until now, Australians have been turning to 
+                                                                  government websites (health.gov.au, cdc.gov, who.int) as their primary 
+                                                                  source of truth on COVID-19, particularly when it came to researching 
+                                                                  symptoms and policy updates."), br(),
                                                           tags$li("Local news outlets (news.com.au, couriermail.com, abc.net.au, theguardian.com, 
                                                                   watoday.com) have been the preferred go-to destinations for the latest 
                                                                   developments on the spread of the disease at home and the development of a 
                                                                   vaccine, with a particular interest in news with a geographic lens (i.e. 
                                                                   NSW, QLD, Sydney, Perth and Melbourne)."), br(),
-                                                          tags$li("Well-established reputable international news outlets  (straitstimes.com, 
-                                                                  aljazeera.com, telegraph.co.uk) while less popular, were the top destinations 
-                                                                  for those searching ‘how did coronavirus start’ and other key overseas 
-                                                                  developments (i.e. total cases and the outbreak in Italy and Singapore).")
+                                                          tags$li("Well-established reputable international news outlets (straitstimes.com, 
+                                                                  aljazeera.com, telegraph.co.uk) while less popular, have been the top 
+                                                                  destinations for those searching ‘how did coronavirus start’ and other key 
+                                                                  overseas developments - notably in the UK and US, which have evolved to become 
+                                                                  the new virus epi-centres.")
                                                     )
                                                 ),
                                                  bs_button("Analysis", button_type = "default") %>%
                                                    bs_attach_collapse("sw_keywords_collapse"))), br(), br(),
+                                      column(width = 12, wellPanel(
+                                        HTML('<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2213_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderWidget("US_cu_4Rjdh3ABAABMHM_en_en-AU", "fe_related_queries_c42508a0-7f03-4f36-a097-3d644d5ea101", {"guestPath":"https://trends.google.com:443/trends/embed/"}); </script>')
+                                      )),
                                      
                                       column(width = 6, align = "left", h5("Trending up apps, App Store/iPhone (last 28 days)"), introBox(data.step = 11, data.intro = "This chart shows the top 10 free trending apps across all categories in Australia over the last 28 days in the App store (iPhone only).", 
                                                                                                                                          wellPanel(reactableOutput("apple_table")))),
@@ -738,23 +751,29 @@ pdf(NULL)
                                                                            over the last 28 days in Store Rank or in Usage Rank, Australia only." 
                                                                            )), 
                                                             
-                                                            tags$li("A number of shopping apps stayed on the charts this week (Gumtree, 
-                                                                    Cotton On, Shop delivery, Domino’s) as ", tags$b("consumers remain concerned about 
-                                                                    personal safety and continue to rely on online shopping and delivery 
-                                                                    despite the reopening of brick-and-mortar shops.")), 
+                                                            tags$li("With travel restrictions ongoing, airlines are looking for ways to stay 
+                                                                    top of mind and relevant by tapping into popular trends (such as 
+                                                                    wellness and fitness), with the Quantas Wellbeing app making an unlikely 
+                                                                    appearance in the charts this week and offering users “a fun, easy 
+                                                                    way to improve” their health and Qantas points balance in preparation 
+                                                                    for the re-opening of borders."), 
                                                             br(),
-                                                            tags$li("Entertainment apps, particularly in gaming (Twitch, Coin Master, ToT or Trivia), 
-                                                                    music streaming (Amazon music, Soundcloud) and social media (Messenger, Linkedin), 
-                                                                    continue to be popular choices as ", tags$b("consumers want to stay connected to the outside 
-                                                                    world and look for ways to distract themselves while at home.")), 
+                                                            tags$li("With a sharp increase in the number of ", tags$b("Australians jobless as a result of 
+                                                                    COVID-19 and now dependent on government support "), "welfare apps (Express 
+                                                                    Centrelink) have emerged on the charts, a sign that troubled economic times aren’t over yet."), 
                                                             br(),  
-                                                            tags$li("Utility apps remain popular also as ", tags$b("many Australians still work 
-                                                                    remotely "), ", particularly online document apps and mobile providers."), br(),
-                                                            tags$li("The easing of confinement measures seems to have done little to date to abate Aussies’ 
-                                                                    appetite for online fitness apps, with MyFitnessPal appearing on the charts this week. ",
-                                                                    tags$b("Together with other newly adopted digital behaviours as a result of COVID (e.g. video 
-                                                                    streaming), the popularity of at-home online fitness training is likely to persist 
-                                                                    beyond the outbreak, as fitness and health remain a top priority post-lockdown.")), br()
+                                                            tags$li("A number of shopping apps remained on the charts this week (Gumtree, Cotton On, Shop delivery, 
+                                                                    eBay) as ", tags$b("consumers remain concerned about personal safety and continue to rely on online 
+                                                                    shopping and delivery despite the reopening of brick-and-mortar shops.")), br(),
+                                                            tags$li("Entertainment apps, particularly in gaming (Twitch, 8 Ball Pool, Minecraft, 
+                                                                    Burnout Masters and Pokemon Go), music streaming (Spotify) and social media 
+                                                                    (Messenger, Linkedin, Facebook), continue to be popular choices as ", tags$b("consumers 
+                                                                    want to stay connected to the outside world and look for ways to distract themselves 
+                                                                    while at home.")),
+                                                            tags$li("Utility apps remain popular also as ", tags$b("many Australians still work remotely, 
+                                                                    particularly online document apps (Microsoft Word) and mobile providers 
+                                                                    (Vodafone, My Optus).")),
+                                                            br()
                                                             )
                                                                                             # ,      column(width = 6,
                                                                                             #               tags$em(tags$p("Top 10 upward trending apps on the Google Play store in the last 28 days. Data: SimilarWeb. ")), br(), 
@@ -787,24 +806,24 @@ pdf(NULL)
                                                                           with the category defined as the Big 4 banks and St.George. Source: SimilarWeb."
                                                            )),
                                                            
-                                                           tags$li(tags$b("As many Australians continue to face financial hardship and revenue loss"), "
-                                                           , they are seeking support from their banks in the form of early access to 
-                                                                          super, credit card repayment relief and travel insurance, “COVID-friendly” 
-                                                                          mortgage interest rates and loans."),
+                                                           tags$li(tags$b("As many Australians continue to face financial hardship and revenue loss"),
+                                                           ", they are seeking support from their banks in the form of early access 
+                                                                   to super, credit card repayment relief and travel insurance, “COVID-friendly” 
+                                                                   mortgage interest rates and lending calculators. As life slowly returns 
+                                                                   to normal, there also appears to be uncertainty as to whether these offers are still 
+                                                                   available."),
                                                            br(),
-                                                           tags$li("Searches for campaign messaging also appeared this week, including St.George’s ", tags$em("We’re here for you "),
-                                                                   "and Westpac’s ", tags$em("Path out of coronavirus, "), tags$b("demonstrating that customers are receptive to support 
+                                                           tags$li("Searches for campaign messaging persisted this week, notably interest for Westpac’s 
+                                                                   Path out of coronavirus, ", tags$b("demonstrating that customers are receptive to support 
                                                                    communications during this time.")),
                                                            br(),
-                                                           tags$li(tags$b("SME customers are searching for information on how their bank can keep their 
-                                                                          business afloat during the COVID crisis. "), "The government’s SME guarantee 
-                                                                          scheme remains a popular choice amongst NAB, Westpac and ANZ customers, as it allows lenders 
-                                                                          to provide businesses with timely access to working capital to see 
-                                                                          them through the crisis."), br(),
+                                                           tags$li(tags$b("SME customers are searching for information on how their bank can keep their business 
+                                                                   afloat during the COVID crisis. "), "The government’s SME guarantee scheme remains a popular 
+                                                                   choice amongst NAB, Westpac and ANZ customers, as it allows lenders to provide 
+                                                                   businesses with timely access to working capital to see them through the crisis."), br(),
                                                            tags$li("Of note also is the traffic CBA is getting from unbranded coronavirus-related searches. 
-                                                                   The bank is currently enjoying the greatest SOV for unbranded Coronavirus-related terms 
-                                                                   (vs Westpac for branded terms) over its key competitors with the lion’s share (64%) 
-                                                                   of these terms sending traffic to its website."), br()
+                                                                   The bank is currently enjoying the greatest SOV for both branded 
+                                                                   (26.32%) and non-branded (61.54%) Coronavirus-related terms."), br()
                                                     )
                                                     # ,      column(width = 6,
                                                     #               tags$em(tags$p("Top 10 upward trending apps on the Google Play store in the last 28 days. Data: SimilarWeb. ")), br(), 
@@ -812,13 +831,10 @@ pdf(NULL)
                                        )),
                                        bs_button("Analysis", button_type = "default") %>%
                                          bs_attach_collapse("banking_collapse")))
-                                     ,
-                                     column(width = 6, wellPanel(
-                                       HTML('<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2213_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderWidget("US_cu_4Rjdh3ABAABMHM_en_en-AU", "fe_list_6676c6b0-213f-434e-99b2-7079c300945c_en-AU", {"guestPath":"https://trends.google.com:443/trends/embed/"}); </script> ')
-                                     )),
-                                     column(width = 6, wellPanel(
-                                       HTML('<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2213_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderWidget("US_cu_4Rjdh3ABAABMHM_en_en-AU", "fe_related_queries_c42508a0-7f03-4f36-a097-3d644d5ea101", {"guestPath":"https://trends.google.com:443/trends/embed/"}); </script>')
-                                     ))
+                                     # column(width = 6, wellPanel(
+                                     #   HTML('<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2213_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderWidget("US_cu_4Rjdh3ABAABMHM_en_en-AU", "fe_list_6676c6b0-213f-434e-99b2-7079c300945c_en-AU", {"guestPath":"https://trends.google.com:443/trends/embed/"}); </script> ')
+                                     # )),
+                                     
                              )
                  )
                         
