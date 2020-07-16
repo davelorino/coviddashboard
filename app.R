@@ -439,7 +439,7 @@ pdf(NULL)
                                          the ",  
                                           tags$b("total weekly mentions "),  
                                           "between the 29th of December and the 4th of January inclusive. 
-                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - June 13th, 2020. 
+                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - July 11th, 2020. 
                                           Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.", 
                                                      tags$style(type = "text/css", "p { font-size: 12px; }")))),
                                 br(), br(),
@@ -486,7 +486,7 @@ pdf(NULL)
                                         The death of George Floyd in the US sparked anti-police brutality protests around the world, and locally shone a light 
                                         on the overrepresentation of Indigineous Australians in incarceration. ", tags$b("Both the pandemic and BLM movement become linked 
                                         however, with fierce debate between Australian politicians and medical professionals as to whether public protests might 
-                                        trigger a second wave of infections.")),
+                                        trigger a second wave of infections.")), br(),
                                 tags$li("Less than a month since restrictions began to ease across the country, Australia has been met with a second-wave of 
                                         infections in Victoria. A new cluster of cases in NSW has been linked to travellers from Melbourne, which has 
                                         led to the closure of borders between  the neighbouring states. This turn of events has revived the COVID-19 
@@ -570,7 +570,7 @@ pdf(NULL)
                                          labelled date. For example, the first point labelled 'Dec 29, 2019' represents
                                          the average weekly sentiment between the 29th of December and the 4th of January inclusive. 
                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
-                                          and Tweets Dec 29, 2019 - June 13th, 2020.")), 
+                                          and Tweets Dec 29, 2019 - July 11th, 2020.")), 
                                   
                                column(width=12, 
                                br(),
@@ -616,7 +616,7 @@ pdf(NULL)
                                                             comments, blogs and forums over the last week.", 
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
-                                                             tags$em( tags$p("Sentiment in the 7 day period between the 7th and the 13th of June. 
+                                                             tags$em( tags$p("Sentiment in the 7 day period between the 5th and the 11th of July. 
                                                                       Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")), 
                                                              br(),
                                                              
@@ -640,7 +640,7 @@ pdf(NULL)
                                                              plotlyOutput("hashtags_7days"),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
                                                                  content = tags$div(class = "well",
-                                                                                  tags$em(  tags$p("Trending hashtags between the 7th and the 13th of June.
+                                                                                  tags$em(  tags$p("Trending hashtags between the 5th and the 11th of July.
                                                                                            Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
        
                                                                                     column(width = 12,
@@ -693,12 +693,12 @@ pdf(NULL)
                                                                                    column(width=6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                                  " sentiment analysis lexicon. 7 day period between the 7th and the 13th of June. 
+                                                                                                  " sentiment analysis lexicon. 7 day period between the 5th and the 11th of July. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
                                                                 column(width = 6,
                                                                                    tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                                                   tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                        " sentiment analysis lexicon. 4 week period between the 17th of May and the 13th of June.
+                                                                                        " sentiment analysis lexicon. 4 week period between the 21st of June and the 11th of July.
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), 
                                                             
                                                                 tags$li("Whilst the Black Lives Matter movement temporarily dominated the term 
@@ -737,7 +737,7 @@ pdf(NULL)
                                             tags$em(tags$p("The most most talked about brands in connection with Coronavirus 
                                             in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
-                                            Period 7th to the 13th of June. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
+                                            Period 5th to the 11th of June. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
                                           column(width = 6,
                                                  h5(tags$em("The Victorian State Government was in the spotlight this week over their 
                                                             response to the second outbreak and their measures in support of 
@@ -786,21 +786,20 @@ pdf(NULL)
                                         column(width = 6, 
                                             wellPanel(style = "overflow-y:scroll; max-height: 700px",
                                                        h5("Scroll down to see more.", align = "center"),
-                                        h6("Black Lives Matter"),
-                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Australia is SO BADLY SERVED by media which just repeats the racist govt lies. Why the fuck are we focussing on ONE <a href="https://twitter.com/hashtag/BLM?src=hash&amp;ref_src=twsrc%5Etfw">#BLM</a> protestor with <a href="https://twitter.com/hashtag/COVID19?src=hash&amp;ref_src=twsrc%5Etfw">#COVID19</a> but EIGHT CASES yesterday in Victoria alone &amp; nobody bashing the rest of them for whatever the fuck they did last week? HELLO?</p>&mdash; Mad Fucking Witches (@MadFckingWitch) <a href="https://twitter.com/MadFckingWitch/status/1271219379993100288?ref_src=twsrc%5Etfw">June 11, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),  
-                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The Australian media needs to drop its obsession with setting up some sort of showdown between the local Black Lives Matter rallies and Covid-19. The latter does not invalidate the importance and urgency of the former, and it&#39;s irresponsible journalism to suggest it ever could.</p>&mdash; Maddison Connaughton (@madconnaughton) <a href="https://twitter.com/madconnaughton/status/1271008305322668033?ref_src=twsrc%5Etfw">June 11, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                        h6("Victorian Government"),
+                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Public tenants will not be charged rent for two weeks.<br><br>We&#39;ll provide $1,500 cash payments for households with family members who are missing out on work.<br><br>Every other household will receive a $750 payment.</p>&mdash; Dan Andrews (@DanielAndrewsMP) <a href="https://twitter.com/DanielAndrewsMP/status/1279739499967246337?ref_src=twsrc%5Etfw">July 5, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),  
                                         br(),
-                                        h6("the Australian Medical Association"),
-                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Instead of just saying ‘don’t protest’, our political leaders must outline how governments will step up and better support Aboriginal and Torres Strait Islander peoples <a href="https://twitter.com/hashtag/AusPol?src=hash&amp;ref_src=twsrc%5Etfw">#AusPol</a> <a href="https://t.co/tP1KFzsOlU">https://t.co/tP1KFzsOlU</a></p>&mdash; AMA Media (@ama_media) <a href="https://twitter.com/ama_media/status/1271562943591833604?ref_src=twsrc%5Etfw">June 12, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                        h6("World Health Organisation"),
+                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">FACT: <a href="https://twitter.com/hashtag/COVID19?src=hash&amp;ref_src=twsrc%5Etfw">#COVID19</a> is NOT airborne. <br><br>The <a href="https://twitter.com/hashtag/coronavirus?src=hash&amp;ref_src=twsrc%5Etfw">#coronavirus</a> is mainly transmitted through droplets generated when an infected person coughs, sneezes or speaks.<br><br>To protect yourself:<br>-keep 1m distance from others<br>-disinfect surfaces frequently<br>-wash/rub your 👐<br>-avoid touching your 👀👃👄 <a href="https://t.co/fpkcpHAJx7">pic.twitter.com/fpkcpHAJx7</a></p>&mdash; World Health Organization (WHO) (@WHO) <a href="https://twitter.com/WHO/status/1243972193169616898?ref_src=twsrc%5Etfw">March 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
                                         br(),
-                                        h6("NSW Police"),
-                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/DifferentApproaches?src=hash&amp;ref_src=twsrc%5Etfw">#DifferentApproaches</a>: In South Australia police gave <a href="https://twitter.com/hashtag/protest?src=hash&amp;ref_src=twsrc%5Etfw">#protest</a> organisors an exemption from <a href="https://twitter.com/hashtag/Coronavirus?src=hash&amp;ref_src=twsrc%5Etfw">#Coronavirus</a> regulations; in Victoria police will fine organisors for breaking virus regulations; in NSW police went to the Supreme Court to have the protest banned. <a href="https://twitter.com/hashtag/BlackLivesMatter?src=hash&amp;ref_src=twsrc%5Etfw">#BlackLivesMatter</a> <a href="https://t.co/Sogyuxswer">pic.twitter.com/Sogyuxswer</a></p>&mdash; Tracey Holmes (@TraceyLeeHolmes) <a href="https://twitter.com/TraceyLeeHolmes/status/1269376807830122496?ref_src=twsrc%5Etfw">June 6, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                        h6("Jetstar"),
+                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">JUST IN: The ABC has obtained an email claiming Jetstar breached NSW coronavirus laws by letting all passengers on a flight from Melbourne to Sydney yesterday disembark without being screened via <a href="https://twitter.com/abcnews?ref_src=twsrc%5Etfw">@abcnews</a> <a href="https://twitter.com/hashtag/coronavirus?src=hash&amp;ref_src=twsrc%5Etfw">#coronavirus</a> <a href="https://twitter.com/hashtag/COVID19?src=hash&amp;ref_src=twsrc%5Etfw">#COVID19</a></p>&mdash; David Taylor (@DaveTaylorNews) <a href="https://twitter.com/DaveTaylorNews/status/1280723045586309120?ref_src=twsrc%5Etfw">July 8, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
                                         br(),
-                                        h6('Wuhan Institute of Virology'),
-                                            HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">This video on official Chinese State media is vid of Shi Zhengli, the Chinese virologist at WIV who was 1st to isolate <a href="https://twitter.com/hashtag/SARSCoV2?src=hash&amp;ref_src=twsrc%5Etfw">#SARSCoV2</a> in December. She has been targeted by <a href="https://twitter.com/hashtag/Trump?src=hash&amp;ref_src=twsrc%5Etfw">#Trump</a> Admin., but defended in letter from 70+ Nobel laureates. She&#39;s one of the world&#39;s top <a href="https://twitter.com/hashtag/coronavirus?src=hash&amp;ref_src=twsrc%5Etfw">#coronavirus</a> experts <a href="https://t.co/tyM1cQ3tXJ">https://t.co/tyM1cQ3tXJ</a></p>&mdash; Laurie Garrett (@Laurie_Garrett) <a href="https://twitter.com/Laurie_Garrett/status/1265050020631453696?ref_src=twsrc%5Etfw">May 25, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                        h6('KFC'),
+                                            HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ambulance officers noticed two people ordering around 20 KFC meals at 1.30am, with their car&#39;s registration leading police to a townhouse where there were 16 people &quot;hiding out the back&quot;. <a href="https://t.co/LwRNWaDhhl">https://t.co/LwRNWaDhhl</a></p>&mdash; The Age (@theage) <a href="https://twitter.com/theage/status/1281523574302478338?ref_src=twsrc%5Etfw">July 10, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
                                         br(),
-                                        h6('Microsoft'),
-                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Today, <a href="https://twitter.com/AdaptiveBiotech?ref_src=twsrc%5Etfw">@AdaptiveBiotech</a> and Microsoft launched ImmuneCODE, a groundbreaking new database that shares one of the largest, most detailed views of the immune response to <a href="https://twitter.com/hashtag/COVID19?src=hash&amp;ref_src=twsrc%5Etfw">#COVID19</a> <a href="https://t.co/DK54ljoS7n">https://t.co/DK54ljoS7n</a> <a href="https://t.co/iULfmQ26p2">pic.twitter.com/iULfmQ26p2</a></p>&mdash; Microsoft Stories and News (@MSFTnews) <a href="https://twitter.com/MSFTnews/status/1271064950560219137?ref_src=twsrc%5Etfw">June 11, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>') 
+                                        h6('Morrison Government'),
+                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Scott Morrison does not appear to be a vote magnet in his home state.<br>* Lost Wentworth by-election 2018<br>* Lost NSW at the 2019 federal election to a Victorian trade union official. (Labor 24 seats, Coalition 22, Ind. 1)<br>* Lost Eden-Monaro by-election 2020<br>1/2 <a href="https://t.co/erkv8O0pIy">https://t.co/erkv8O0pIy</a></p>&mdash; George Megalogenis (@GMegalogenis) <a href="https://twitter.com/GMegalogenis/status/1279615578253127680?ref_src=twsrc%5Etfw">July 5, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>') 
                                         )
                                         )
                                         )
@@ -869,7 +868,7 @@ pdf(NULL)
                                                                   aljazeera.com, telegraph.co.uk) while less popular, have been the top 
                                                                   destinations for those searching ‘how did coronavirus start’ and other key 
                                                                   overseas developments - notably in the UK and US, which have evolved to become 
-                                                                  the new virus epi-centres."),
+                                                                  the new virus epi-centres."), br(),
                                                           tags$li("In the wake of the second wave of infections in Victoria, Australians 
                                                                   across states appear to be showing increasing concern over the development 
                                                                   of new clusters nearby and the possibility of a second outbreak developing 
@@ -883,11 +882,7 @@ pdf(NULL)
                                         HTML('<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2213_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderWidget("US_cu_4Rjdh3ABAABMHM_en_en-AU", "fe_related_queries_c42508a0-7f03-4f36-a097-3d644d5ea101", {"guestPath":"https://trends.google.com:443/trends/embed/"}); </script>')
                                       , bs_collapse(id = "google_trends_collapse", content = tags$div(class = "well", 
                                                                                                        column(width = 12,
-                                                                                                              tags$li("In the wake of the second wave of infections in Victoria, Australians 
-                                                                                                                      across states appear to be showing increasing concern over the development 
-                                                                                                                      of new clusters nearby and the possibility of a second outbreak developing 
-                                                                                                                      locally or nationally, as seen with some of the top search terms (e.g. coronavirus 
-                                                                                                                      sydney, coronavirus nsw, coronavirus perth)"), br()
+                                                                                                              tags$li("Trending searches in the last 7 days further indicate renewed concern over the possibility of the second outbreak in Victoria flowing into other states, with the spread of the virus being researched both on a local and national level (e.g. coronavirus victoria, australia coronavirus)."), br()
                                                                                                               ))), bs_button("Analysis", button_type = "default") %>%
                                                                                                                       bs_attach_collapse("google_trends_collapse"))),
                                      
