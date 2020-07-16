@@ -119,7 +119,7 @@ pdf(NULL)
           highlight = TRUE,
           wrap = FALSE,
           paginationType = "simple",
-          minRows = 10,
+          minRows = 8,
           columns = list(
             "Search Terms" = colDef(
               minWidth = 300
@@ -213,6 +213,110 @@ pdf(NULL)
         )
       }
           tracks_table(data)
+    }
+    
+    renderKeywordsBankingSectorTableBranded <- function(data){
+      tracks_table <- function(data) {
+        reactable(
+          data,
+          searchable = TRUE,
+          highlight = TRUE,
+          wrap = FALSE,
+          paginationType = "simple",
+          minRows = 4,
+          columns = list(
+            "Search Terms" = colDef(
+              minWidth = 300
+            ),
+            "Traffic Share" = colDef(
+              cell = function(value) {
+                value2 <- removeWords(value, c("anz.com.au", "nab.com.au", "commbank.com.au", "westpac.com.au", "stgeorge.com.au"))
+                value3 <- as.numeric(value2)
+                width <- paste0(value3 / max(kw_unbranded_top25$`_TrafficShare`) * 100, "%")
+                label <- format(value3, nsmall = 5)
+                bar_chart(label, value = value, width = width)
+              }
+            ),
+            "_TrafficShare" = colDef(show = FALSE)
+          ),
+          language = reactableLang(
+            searchPlaceholder = "Filter search terms",
+            noData = "No tracks found",
+            pageInfo = "{rowStart}\u2013{rowEnd} of {rows} terms",
+            pagePrevious = "\u276e",
+            pageNext = "\u276f"
+          ),
+          theme = spotify_theme()
+        )
+      }
+      
+      spotify_theme <- function() {
+        
+        text_color <- "hsl(0, 0%, 95%)"
+        text_color_light <- "hsl(0, 0%, 70%)"
+        text_color_lighter <- "hsl(0, 0%, 55%)"
+        bg_color <- "hsl(0, 0%, 10%)"
+        reactableTheme(
+          color = text_color,
+          backgroundColor = bg_color,
+          borderColor = "hsl(0, 0%, 16%)",
+          borderWidth = "1px",
+          highlightColor = "rgba(255, 255, 255, 0.1)",
+          cellPadding = "10px 8px",
+          style = list(
+            fontFamily = "Work Sans, Helvetica Neue, Helvetica, Arial, sans-serif",
+            fontSize = "14px",
+            "a" = list(
+              color = text_color,
+              "&:hover, &:focus" = list(
+                textDecoration = "none",
+                borderBottom = "1px solid currentColor"
+              )
+            ),
+            ".number" = list(
+              color = text_color_light,
+              fontFamily = "Source Code Pro, Consolas, Monaco, monospace"
+            ),
+            ".tag" = list(
+              padding = "2px 4px",
+              color = "hsl(0, 0%, 40%)",
+              fontSize = "12px",
+              border = "1px solid hsl(0, 0%, 24%)",
+              borderRadius = "2px"
+            )
+          ),
+          headerStyle = list(
+            color = text_color_light,
+            fontWeight = 400,
+            fontSize = "12px",
+            letterSpacing = "1px",
+            textTransform = "uppercase",
+            "&:hover, &:focus" = list(color = text_color)
+          ),
+          rowHighlightStyle = list(
+            ".tag" = list(color = text_color, borderColor = text_color_lighter)
+          ),
+          # Full-width search bar with search icon
+          searchInputStyle = list(
+            paddingLeft = "30px",
+            paddingTop = "8px",
+            paddingBottom = "8px",
+            width = "100%",
+            border = "none",
+            backgroundColor = bg_color,
+            backgroundSize = "16px",
+            backgroundPosition = "left 8px center",
+            backgroundRepeat = "no-repeat",
+            "&:focus" = list(backgroundColor = "rgba(255, 255, 255, 0.1)", border = "none"),
+            "::placeholder" = list(color = text_color_lighter),
+            "&:hover::placeholder, &:focus::placeholder" = list(color = text_color)
+          ),
+          paginationStyle = list(color = text_color_light),
+          pageButtonHoverStyle = list(backgroundColor = "hsl(0, 0%, 20%)"),
+          pageButtonActiveStyle = list(backgroundColor = "hsl(0, 0%, 24%)")
+        )
+      }
+      tracks_table(data)
     }
 
     
@@ -1182,7 +1286,7 @@ pdf(NULL)
             
 
                 
-              branded_table <- renderKeywordsBankingSectorTable(kw_branded_top25)
+              branded_table <- renderKeywordsBankingSectorTableBranded(kw_branded_top25)
 
               output$better_keywords_branded <- renderReactable({
                 branded_table
