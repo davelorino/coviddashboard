@@ -737,7 +737,7 @@ pdf(NULL)
                                             tags$em(tags$p("The most most talked about brands in connection with Coronavirus 
                                             in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
-                                            Period 5th to the 11th of June. Data: Meltwater. Brand Detection: OpenNLP."))), br(),
+                                            Period 5th to the 11th of July Data: Meltwater. Brand Detection: OpenNLP."))), br(),
                                           column(width = 6,
                                                  h5(tags$em("The Victorian State Government was in the spotlight this week over their 
                                                             response to the second outbreak and their measures in support of 
@@ -798,7 +798,7 @@ pdf(NULL)
                                         h6('KFC'),
                                             HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ambulance officers noticed two people ordering around 20 KFC meals at 1.30am, with their car&#39;s registration leading police to a townhouse where there were 16 people &quot;hiding out the back&quot;. <a href="https://t.co/LwRNWaDhhl">https://t.co/LwRNWaDhhl</a></p>&mdash; The Age (@theage) <a href="https://twitter.com/theage/status/1281523574302478338?ref_src=twsrc%5Etfw">July 10, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
                                         br(),
-                                        h6('Morrison Government'),
+                                        h6('Liberal Party'),
                                         HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Scott Morrison does not appear to be a vote magnet in his home state.<br>* Lost Wentworth by-election 2018<br>* Lost NSW at the 2019 federal election to a Victorian trade union official. (Labor 24 seats, Coalition 22, Ind. 1)<br>* Lost Eden-Monaro by-election 2020<br>1/2 <a href="https://t.co/erkv8O0pIy">https://t.co/erkv8O0pIy</a></p>&mdash; George Megalogenis (@GMegalogenis) <a href="https://twitter.com/GMegalogenis/status/1279615578253127680?ref_src=twsrc%5Etfw">July 5, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>') 
                                         )
                                         )
