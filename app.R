@@ -119,7 +119,7 @@ pdf(NULL)
           highlight = TRUE,
           wrap = FALSE,
           paginationType = "simple",
-          minRows = 8,
+          minRows = 10,
           columns = list(
             "Search Terms" = colDef(
               minWidth = 300
