@@ -338,7 +338,7 @@ pdf(NULL)
   
     #coronavirus <- readRDS("coronavirus2.rds")
     corona7daycases <- readRDS("corona7daycases.rds")
-    sw_keywords_plot <- readRDS("sw_keywords_plot2.rds")
+    sw_keywords_plot <- readRDS("sw_keywords_plot3.rds")
     volume_chart <- readRDS("volumechart.rds")
     sentiment_timeline_plot  <- read_rds("sentiment_timeline_plot.rds")
     sw_mobile_plot <- readRDS("sw_mobile_plot.rds")
