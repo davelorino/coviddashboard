@@ -493,15 +493,16 @@ pdf(NULL)
                                         neighbouring states. This turn of events has led to a revival of the COVID-19 social conversation, 
                                         though not back to its former peak of March. Melbourne has since gone back into lockdown, ", 
                                         tags$b("reigniting fear and anxiety amongst the public that the worst of the COVID-19 crisis 
-                                        may not yet be over for Australia.")),
+                                        may not yet be over for Australia.")), br(),
                                 tags$li("By the end of July, the second outbreak was far from contained in Victoria, now home to more 
                                         than 70% of confirmed cases and 275 deaths to date, with Melbourne becoming the national 
                                         epicentre of the COVID-19 crisis as it entered Stage 4 lockdown. With small outbreaks 
                                         since appearing in other states and more border closures coming into force, the fear of 
-                                        a nation-wide lockdown is yet to realise but remains present in everyone’s mind. ",
+                                        a nation-wide lockdown is yet to realise but remains present in everyone’s mind. "),
+                                        br(),
                                         tags$li("This major setback in the management of the Pandemic health crisis has been a key 
                                         driver of the COVID-19 conversation online, which has continued to rise steadily 
-                                        in the last 7 weeks."))
+                                        in the last 7 weeks.")
                                 ),
                                 column(width = 6, h4(tags$b(tags$u("Key Events"))),
                                                     h5(tags$u("Dec 29th - Jan 26th")),
