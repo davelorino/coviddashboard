@@ -424,7 +424,7 @@ pdf(NULL)
                          br(),
                          tags$a(href = "#text_plot", "Text"),
                          br(),
-                         tags$a(href = "#tweets_plot", "Tweets"),
+                         tags$a(href = "#hashtags_plot", "Tweets"),
                          br(),
                          tags$a(href = "#brand_cloud", "Brands"),
                                     introjsUI(),
