@@ -408,9 +408,25 @@ pdf(NULL)
                    title = "Saatchi & Saatchi COVID-19 Pulse", theme = shinytheme("darkly"),
                    tabPanel(title = "Social",
                           
-                       sidebarPanel(img(src="Artboard1Logo.png", width="80%", height="80%"),
+                       sidebarPanel(
+                         style = "position:fixed;width:15%;",
+                         img(src="Artboard1Logo.png", width="80%", height="80%"),
                                     br(), br(),
                                     actionButton("helpMe", "Tour"),
+                                    br(), br(),
+                         "Jump to:",
+                         br(),
+                         tags$a(href = "#volume_timeline", "Volume"),
+                         br(),
+                         tags$a(href = "#sentiment_timeline", "Sentiment"),
+                         br(),
+                         tags$a(href = "#emotions_cloud", "Emotions"),
+                         br(),
+                         tags$a(href = "#text_plot", "Text"),
+                         br(),
+                         tags$a(href = "#tweets_plot", "Tweets"),
+                         br(),
+                         tags$a(href = "#brand_cloud", "Brands"),
                                     introjsUI(),
                                     width = 2,
                                     tags$head(
@@ -424,7 +440,7 @@ pdf(NULL)
                        mainPanel(
                          fluidRow( height = 12,
                          column(width = 12, align = "left",
-                         h4("Volume of COVID-19 conversation over time, Australia (VoC only)", align = "center"),
+                       div(id = "volume_timeline",  h4("Volume of COVID-19 conversation over time, Australia (VoC only)", align = "center")),
                       wellPanel(introBox(plotlyOutput("lineplot", height = "500px"), 
                                  data.step = 1, 
                                  data.intro = "Here we analyse the <b>volume</b> of conversation over time among Twitter, comments, 
@@ -575,7 +591,7 @@ pdf(NULL)
                                          #   bs_attach_collapse("weeklytimelinecollapsed")
                                          #   ),
                                  br(), br(),
-                        h4("Sentiment of COVID-19 conversation over time, Australia (VoC only)", align = "center"),
+                        div(id = "sentiment_timeline", h4("Sentiment of COVID-19 conversation over time, Australia (VoC only)", align = "center")),
                         wellPanel(introBox(plotlyOutput("sentiment_plot", height = "450px"),
                                   data.step = 3,
                                   data.intro = "Here we analyse the <b>sentiment</b> of conversation over 
@@ -655,7 +671,7 @@ pdf(NULL)
                                                   br())),
                                                             bs_button("Analysis", button_type = "default") %>%
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
-                                   column(width = 6, h5("Trending hashtags - weekly snapshot"), 
+                                   column(width = 6, div(id = "emotions_cloud", h5("Trending hashtags - weekly snapshot")), 
                                           wellPanel(introBox(data.step = 5, 
                                                              
                                                              data.intro = "This chart analyses the top trending hashtags from Twitter in the last week.
@@ -692,7 +708,7 @@ pdf(NULL)
                                                     )
                                           ),
                                           br(), br(),
-                                 column(width = 6,  h5("Text sentiment score - weekly snapshot"), 
+                                 column(width = 6, div(id = "text_plot", h5("Text sentiment score - weekly snapshot")), 
                                          wellPanel(introBox(data.step = 6, 
                                                              data.intro = paste("This chart analyses the top 25 words contributing to positive or negative sentiment from Twitter, comments, 
                                                                                 blogs and forums in the last week using the ", 
@@ -702,7 +718,7 @@ pdf(NULL)
                                                      )
                                                    )
                                         ),
-                                  column(width = 6, h5("Text sentiment score - monthly snapshot"), 
+                               column(width = 6, div(id = "hashtags_plot", h5("Text sentiment score - monthly snapshot")), 
                                           wellPanel(introBox(data.step = 7, 
                                                              data.intro = paste("This chart analyses the top 25 words contributing to positive 
                                                              or negative sentiment from Twitter, blogs, comments and forums in the last month using the ", 
@@ -739,7 +755,7 @@ pdf(NULL)
                       bs_button("Analysis", button_type = "default") %>%
                         bs_attach_collapse("contribution_collapse"))), br(), br(),
                       column(width = 12, 
-                             h5("Most talked about brands in connection with Coronavirus (Australia VoC only) - weekly snapshot", align = "center"), 
+                            div(id = "brand_cloud", h5("Most talked about brands in connection with Coronavirus (Australia VoC only) - weekly snapshot", align = "center")), 
                           wellPanel(introBox(data.step = 8, 
                              data.intro = "This chart shows the brands and organisations that are being
                                                  talked about most by cosumers in the last week, and the sentiment towards that brand or organisation.", 
