@@ -400,6 +400,7 @@ pdf(NULL)
     contribution_plot <- read_rds("plotly_object.rds")
     contribution_plot_30days <- read_rds("plotly_object30days.rds")
     bing_sentiment_plot <- read_rds("covid_bingsent_plot.rds")
+    emotions_cloud <- read_rds("emotioncloud2.rds")
 
 # UI-------------------------------------------------------------------------------------------------------------
     
@@ -441,7 +442,16 @@ pdf(NULL)
                          fluidRow( height = 12,
                          column(width = 12, align = "left",
                        div(id = "volume_timeline",  h4("Volume of COVID-19 conversation over time, Australia (VoC only)", align = "center")),
-                      wellPanel(introBox(plotlyOutput("lineplot", height = "500px"), 
+                      wellPanel(introBox(plotlyOutput("lineplot", height = "500px"), br(), 
+                                         #tags$style(type = "text/css", "p { font-size: 12px; }"),
+                                         tags$em(p("This chart displays the volume of mentions of COVID-19 on a weekly basis from Australians only. 
+                                       Each point represents a 7 day period, beginning at the labelled date. For example, 
+                                       the point labelled 'Dec 29, 2019' represents
+                                         the ",  
+                                                   tags$b("total weekly mentions "),  
+                                                   "between the 29th of December and the 4th of January inclusive. 
+                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - August 9th, 2020. 
+                                          Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.")),
                                  data.step = 1, 
                                  data.intro = "Here we analyse the <b>volume</b> of conversation over time among Twitter, comments, 
                                  blogs and forums. <b>Hover</b> over the points to see what drove the conversation.",
@@ -449,18 +459,13 @@ pdf(NULL)
                                  bs_collapse(
                                    id = "volume_collapse", 
                                    content = tags$div(class = "well", 
-                                column(width = 12, tags$em(p("This chart displays the volume of mentions of COVID-19 on a weekly basis from Australians only. 
-                                       Each point represents a 7 day period, beginning at the labelled date. For example, 
-                                       the point labelled 'Dec 29, 2019' represents
-                                         the ",  
-                                          tags$b("total weekly mentions "),  
-                                          "between the 29th of December and the 4th of January inclusive. 
-                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - August 9th, 2020. 
-                                          Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.", 
-                                                     tags$style(type = "text/css", "p { font-size: 12px; }")))),
-                                br(), br(),
-                                column(12, align = "left", h4("Drivers of Conversation to Date")), br(), br(),
-                               column(width = 12),
+                                column(width = 12,  
+                                      # tags$style(type = "text/css", "p { font-size: 12px; }")
+                                                     ),
+                              #  br(), br(),
+                              tabsetPanel(selected = "Recent",  
+                                tabPanel(title = "Past",
+                                  column(width = 12),
                                 br(), br(),
                                 column(width = 6, align = "left",
                                        h5("Since Australians became aware of COVID-19 in December 2019, 
@@ -561,7 +566,7 @@ pdf(NULL)
                                 tags$li("The murder of George Flloyd by a Minneapolis police officer sparks anti-police brutality protests around the world, despite social distancing restrictions."),
                                 tags$li("For the first day since the start of the pandemic, Australia records zero new locally acquired cases."),
                                 br(),
-                                h5(tags$u("June 15h - July 12th")),
+                                h5(tags$u("June 15th - July 12th")),
                                 tags$li("Scientists draw links between the spread of diseases like COVID-19 from animals to humans, 
                                 with the destruction of ecologies and habitats belonging to species that carry diseases."),  
                                 tags$li("The Trump administration draws worldwide criticism for securing almost exclusive access 
@@ -577,9 +582,11 @@ pdf(NULL)
                                         lie on their border declaration pass, causing the state to close its borders to Victoria and NSW."),
                                 tags$li("Face masks are made mandatory in Victoria’s COVID-19 hotspots and in a national-first, 
                                         metropolitan Melbourne moves into Stage 4 lockdown for 6 weeks from August 3rd."),
-                                br()
-                                
-                                       ))), 
+                                br())
+                               ## End of tabPanel 'Past' 
+                                       ),
+                               tabPanel(title = "Recent")
+                               ))), 
                                   introBox(data.step = 2, 
                                           data.intro = "Click the Analysis button located on the bottom-left of every chart to see insights.", 
                                           bs_button(button_size = "small", "Analysis", button_type = "default") %>%
@@ -593,20 +600,23 @@ pdf(NULL)
                                  br(), br(),
                         div(id = "sentiment_timeline", h4("Sentiment of COVID-19 conversation over time, Australia (VoC only)", align = "center")),
                         wellPanel(introBox(plotlyOutput("sentiment_plot", height = "450px"),
-                                  data.step = 3,
-                                  data.intro = "Here we analyse the <b>sentiment</b> of conversation over 
-                                  time among Twitter, comments, blogs and forums."),
-                                  bs_collapse(id = "sentiment_collapse",
-                                              content = tags$div(class = "well",
-                                tags$em(  
-                                  tags$p("This chart displays the percentage of mentions of COVID-19 from Australians 
+                                           br(),
+                                           tags$em(  
+                                             tags$p("This chart displays the percentage of mentions of COVID-19 from Australians 
                                           only that are positive and negative. 
                                          Each date on the graph represents a 7 day period, beginning at the 
                                          labelled date. For example, the first point labelled 'Dec 29, 2019' represents
                                          the average weekly sentiment between the 29th of December and the 4th of January inclusive. 
                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
-                                          and Tweets Dec 29, 2019 - August 9th, 2020.")), 
-                                  
+                                          and Tweets Dec 29, 2019 - August 9th, 2020.")),
+                                  data.step = 3,
+                                  data.intro = "Here we analyse the <b>sentiment</b> of conversation over 
+                                  time among Twitter, comments, blogs and forums."),
+                                  bs_collapse(id = "sentiment_collapse",
+                                              content = tags$div(class = "well",
+                                 
+                              tabsetPanel(selected = "Recent",
+                                tabPanel(title = "Past",    
                                column(width=12, 
                                br(),
                                tags$li("On the 5th of January, negative sentiment quickly spiked in correlation 
@@ -646,8 +656,9 @@ pdf(NULL)
                                        tags$b("While the rest of Australia continues to warily work their way out of the crisis, 
                                               Victoria has not only been isolated physically from their sister states, but also in their collective psyche.")),
                                 br(), br()
-                                , tags$style(type = "text/css", "p { font-size: 12px; }")))
-                                ),
+                                , tags$style(type = "text/css", "p { font-size: 12px; }"))),
+                               tabPanel(title = "Recent")
+                                ))),
                                 bs_button("Analysis", button_type = "default") %>%
                                   bs_attach_collapse("sentiment_collapse")),
                                   column(width = 6, h5("VoC sentiment - weekly snapshot"), 
@@ -671,12 +682,12 @@ pdf(NULL)
                                                   br())),
                                                             bs_button("Analysis", button_type = "default") %>%
                                                                 bs_attach_collapse("weekly_sentiment_collapse")))),
-                                   column(width = 6, div(id = "emotions_cloud", h5("Trending hashtags - weekly snapshot")), 
+                                   column(width = 6, div(id = "emotions_cloud", h5("Trending emotions - weekly snapshot")), 
                                           wellPanel(introBox(data.step = 5, 
                                                              
-                                                             data.intro = "This chart analyses the top trending hashtags from Twitter in the last week.
-                                                             ", 
-                                                             plotlyOutput("hashtags_7days"),
+                                                             data.intro = "This chart shows the most frequently used emotional terms in the last week.", 
+                                                           #  plotlyOutput("hashtags_7days"),
+                                                           wordcloud2Output("emotion_cloud"),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
                                                                  content = tags$div(class = "well",
                                                                                   tags$em(  tags$p("Trending hashtags between the 2nd and 9th of August.
@@ -715,46 +726,65 @@ pdf(NULL)
                                                                                 tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon."),
                                                              plotlyOutput("contribution_plot")
                                                              
-                                                     )
-                                                   )
-                                        ),
-                               column(width = 6, div(id = "hashtags_plot", h5("Text sentiment score - monthly snapshot")), 
-                                          wellPanel(introBox(data.step = 7, 
-                                                             data.intro = paste("This chart analyses the top 25 words contributing to positive 
-                                                             or negative sentiment from Twitter, blogs, comments and forums in the last month using the ", 
-                                                                                tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon."),
-                                                             plotlyOutput("contribution_plot_30days")
-                                                                         ))),
-                      column(width = 12, wellPanel(
-                      bs_collapse(id = "contribution_collapse", content = tags$div(class = "well", 
-                                                                                   column(width=6,
-                                                                                   tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
-                                                                                                  tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                                  " sentiment analysis lexicon. 7 day period between the 2nd and the 9th of August. 
+                                                     ),
+                                                   bs_collapse(id = "contribution_collapse", content = tags$div(class = "well", 
+                                                                                                                column(width=12,
+                                                                                                                       tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
+                                                                                                                                      tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
+                                                                                                                                      " sentiment analysis lexicon. 7 day period between the 2nd and the 9th of August. 
                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
-                                                                column(width = 6,
-                                                                                   tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
-                                                                                                  tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                        " sentiment analysis lexicon. 4 week period between the 12th of July and the 9th of August.
-                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))), br(), 
-                                                            
-                                                                tags$li("Terms linked to virus casualties have re-appeared as the top contributors to negative sentiment 
+                                                                                                                 br(), 
+                                                                                                                
+                                                                                                                tags$li("Terms linked to virus casualties have re-appeared as the top contributors to negative sentiment 
                                                                         in the past month (", tags$b("loss, worst, infected, lost, death, died"), ") as the situation in Victoria 
                                                                         continues to escalate with a sharp increase in the death toll. With Metropolitan Melbourne 
                                                                         moving into a mandatory Stage 4 lockdown and a 6-week state of disaster, this has also 
                                                                         generated a significant portion of negative conversation online (", tags$b("emergency, cancelled, disaster, risk, crisis"), "). "), 
-                                                                br(),
-                                                                tags$li("While only accounting for a small portion of mentions still, terms 
+                                                                                                                br(),
+                                                                                                                tags$li("While only accounting for a small portion of mentions still, terms 
                                                                         that generated positive sentiment continue to reflect the ‘good news stories’ 
                                                                         emerging from the ongoing crisis as Australians come together and help out 
                                                                         each other (e.g. care, support, positive, help, good ) and successfully overcome the outbreak 
                                                                         in parts of Australia (e.g. positive, good, better, greater, strong, free), 
                                                                         all ", tags$b("showing continuous consumer appetite for uplifting stories in these challenging times.")), br()
-                                                                
-                                                                )),
-                      bs_button("Analysis", button_type = "default") %>%
-                        bs_attach_collapse("contribution_collapse"))), br(), br(),
-                      column(width = 12, 
+                                                                                                                
+                                                   )),
+                                                   bs_button("Analysis", button_type = "default") %>%
+                                                     bs_attach_collapse("contribution_collapse"), br(), br()
+                                                   )
+                                        ),
+                               column(width = 6, div(id = "hashtags_plot", h5("Trending hashtags - weekly snapshot")), 
+                                          wellPanel(introBox(data.step = 7, 
+                                                             data.intro = "This chart analyses the top trending hashtags from social media in the last week."),
+                                                             #plotlyOutput("contribution_plot_30days")
+                                                             plotlyOutput("hashtags_7days")
+                                                                         ),
+                                      bs_collapse(id = "contribution_collapse", content = tags$div(class = "well", 
+                                                                                                   column(width=12,
+                                                                                                          tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
+                                                                                                                         tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
+                                                                                                                         " sentiment analysis lexicon. 7 day period between the 2nd and the 9th of August. 
+                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
+                                                                                                   br(), 
+                                                                                                   
+                                                                                                   tags$li("Terms linked to virus casualties have re-appeared as the top contributors to negative sentiment 
+                                                                        in the past month (", tags$b("loss, worst, infected, lost, death, died"), ") as the situation in Victoria 
+                                                                        continues to escalate with a sharp increase in the death toll. With Metropolitan Melbourne 
+                                                                        moving into a mandatory Stage 4 lockdown and a 6-week state of disaster, this has also 
+                                                                        generated a significant portion of negative conversation online (", tags$b("emergency, cancelled, disaster, risk, crisis"), "). "), 
+                                                                                                   br(),
+                                                                                                   tags$li("While only accounting for a small portion of mentions still, terms 
+                                                                        that generated positive sentiment continue to reflect the ‘good news stories’ 
+                                                                        emerging from the ongoing crisis as Australians come together and help out 
+                                                                        each other (e.g. care, support, positive, help, good ) and successfully overcome the outbreak 
+                                                                        in parts of Australia (e.g. positive, good, better, greater, strong, free), 
+                                                                        all ", tags$b("showing continuous consumer appetite for uplifting stories in these challenging times.")), br()
+                                                                                                   
+                                      )),
+                                      bs_button("Analysis", button_type = "default") %>%
+                                        bs_attach_collapse("contribution_collapse"), br(), br()
+                               ),
+                        column(width = 12, 
                             div(id = "brand_cloud", h5("Most talked about brands in connection with Coronavirus (Australia VoC only) - weekly snapshot", align = "center")), 
                           wellPanel(introBox(data.step = 8, 
                              data.intro = "This chart shows the brands and organisations that are being
@@ -885,11 +915,13 @@ pdf(NULL)
                                       wellPanel(introBox(data.step = 10, 
                                       data.intro = "This plot shows us the most popular search term variations including coronavirus from all search engine traffic.", 
                                       plotlyOutput("sw_keywords_plot")),
-                                                bs_collapse(id = "sw_keywords_collapse", 
-                                            content = tags$div(class = "well", 
-                                                          tags$em(p("Top organic search keywords including ‘coronavirus’ ranked by volume 
+                                      br(),
+                                      tags$em(p("Top organic search keywords including ‘coronavirus’ ranked by volume 
                                                           of searches and destination (mobile and desktop traffic combined) for the period May 1st to July 31st; Data: SimilarWeb.
                                                                      *Keywords with an appended asterisk are new to this period and were not present in the April - June period.")),
+                                                bs_collapse(id = "sw_keywords_collapse", 
+                                            content = tags$div(class = "well", 
+                                                        tabsetPanel(selected = "Recent", tabPanel(title = "Past", 
                                                           br(),
                                                           "To this day, Australians remain focused on understanding the virus and keeping track of its impact both 
                                                           locally and abroad. ", tags$b("Personal safety, containment and eradication of the virus locally and overseas 
@@ -906,8 +938,9 @@ pdf(NULL)
                                                                   destination developments on the fast-moving spread of the disease in Victoria, 
                                                                   and overseas in the UK and China."), 
                                                           br()
-                                                    )
-                                                ),
+                                                    ),
+                                                    tabPanel(title = "Recent")
+                                                ))),
                                                  bs_button("Analysis", button_type = "default") %>%
                                                    bs_attach_collapse("sw_keywords_collapse"))), br(), br(),
                                       column(width = 12, wellPanel(
@@ -1056,6 +1089,10 @@ pdf(NULL)
           
           output$rona_cloud <- renderWordcloud2({
             rona_cloud
+          })
+          
+          output$emotion_cloud <- renderWordcloud2({
+            emotions_cloud
           })
            
            output$sentiment_plot <- plotly::renderPlotly({
@@ -1388,6 +1425,8 @@ pdf(NULL)
               output$sov_unbranded_out <- renderPlotly({
                 sov_unbranded
               })
+              
+              
               
               
          }
