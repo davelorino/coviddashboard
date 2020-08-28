@@ -450,7 +450,7 @@ pdf(NULL)
                                          the ",  
                                                    tags$b("total weekly mentions "),  
                                                    "between the 29th of December and the 4th of January inclusive. 
-                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - August 23rd, 2020. 
+                                          Data: NetBase; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - August 23rd, 2020. 
                                           Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.")),
                                  data.step = 1, 
                                  data.intro = "Here we analyse the <b>volume</b> of conversation over time among Twitter, comments, 
@@ -585,7 +585,29 @@ pdf(NULL)
                                 br())
                                ## End of tabPanel 'Past' 
                                        ),
-                               tabPanel(title = "Recent")
+                               tabPanel(title = "Recent",
+                                        column(width = 6, br(), br(),
+                                               tags$li("As Melbourne residents deal with the harsh realities of Stage 4 lockdown, 
+                                                       the virus has continued to spread throughout the state, peaking on August 
+                                                       4th with 693 confirmed cases recorded. While cases have since steadily declined, 
+                                                       the rest of the nation continues to look on the situation in Victoria with a renewed 
+                                                       sense of caution. The QLD Premier also threatened to keep their borders closed to other 
+                                                       states until they can report zero community transmission. ", tags$b("As governments move to protect 
+                                                       their constituents, fear-mongering and competition between the states in their containment 
+                                                       of the pandemic has reignited ‘border wars’ and state-ism amongst Australians.")), br()
+                                               ),
+                                        column(width = 6,
+                                               h4(tags$b(tags$u("Key Events"))),
+                                               h5(tags$u("August 10th - August 23rd")), 
+                                               tags$li("Prime Minister Scott Morrison announces that Australia has secured 
+                                                       access to a promising vaccine being developed in Oxford University. 
+                                                       If trials prove successful, the vaccine will be made mandatory to all Australians."), br(),
+                                               tags$li("The State of Emergency in Victoria is extended until September 13th, allowing the 
+                                                       government to continue isolation and social distancing measures in the state 
+                                                       in an effort to curb the spread of COVID-19."), br(),
+                                               tags$li("In a positive turn of events, it appears Australia has recorded its least deadly 
+                                                       flu season in recent times as a result of the measures taken to curb the 
+                                                       spread of the COVID-19 virus with only 36 lab confirmed deaths compared to 480 last winter."), br()))
                                ))), 
                                   introBox(data.step = 2, 
                                           data.intro = "Click the Analysis button located on the bottom-left of every chart to see insights.", 
@@ -607,7 +629,7 @@ pdf(NULL)
                                          Each date on the graph represents a 7 day period, beginning at the 
                                          labelled date. For example, the first point labelled 'Dec 29, 2019' represents
                                          the average weekly sentiment between the 29th of December and the 4th of January inclusive. 
-                                         Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
+                                         Data: NetBase; Sources: Blogs, Forums, Comments 
                                           and Tweets Dec 29, 2019 - August 23rd, 2020.")),
                                   data.step = 3,
                                   data.intro = "Here we analyse the <b>sentiment</b> of conversation over 
@@ -649,15 +671,18 @@ pdf(NULL)
                                        when Victoria was hit with a second-wave of infections later in the month. ", tags$b("With Melbourne 
                                        returning to lockdown on July 7th, consumers appear to be losing hope again with many 
                                        anticipating other states will follow suit.")),
-                               br(),
-                               tags$li(tags$b("As Victorians battle through a second and severe outbreak, their ordeal doesn’t appear to affect 
-                                              the mood of the rest of the country. On the contrary, "), 
-                                       "positive sentiment was at an all-time high this month, hovering between 24-29% of total mentions. ",
-                                       tags$b("While the rest of Australia continues to warily work their way out of the crisis, 
-                                              Victoria has not only been isolated physically from their sister states, but also in their collective psyche.")),
-                                br(), br()
+                               br(), br()
+                              
                                 , tags$style(type = "text/css", "p { font-size: 12px; }"))),
-                               tabPanel(title = "Recent")
+                               tabPanel(title = "Recent",
+                                        column(width = 12,
+                                               br(),
+                                               tags$li(tags$b("As Victorians battle through a second and severe outbreak, their ordeal doesn’t appear to affect 
+                                              the mood of the rest of the country. On the contrary, "), 
+                                                       "positive sentiment was at an all-time high this month, hovering between 24-29% of total mentions. ",
+                                                       tags$b("While the rest of Australia continues to warily work their way out of the crisis, 
+                                              Victoria has not only been isolated physically from their sister states, but also in their collective psyche.")),
+                                               br(), br()))
                                 ))),
                                 bs_button("Analysis", button_type = "default") %>%
                                   bs_attach_collapse("sentiment_collapse")),
@@ -665,7 +690,7 @@ pdf(NULL)
                                          wellPanel(introBox(data.step = 4,
                                                             plotlyOutput("sevendaydonut"), br(),
                                                             tags$em( tags$p("Sentiment in the 7 day period between the 16th and the 23rd of August. 
-                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
+                                                                      Data: NetBase; Sources: Blogs, Forums, Comments and Tweets.")),
                                                             data.intro = "This chart shows a snapshot of the consumer sentiment from Twitter, 
                                                             comments, blogs and forums over the last week.", 
                                                             bs_collapse(id = "weekly_sentiment_collapse",
@@ -673,10 +698,10 @@ pdf(NULL)
                                                              br(),
                                                              
                                                              tags$b("The nation continues to move at two-speeds in relation to the COVID-19 health 
-                                                                    crisis. "), "As Metropolitan Melbourne moves into an unprecedented Stage 4 
+                                                                    crisis. "), "As Metropolitan Melbourne remains in Stage 4 
                                                                     lockdown, the rest of Australia continues to enjoy the restricted freedoms of 
                                                                     a post-lockdown society, watching on with a sense of guilt and relief. 
-                                                                    As such, sentiment appears unexpectedly high with 28.5% positive mentions - 
+                                                                    As such, sentiment appears unexpectedly high with 29.4% positive mentions - 
                                                                     the 2nd highest score since February.", 
                                                              
                                                   br())),
@@ -688,30 +713,20 @@ pdf(NULL)
                                                              data.intro = "This chart shows the most frequently used emotional terms in the last week.", 
                                                            #  plotlyOutput("hashtags_7days"),
                                                            wordcloud2Output("emotion_cloud"), br(),
-                                                           tags$em(  tags$p("Trending hashtags between the 16th and 23rd of August.
-                                                                                           Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
+                                                           tags$em(  tags$p("Trending top positive and negative emotions between the 16th August and 23rd August. 
+                                                                            Data: Netbase. Sources: Blogs, Forums, Comments and Tweets.")),
                                                            br(),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
                                                                  content = tags$div(class = "well",
                                                                                     column(width = 12,
-                                                                                           tags$li("The dominant theme in this week’s trending hashtags is the escalating 
-                                                                                                   health crisis in Australia, with Victoria its epicentre ",
-                                                                                                   tags$b("(#covid19victoria, #eliminatecovid19, #sarscov2) "), 
-                                                                                                   "as active cases rise to an all-time high."), 
+                                                                                           tags$li("Whilst social sentiment over the handling of the COVID-19 crisis remains 
+                                                                                                   largely negative (with fear and the ongoing blaming game between states 
+                                                                                                   the top negative emotions in the last 7 days), positive sentiment is mostly 
+                                                                                                   driven by a celebration of the successes to date in containing the virus in 
+                                                                                                   parts of the country and the belief that better days are to come with optimism 
+                                                                                                   the top positive emotion."), 
                                                                                            br(),
-                                                                                           tags$li("Victorian Premier Daniel Andrews ", tags$b("(#springst, #auspol) "), 
-                                                                                           "remains in the media spotlight as his government struggles to contain the second outbreak 
-                                                                                                   and public scrutiny over his handling of the situation continues."), 
-                                                                                           br(),
-                                                                                           tags$li("Despite Whitehouse health advisor Dr.Fauci ", tags$b("(#fauci) "), 
-                                                                                                   "declaring he’s “not pleased” with the current state of the COVID-19 situation in the US with a considerable 
-                                                                                                   uptick in active cases, parts the public continue to question the existence 
-                                                                                                   of the virus ", tags$b("(#fakenews)"), ", generating much online debate around the world."), 
-                                                                                           br(),
-                                                                                           tags$li("The investigation into the ", tags$b("#rubyprincess "), "outbreak continues to garner interest amongst 
-                                                                                                   Australians as new information about NSW Health’s negligence and mismanagement 
-                                                                                                   in containing infected passengers continues to come to light."), br(),
-                                                                                          br()
+                                                                                           br()
                                                                                       ))),
                                                      bs_button("Analysis", button_type = "default") %>%
                                                          bs_attach_collapse("weekly_hashtags_collapse")
@@ -728,7 +743,7 @@ pdf(NULL)
                                                             tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
                                                                            tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
                                                                            " sentiment analysis lexicon. 7 day period between the 16th and the 23rd of August. 
-                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))
+                                                                     Data: NetBase; Sources: Blogs, Forums, Comments and Tweets."))
                                                              
                                                      ),
                                                    bs_collapse(id = "contribution_collapse", content = tags$div(class = "well", 
@@ -736,18 +751,17 @@ pdf(NULL)
                                                                                                                        ),                                                        
                                                                                                                  br(), 
                                                                                                                 
-                                                                                                                tags$li("Terms linked to virus casualties have re-appeared as the top contributors to negative sentiment 
-                                                                        in the past month (", tags$b("loss, worst, infected, lost, death, died"), ") as the situation in Victoria 
-                                                                        continues to escalate with a sharp increase in the death toll. With Metropolitan Melbourne 
-                                                                        moving into a mandatory Stage 4 lockdown and a 6-week state of disaster, this has also 
-                                                                        generated a significant portion of negative conversation online (", tags$b("emergency, cancelled, disaster, risk, crisis"), "). "), 
-                                                                                                                br(),
-                                                                                                                tags$li("While only accounting for a small portion of mentions still, terms 
-                                                                        that generated positive sentiment continue to reflect the ‘good news stories’ 
-                                                                        emerging from the ongoing crisis as Australians come together and help out 
-                                                                        each other (e.g. care, support, positive, help, good ) and successfully overcome the outbreak 
-                                                                        in parts of Australia (e.g. positive, good, better, greater, strong, free), 
-                                                                        all ", tags$b("showing continuous consumer appetite for uplifting stories in these challenging times.")), br()
+                                                        tags$li("Terms linked to virus casualties have remained the top contributors 
+                                                                to negative sentiment in the past week ", tags$b("(lost, worst, infected, death, died) "),
+                                                                "as the situation in Victoria continues to unfold. With Metropolitan Melbourne 
+                                                                settling into a mandatory Stage 4 lockdown and a 6-week state of disaster, 
+                                                                this has also generated a significant portion of negative conversation online (risk, crisis). "), br(),
+                                                        tags$li("Whilst only accounting for a small portion of mentions still, terms contributing to positive 
+                                                                sentiment continue to reflect the ‘good news stories’ emerging from the ongoing crisis 
+                                                                as Australians come together and help out each other ", tags$b("(care, support, help) "), "and 
+                                                                successfully overcome the outbreak in parts of Australia ", tags$b("(positive, good, better, 
+                                                                greater, strong, free), "), "all ", tags$b("showing continuous consumer appetite for uplifting 
+                                                                stories in these challenging times.")), br(),
                                                                                                                 
                                                    )),
                                                    bs_button("Analysis", button_type = "default") %>%
@@ -760,28 +774,30 @@ pdf(NULL)
                                                              #plotlyOutput("contribution_plot_30days")
                                                              plotlyOutput("hashtags_7days"), br(),
                                                     tags$em(  tags$p("Trending hashtags between the 16th and 23rd of August.
-                                                                                           Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
+                                                                                           Data: NetBase; Sources: Blogs, Forums, Comments and Tweets.")),
                                                                          
-                                      bs_collapse(id = "contribution_collapse", content = tags$div(class = "well", 
+                                      bs_collapse(id = "hashtagos_collapse", content = tags$div(class = "well", 
                                                                                                    column(width=12),                                                        
                                                                                                    br(), 
                                                                                                    
-                                                                                                   tags$li("Terms linked to virus casualties have re-appeared as the top contributors to negative sentiment 
-                                                                        in the past month (", tags$b("loss, worst, infected, lost, death, died"), ") as the situation in Victoria 
-                                                                        continues to escalate with a sharp increase in the death toll. With Metropolitan Melbourne 
-                                                                        moving into a mandatory Stage 4 lockdown and a 6-week state of disaster, this has also 
-                                                                        generated a significant portion of negative conversation online (", tags$b("emergency, cancelled, disaster, risk, crisis"), "). "), 
-                                                                                                   br(),
-                                                                                                   tags$li("While only accounting for a small portion of mentions still, terms 
-                                                                        that generated positive sentiment continue to reflect the ‘good news stories’ 
-                                                                        emerging from the ongoing crisis as Australians come together and help out 
-                                                                        each other (e.g. care, support, positive, help, good ) and successfully overcome the outbreak 
-                                                                        in parts of Australia (e.g. positive, good, better, greater, strong, free), 
-                                                                        all ", tags$b("showing continuous consumer appetite for uplifting stories in these challenging times.")), br()
+                                                                                                   tags$li("The dominant theme in this week’s trending hashtags is the 
+                                                                                                           escalating health crisis in Australia, with Victoria its 
+                                                                                                           epicentre ", tags$b("(#covid19vic, #stayathome) "), "as people are forced 
+                                                                                                           to stay home and wear masks ", tags$b("(#wearamask, #ppe, #healthcareworkers) "), 
+                                                                                                           "when out in public."), br(),
+                                                                                                   tags$li("Nine cases of COVID-19 have been linked to the Network 10 reality show 
+                                                                                                           The Masked Singer ", tags$b("(#maskedsingerau) "), "which is filmed in Melbourne, prompting 
+                                                                                                           all 300 staff and viewers to get tested and go into 14 days of isolation."), br(),
+                                                                                                   tags$li("Pauline Hanson has controversially announced Australia should follow in Sweden’s ", tags$b("(#sweden) "), "footsteps, by practising ‘herd immunity’."), br(),
+                                                                                                   tags$li("Both local and international politics were again in the spotlight this week, 
+                                                                                                           with Labor announcing a victory in the state election ", tags$b("(#ntvotes) "), "and the COVID-19 
+                                                                                                           crisis? Not sure what hashtag we are refering to here? and ", tags$b("#Brexit "), "fueling fresh 
+                                                                                                           calls for independence in Scotland."), br(),
+                                                                                                    br()
                                                                                                    
                                       )),
                                       bs_button("Analysis", button_type = "default") %>%
-                                        bs_attach_collapse("contribution_collapse"), br()
+                                        bs_attach_collapse("hashtagos_collapse"), br()
                                )),
                         column(width = 12, 
                             div(id = "brand_cloud", h5("Most talked about brands in connection with Coronavirus (Australia VoC only) - weekly snapshot", align = "center")), 
@@ -792,7 +808,7 @@ pdf(NULL)
                              tags$em(tags$p("The most most talked about brands in connection with Coronavirus 
                                             in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
-                                            Period 2nd to the 9th of August Data: Meltwater. Brand Detection: OpenNLP."))
+                                            Period 2nd to the 9th of August Data: NetBase. Brand Detection: OpenNLP."))
                              ,                  tags$script(HTML(
                                                   "$(document).on('click', '#canvas', function() {",
                                                   'word = document.getElementById("wcSpan").innerHTML;',
@@ -806,33 +822,15 @@ pdf(NULL)
                                                                                           
                                         column(width = 12), br(),
                                           column(width = 6,
-                                                 h5(tags$em("Government-provisioned services dominated the online COVID conversation 
-                                                            this week, with hospitals and postal services adversely affected by the pandemic. 
-                                                            The Ruby Princess also re-appeared as a key topic as new information comes 
-                                                            to light over the mismanagement of the cruise ship outbreak, together with 
-                                                            the latest manifestation of the anti-lockdown movement in the US.")),
-                                                 tags$li(tags$b("Australia Post "), "was in the spotlight this week after two staff members 
-                                                         tested positive to coronavirus, sparking fears of an infectious cluster. 
-                                                         Deliveries in Melbourne have also been adversely impacted by a return to 
-                                                         lockdown, as they struggle to handle a sharp increase in deliveries as 
-                                                         online shopping demand soars."), 
+                                                 h5(tags$em("Brands, organisations and venues that fail to protect staff and customers from the virus continue to dominate the weekly social conversation and to be a source of negative sentiment.")),
+                                                 tags$li("A ", tags$b("Starbucks "), "in South Korea was temporarily closed after an outbreak, however it has since been reported that the employees that wore masks escaped infection."), 
                                                  br(),
-                                                 tags$li("A ", tags$b("Hornsby Hospital "), "staff member contracts coronavirus from a 
-                                                         patient while working, sparking fears of an outbreak in their ward."), 
+                                                 tags$li("Authorities are investigating two quarantine security guards from the ", tags$b("Marriott "), "Hotel in Circular Quay after they tested positive for coronavirus. They are yet unable to find a connection between the two cases."), 
                                                  br(),
-                                        tags$li(tags$b("The Royal Melbourne Hospital’s "), "TikTok page goes viral, after one of their 
-                                                doctors creates a jingle encouraging people to use personal protective 
-                                                equipment such as face masks while out and about."), 
+                                        tags$li("Nine cases of COVID-19 have been linked to the Network 10 reality show ", tags$b("The Masked Singer "), "which is filmed in Melbourne, prompting all 300 staff and viewers to get tested and go into 14 days of isolation."), 
                                                  br(),
-                                        tags$li(tags$b("The Ruby Princess "), "is in the spotlight again this week, with passengers announcing 
-                                                they’ll be undertaking a Class Action lawsuit morve than five months since the 
-                                                infamous ship docked in Sydney Harbour. Passengers are demanding answers on how 
-                                                COVID-19 spread onboard the luxury liner and why the response to the deadly 
-                                                outbreak was so ill-managed."), br(),
-                                        tags$li("A woman claiming to be from the fake ", tags$b("Freedom to Breathe Agency "), 
-                                        "is filmed telling a US grocery store worker that she could “go to jail for five years” for telling customers 
-                                                to wear face masks. This reflects a rising anti-lockdown movement that is 
-                                                gaining momentum in the United States."),
+                                        tags$li("The ", tags$b("Brisbane Youth Detention Centre "), "has been linked to a cluster of 11 coronavirus infections, with reports it may be connected to a woman who returned from Melbourne last month."), br(),
+                                        tags$li(tags$b("STA Travel "), "goes into administration, facing a huge downturn in revenue from travel bans. Angry customers are also being told they will not be eligible for refunds due to cancelled travel plans."), br(), br(),
                                             
                                         tags$style(" 
                                                .blockquote.twitter-tweet {
@@ -854,20 +852,20 @@ pdf(NULL)
                                         column(width = 6, 
                                             wellPanel(style = "overflow-y:scroll; max-height: 700px",
                                                        h5("Scroll down to see more.", align = "center"),
-                                        h6("Australia Post"),
-                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Two Australia Post workers in Melbourne have been diagnosed with coronavirus. <a href="https://twitter.com/hashtag/7NEWS?src=hash&amp;ref_src=twsrc%5Etfw">#7NEWS</a> <a href="https://t.co/y8LQYNC42I">https://t.co/y8LQYNC42I</a></p>&mdash; 7NEWS Brisbane (@7NewsBrisbane) <a href="https://twitter.com/7NewsBrisbane/status/1291917957505851393?ref_src=twsrc%5Etfw">August 8, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),  
+                                        h6("Starbucks"),
+                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">A person sitting under an airconditioner infected 27 others with coronavirus at a Starbucks cafe in South Korea, but none of employees, who were wearing masks, got the virus <a href="https://t.co/7SYdKEglZT">https://t.co/7SYdKEglZT</a> <a href="https://t.co/VXA4Aw8uGv">pic.twitter.com/VXA4Aw8uGv</a></p>&mdash; Sam Kim (@samkimasia) <a href="https://twitter.com/samkimasia/status/1297116978964905984?ref_src=twsrc%5Etfw">August 22, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),  
                                         br(),
-                                        h6('Hornsby Hospital'),
-                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/BREAKING?src=hash&amp;ref_src=twsrc%5Etfw">#BREAKING</a> A staff member at Sydney&#39;s Hornsby Hospital worked while infectious with coronavirus after working a 13-hour shift from 11am on Thursday, August 6.<a href="https://twitter.com/hashtag/covid19nsw?src=hash&amp;ref_src=twsrc%5Etfw">#covid19nsw</a> <a href="https://twitter.com/hashtag/HornsbyHospital?src=hash&amp;ref_src=twsrc%5Etfw">#HornsbyHospital</a> <a href="https://t.co/q11f6yijtV">pic.twitter.com/q11f6yijtV</a></p>&mdash; BigBadDenis 🗯💻💪 (@BigBadDenis) <a href="https://twitter.com/BigBadDenis/status/1292237683968811008?ref_src=twsrc%5Etfw">August 8, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'), 
+                                        h6('Marriot Hotel'),
+                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">A security guard working at Sydney’s Marriott Hotel, one of the hotels where returned travellers are placed into quarantine, has tested positive for COVID-19. News of the case came after NSW reported nine new cases in the latest 24-hour reporting period <a href="https://t.co/xwJ6RHDWHt">https://t.co/xwJ6RHDWHt</a> <a href="https://t.co/ZN8URmI2rY">pic.twitter.com/ZN8URmI2rY</a></p>&mdash; The Sydney Morning Herald (@smh) <a href="https://twitter.com/smh/status/1296997186627043328?ref_src=twsrc%5Etfw">August 22, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'), 
                                         br(),
-                                        h6("The Royal Melbourne Hospital"),
-                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">&#39;Put on PPE&#39;: The Royal Melbourne Hospital has posted a video on TikTok about wearing PPE and it&#39;s... amazing. Turn on your sound and enjoy.<br><br>WATCH: <a href="https://t.co/qX7G7BnBea">https://t.co/qX7G7BnBea</a> <a href="https://t.co/PgHMWVU09z">pic.twitter.com/PgHMWVU09z</a></p>&mdash; AMA Victoria (@amavictoria) <a href="https://twitter.com/amavictoria/status/1291962031508258816?ref_src=twsrc%5Etfw">August 8, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                        h6("The Masked Singer"),
+                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Kooky &amp; cute series, Masked Singer Australia has been shut down with crew &amp; judges self isolating after an outbreak of coronavirus on set. There are reports that seven dancers on the show have tested positive to COVID-19. <a href="https://t.co/glBhVP73C5">https://t.co/glBhVP73C5</a> via <a href="https://twitter.com/newscomauHQ?ref_src=twsrc%5Etfw">@newscomauHQ</a> <a href="https://twitter.com/hashtag/MaskedSingerAU?src=hash&amp;ref_src=twsrc%5Etfw">#MaskedSingerAU</a> <a href="https://t.co/cmvwlIDRuO">pic.twitter.com/cmvwlIDRuO</a></p>&mdash; Melissa Hoyer (@melissahoyer) <a href="https://twitter.com/melissahoyer/status/1297115600997642240?ref_src=twsrc%5Etfw">August 22, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
                                         br(),
-                                        h6("The Ruby Princess"),
-                                            HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">EXC dozens of <a href="https://twitter.com/hashtag/SouthAustralian?src=hash&amp;ref_src=twsrc%5Etfw">#SouthAustralian</a> Ruby Princess <a href="https://twitter.com/hashtag/coronavirus?src=hash&amp;ref_src=twsrc%5Etfw">#coronavirus</a> victims join worldwide class action lawsuit after <a href="https://twitter.com/hashtag/COVID19?src=hash&amp;ref_src=twsrc%5Etfw">#COVID19</a> destroyed their lives<a href="https://t.co/4I6OH9r57r">https://t.co/4I6OH9r57r</a> (via <a href="https://twitter.com/theTiser?ref_src=twsrc%5Etfw">@theTiser</a> <a href="https://twitter.com/ShineLawyers?ref_src=twsrc%5Etfw">@ShineLawyers</a>) <a href="https://twitter.com/hashtag/Adelaide?src=hash&amp;ref_src=twsrc%5Etfw">#Adelaide</a> <a href="https://twitter.com/hashtag/auslaw?src=hash&amp;ref_src=twsrc%5Etfw">#auslaw</a></p>&mdash; Andrew Hough (@andrew_hough) <a href="https://twitter.com/andrew_hough/status/1289697453143232513?ref_src=twsrc%5Etfw">August 1, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+                                        h6("Brisbane Youth Detention Centre"),
+                                            HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Worker at Brisbane Youth Detention Centre tests positive to coronavirus <a href="https://t.co/h8F1CdRLPp">https://t.co/h8F1CdRLPp</a></p>&mdash; Robert Maxwell (@RobMax4) <a href="https://twitter.com/RobMax4/status/1296313905191350274?ref_src=twsrc%5Etfw">August 20, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'),
                                         br(),
-                                        h6("The Freedom to Breathe Agency"),
-                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Unbelievable. There is no bottom. People are trying intimidate essential workers by saying they’re with the Freedom to Breathe Agency, and claiming it’s a federal agency. It’s just some made up anti-mask bullshit.<a href="https://t.co/MjmolZEXng">pic.twitter.com/MjmolZEXng</a></p>&mdash; Joshua Potash (@JoshuaPotash) <a href="https://twitter.com/JoshuaPotash/status/1291856487082528769?ref_src=twsrc%5Etfw">August 7, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>') 
+                                        h6("STA"),
+                                        HTML('<blockquote class="twitter-tweet"><p lang="en" dir="ltr">STA Travel goes into administration, leaving travellers in limbo <a href="https://t.co/p0OUY9rann">https://t.co/p0OUY9rann</a></p>&mdash; IRG (@intresilience) <a href="https://twitter.com/intresilience/status/1297064327006961665?ref_src=twsrc%5Etfw">August 22, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>') 
                                         )
                                         )
                                         )
@@ -957,9 +955,15 @@ pdf(NULL)
                                         HTML('<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2213_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderWidget("US_cu_4Rjdh3ABAABMHM_en_en-AU", "fe_line_chart_c70bfabd-c15d-4487-89f2-f265c3afcddf", {"guestPath":"https://trends.google.com:443/trends/embed/"}); </script>')
                                       , bs_collapse(id = "google_trends_collapse", content = tags$div(class = "well", 
                                                                                                        column(width = 12,
-                                                                                                              tags$li("Trending searches in the last 7 days indicate  continuous concern over the containment of the ongoing outbreak in Victoria and 
-                                                                                                                      the possibility of it flowing into other states, with the spread of the virus being researched both on a local and national level 
-                                                                                                                      (e.g. coronavirus victoria, australia coronavirus, coronavirus nsw)."), br()
+                                                                                                              tags$li("Whilst remaining one of the most searched topics in Australia, search interest 
+                                                                                                                      for Coronavirus continues to decline slowly yet steadily from its high peak of 
+                                                                                                                      March, with other popular topics such as news and weather information taking 
+                                                                                                                      over in the last 4 weeks. This shows that despite the ongoing second wave of 
+                                                                                                                      infections in Victoria and clusters appearing in neighbouring states, Australians 
+                                                                                                                      are now much better informed about the virus than they were at the start of the 
+                                                                                                                      Pandemic crisis, diminishing the need for education-related searches. Media fatigue 
+                                                                                                                      and information overload as the crisis drags on are also likely further impacting 
+                                                                                                                      search interest."), br()
                                                                                                               ))), bs_button("Analysis", button_type = "default") %>%
                                                                                                                       bs_attach_collapse("google_trends_collapse"))),
                                      
