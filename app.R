@@ -519,11 +519,10 @@ pdf(NULL)
                                         than 70% of confirmed cases and 275 deaths to date, with Melbourne becoming the national 
                                         epicentre of the COVID-19 crisis as it entered Stage 4 lockdown. With small outbreaks 
                                         since appearing in other states and more border closures coming into force, the fear of 
-                                        a nation-wide lockdown is yet to realise but remains present in everyone’s mind. "),
-                                        br(),
-                                        tags$li("This major setback in the management of the Pandemic health crisis has been a key 
+                                        a nation-wide lockdown is yet to realise but remains present in everyone’s mind. 
+                                        This major setback in the management of the Pandemic health crisis has been a key 
                                         driver of the COVID-19 conversation online, which has continued to rise steadily 
-                                        in the last 7 weeks.")
+                                        in the last 7 weeks."), br()
                                 ),
                                 column(width = 6, h4(tags$b(tags$u("Key Events"))),
                                                     h5(tags$u("Dec 29th - Jan 26th")),
@@ -808,7 +807,7 @@ pdf(NULL)
                              tags$em(tags$p("The most most talked about brands in connection with Coronavirus 
                                             in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
                                             Brand mentions may be split out by both negative and positive sentiments where applicable. 
-                                            Period 2nd to the 9th of August Data: NetBase. Brand Detection: OpenNLP."))
+                                            Period 16th to the 23rd of August Data: NetBase. Brand Detection: OpenNLP."))
                              ,                  tags$script(HTML(
                                                   "$(document).on('click', '#canvas', function() {",
                                                   'word = document.getElementById("wcSpan").innerHTML;',
@@ -929,7 +928,7 @@ pdf(NULL)
                                                                      *Keywords with an appended asterisk are new to this period and were not present in the April - June period.")),
                                                 bs_collapse(id = "sw_keywords_collapse", 
                                             content = tags$div(class = "well", 
-                                                        tabsetPanel(selected = "Recent", tabPanel(title = "Past", 
+                                               
                                                           br(),
                                                           "To this day, Australians remain focused on understanding the virus and keeping track of its impact both 
                                                           locally and abroad. ", tags$b("Personal safety, containment and eradication of the virus locally and overseas 
@@ -946,9 +945,8 @@ pdf(NULL)
                                                                   destination developments on the fast-moving spread of the disease in Victoria, 
                                                                   and overseas in the UK and China."), 
                                                           br()
-                                                    ),
-                                                    tabPanel(title = "Recent")
-                                                ))),
+                                                    
+                                                )),
                                                  bs_button("Analysis", button_type = "default") %>%
                                                    bs_attach_collapse("sw_keywords_collapse"))), br(), br(),
                                       column(width = 12, wellPanel(
