@@ -450,7 +450,7 @@ pdf(NULL)
                                          the ",  
                                                    tags$b("total weekly mentions "),  
                                                    "between the 29th of December and the 4th of January inclusive. 
-                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - August 9th, 2020. 
+                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets Dec 29, 2019 - August 23rd, 2020. 
                                           Images on hover are selected from the top 10 of the week retweeted by people with < 1000 reach.")),
                                  data.step = 1, 
                                  data.intro = "Here we analyse the <b>volume</b> of conversation over time among Twitter, comments, 
@@ -608,7 +608,7 @@ pdf(NULL)
                                          labelled date. For example, the first point labelled 'Dec 29, 2019' represents
                                          the average weekly sentiment between the 29th of December and the 4th of January inclusive. 
                                          Data: Meltwater Explore; Sources: Blogs, Forums, Comments 
-                                          and Tweets Dec 29, 2019 - August 9th, 2020.")),
+                                          and Tweets Dec 29, 2019 - August 23rd, 2020.")),
                                   data.step = 3,
                                   data.intro = "Here we analyse the <b>sentiment</b> of conversation over 
                                   time among Twitter, comments, blogs and forums."),
@@ -663,13 +663,13 @@ pdf(NULL)
                                   bs_attach_collapse("sentiment_collapse")),
                                   column(width = 6, h5("VoC sentiment - weekly snapshot"), 
                                          wellPanel(introBox(data.step = 4,
-                                                            plotlyOutput("sevendaydonut"),
+                                                            plotlyOutput("sevendaydonut"), br(),
+                                                            tags$em( tags$p("Sentiment in the 7 day period between the 16th and the 23rd of August. 
+                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
                                                             data.intro = "This chart shows a snapshot of the consumer sentiment from Twitter, 
                                                             comments, blogs and forums over the last week.", 
                                                             bs_collapse(id = "weekly_sentiment_collapse",
                                                             content = tags$div(class = "well",
-                                                             tags$em( tags$p("Sentiment in the 7 day period between the 2nd and the 9th of August. 
-                                                                      Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")), 
                                                              br(),
                                                              
                                                              tags$b("The nation continues to move at two-speeds in relation to the COVID-19 health 
@@ -687,12 +687,12 @@ pdf(NULL)
                                                              
                                                              data.intro = "This chart shows the most frequently used emotional terms in the last week.", 
                                                            #  plotlyOutput("hashtags_7days"),
-                                                           wordcloud2Output("emotion_cloud"),
+                                                           wordcloud2Output("emotion_cloud"), br(),
+                                                           tags$em(  tags$p("Trending hashtags between the 16th and 23rd of August.
+                                                                                           Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
+                                                           br(),
                                                      bs_collapse(id = "weekly_hashtags_collapse",
                                                                  content = tags$div(class = "well",
-                                                                                  tags$em(  tags$p("Trending hashtags between the 2nd and 9th of August.
-                                                                                           Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
-       
                                                                                     column(width = 12,
                                                                                            tags$li("The dominant theme in this week’s trending hashtags is the escalating 
                                                                                                    health crisis in Australia, with Victoria its epicentre ",
@@ -724,15 +724,16 @@ pdf(NULL)
                                                              data.intro = paste("This chart analyses the top 25 words contributing to positive or negative sentiment from Twitter, comments, 
                                                                                 blogs and forums in the last week using the ", 
                                                                                 tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"), " sentiment lexicon."),
-                                                             plotlyOutput("contribution_plot")
+                                                             plotlyOutput("contribution_plot"), br(),
+                                                            tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
+                                                                           tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
+                                                                           " sentiment analysis lexicon. 7 day period between the 16th and the 23rd of August. 
+                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))
                                                              
                                                      ),
                                                    bs_collapse(id = "contribution_collapse", content = tags$div(class = "well", 
-                                                                                                                column(width=12,
-                                                                                                                       tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
-                                                                                                                                      tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                                                                      " sentiment analysis lexicon. 7 day period between the 2nd and the 9th of August. 
-                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
+                                                                                                                column(width=12
+                                                                                                                       ),                                                        
                                                                                                                  br(), 
                                                                                                                 
                                                                                                                 tags$li("Terms linked to virus casualties have re-appeared as the top contributors to negative sentiment 
@@ -750,21 +751,19 @@ pdf(NULL)
                                                                                                                 
                                                    )),
                                                    bs_button("Analysis", button_type = "default") %>%
-                                                     bs_attach_collapse("contribution_collapse"), br(), br()
+                                                     bs_attach_collapse("contribution_collapse"), br()
                                                    )
                                         ),
                                column(width = 6, div(id = "hashtags_plot", h5("Trending hashtags - weekly snapshot")), 
                                           wellPanel(introBox(data.step = 7, 
                                                              data.intro = "This chart analyses the top trending hashtags from social media in the last week."),
                                                              #plotlyOutput("contribution_plot_30days")
-                                                             plotlyOutput("hashtags_7days")
-                                                                         ),
+                                                             plotlyOutput("hashtags_7days"), br(),
+                                                    tags$em(  tags$p("Trending hashtags between the 16th and 23rd of August.
+                                                                                           Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets.")),
+                                                                         
                                       bs_collapse(id = "contribution_collapse", content = tags$div(class = "well", 
-                                                                                                   column(width=12,
-                                                                                                          tags$em(tags$p("Top 25 contributing words to sentiment as determined by the", 
-                                                                                                                         tags$a(href = "http://corpustext.com/reference/sentiment_afinn.html", "AFINN"),
-                                                                                                                         " sentiment analysis lexicon. 7 day period between the 2nd and the 9th of August. 
-                                                                     Data: Meltwater Explore; Sources: Blogs, Forums, Comments and Tweets."))),                                                        
+                                                                                                   column(width=12),                                                        
                                                                                                    br(), 
                                                                                                    
                                                                                                    tags$li("Terms linked to virus casualties have re-appeared as the top contributors to negative sentiment 
@@ -782,14 +781,18 @@ pdf(NULL)
                                                                                                    
                                       )),
                                       bs_button("Analysis", button_type = "default") %>%
-                                        bs_attach_collapse("contribution_collapse"), br(), br()
-                               ),
+                                        bs_attach_collapse("contribution_collapse"), br()
+                               )),
                         column(width = 12, 
                             div(id = "brand_cloud", h5("Most talked about brands in connection with Coronavirus (Australia VoC only) - weekly snapshot", align = "center")), 
                           wellPanel(introBox(data.step = 8, 
                              data.intro = "This chart shows the brands and organisations that are being
                                                  talked about most by cosumers in the last week, and the sentiment towards that brand or organisation.", 
-                                                wordcloud2Output("rona_cloud")
+                                                wordcloud2Output("rona_cloud"), br(),
+                             tags$em(tags$p("The most most talked about brands in connection with Coronavirus 
+                                            in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
+                                            Brand mentions may be split out by both negative and positive sentiments where applicable. 
+                                            Period 2nd to the 9th of August Data: Meltwater. Brand Detection: OpenNLP."))
                              ,                  tags$script(HTML(
                                                   "$(document).on('click', '#canvas', function() {",
                                                   'word = document.getElementById("wcSpan").innerHTML;',
@@ -801,11 +804,7 @@ pdf(NULL)
                                                 content = tags$div(class = "well",
                                 
                                                                                           
-                                        column(width = 12,
-                                            tags$em(tags$p("The most most talked about brands in connection with Coronavirus 
-                                            in the last 7 days, ranked by VoC sentiment and volume of mentions (Australia only). 
-                                            Brand mentions may be split out by both negative and positive sentiments where applicable. 
-                                            Period 2nd to the 9th of August Data: Meltwater. Brand Detection: OpenNLP."))), br(),
+                                        column(width = 12), br(),
                                           column(width = 6,
                                                  h5(tags$em("Government-provisioned services dominated the online COVID conversation 
                                                             this week, with hospitals and postal services adversely affected by the pandemic. 
@@ -901,6 +900,17 @@ pdf(NULL)
                              sidebarPanel(img(src="Artboard1Logo.png", width="80%", height="80%"),
                                           br(), br(),
                                           br(), br(),
+                                          "Jump to:",
+                                          br(),
+                                          tags$a(href = "#keywords", "Keywords"),
+                                          br(),
+                                          tags$a(href = "#trending_searches", "Trending Searches"),
+                                          br(),
+                                          tags$a(href = "#trending_apps", "Trending Apps"),
+                                          br(),
+                                          tags$a(href = "#branded_terms", "Branded Terms"),
+                                          br(),
+                                          tags$a(href = "#unbranded_terms", "Unbranded Terms"),
                                           width = 2,
                                          tags$head(
                                             tags$style(HTML("
@@ -944,7 +954,7 @@ pdf(NULL)
                                                  bs_button("Analysis", button_type = "default") %>%
                                                    bs_attach_collapse("sw_keywords_collapse"))), br(), br(),
                                       column(width = 12, wellPanel(
-                                        HTML('<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2213_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderWidget("US_cu_4Rjdh3ABAABMHM_en_en-AU", "fe_related_queries_c42508a0-7f03-4f36-a097-3d644d5ea101", {"guestPath":"https://trends.google.com:443/trends/embed/"}); </script>')
+                                        HTML('<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2213_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderWidget("US_cu_4Rjdh3ABAABMHM_en_en-AU", "fe_line_chart_c70bfabd-c15d-4487-89f2-f265c3afcddf", {"guestPath":"https://trends.google.com:443/trends/embed/"}); </script>')
                                       , bs_collapse(id = "google_trends_collapse", content = tags$div(class = "well", 
                                                                                                        column(width = 12,
                                                                                                               tags$li("Trending searches in the last 7 days indicate  continuous concern over the containment of the ongoing outbreak in Victoria and 
